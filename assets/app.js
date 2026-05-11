@@ -345,11 +345,59 @@ function openMobile() { document.getElementById('mobile-menu').classList.add('op
 function closeMobile() { document.getElementById('mobile-menu').classList.remove('open'); document.getElementById('overlay').classList.remove('active'); }
 
 // ── Dashboard ──
+let dashTab = 'overview';
+
+function setDashTab(tab) {
+  dashTab = tab;
+  document.querySelectorAll('.dash-tab').forEach(t => t.classList.toggle('active', t.dataset.tab === tab));
+  renderDashboard();
+}
+
 function renderDashboard() {
   const el = document.getElementById('dash-content');
-  if (state.role === 'owner') {
-    el.innerHTML = `
-      <div class="dash-welcome"><h2>Alamo Food Group — Operations Dashboard</h2><p>Business overview for May 2026</p></div>
+  // Set up tabs based on role
+  const tabBar = document.getElementById('dash-tabs');
+  if (tabBar) {
+    if (state.role === 'owner') {
+      tabBar.innerHTML = `
+        <button class="dash-tab${dashTab==='overview'?' active':''}" data-tab="overview" onclick="setDashTab('overview')">Overview</button>
+        <button class="dash-tab${dashTab==='customers'?' active':''}" data-tab="customers" onclick="setDashTab('customers')">Customers</button>
+        <button class="dash-tab${dashTab==='orders'?' active':''}" data-tab="orders" onclick="setDashTab('orders')">Orders</button>
+        <button class="dash-tab${dashTab==='inventory'?' active':''}" data-tab="inventory" onclick="setDashTab('inventory')">Inventory</button>
+        <button class="dash-tab${dashTab==='invoices'?' active':''}" data-tab="invoices" onclick="setDashTab('invoices')">Invoices</button>
+        <button class="dash-tab${dashTab==='fleet'?' active':''}" data-tab="fleet" onclick="setDashTab('fleet')">Fleet</button>`;
+    } else {
+      tabBar.innerHTML = `
+        <button class="dash-tab${dashTab==='overview'?' active':''}" data-tab="overview" onclick="setDashTab('overview')">Overview</button>
+        <button class="dash-tab${dashTab==='orders'?' active':''}" data-tab="orders" onclick="setDashTab('orders')">Orders</button>
+        <button class="dash-tab${dashTab==='products'?' active':''}" data-tab="products" onclick="setDashTab('products')">Products</button>
+        <button class="dash-tab${dashTab==='invoices'?' active':''}" data-tab="invoices" onclick="setDashTab('invoices')">Invoices</button>
+        <button class="dash-tab${dashTab==='reorder'?' active':''}" data-tab="reorder" onclick="setDashTab('reorder')">Quick Reorder</button>`;
+    }
+  }
+
+  if (state.role === 'owner') { renderOwnerDash(el); }
+  else { renderCustomerDash(el); }
+}
+
+// ═══════════════════════════════════════════
+// OWNER DASHBOARD
+// ═══════════════════════════════════════════
+function renderOwnerDash(el) {
+  const views = {
+    overview: renderOwnerOverview,
+    customers: renderOwnerCustomers,
+    orders: renderOwnerOrders,
+    inventory: renderOwnerInventory,
+    invoices: renderOwnerInvoices,
+    fleet: renderOwnerFleet,
+  };
+  (views[dashTab] || views.overview)(el);
+}
+
+function renderOwnerOverview(el) {
+  el.innerHTML = `
+    <div class="dash-welcome"><h2>Alamo Food Group — Operations Dashboard</h2><p>Business overview for May 2026</p></div>
       <div class="stat-cards">
         <div class="stat-card"><div class="sc-label">Monthly Revenue</div><div class="sc-value">$978,436</div><div class="sc-change sc-up">+8.2% vs April</div></div>
         <div class="stat-card"><div class="sc-label">External Revenue</div><div class="sc-value">$81,373</div><div class="sc-change sc-neutral">8.3% of total</div></div>
@@ -414,60 +462,335 @@ function renderDashboard() {
           </div>
         </div>
       </div>`;
-  } else {
-    el.innerHTML = `
-      <div class="dash-welcome"><h2>Welcome back, Taqueria El Sol</h2><p>Your account overview for May 2026</p></div>
-      <div class="stat-cards">
-        <div class="stat-card"><div class="sc-label">Monthly Spend</div><div class="sc-value">$8,420</div><div class="sc-change sc-up">+12% vs last month</div></div>
-        <div class="stat-card"><div class="sc-label">Orders This Month</div><div class="sc-value">14</div><div class="sc-change sc-up">+3 more than April</div></div>
-        <div class="stat-card"><div class="sc-label">On-Time Delivery</div><div class="sc-value" style="color:var(--green)">98.2%</div><div class="sc-change sc-up">Above 95% target</div></div>
-        <div class="stat-card"><div class="sc-label">Account Balance</div><div class="sc-value">$1,240</div><div class="sc-change sc-neutral">Due May 15, 2026</div></div>
+}
+
+function renderOwnerCustomers(el) {
+  el.innerHTML = `
+    <div class="dash-welcome"><h2>Customer Accounts</h2><p>All 27 active accounts — March 2026 data</p></div>
+    <div class="dash-panel">
+      <h4>All Accounts by Revenue</h4>
+      <table class="customer-table">
+        <thead><tr><th>Account</th><th>Revenue</th><th>% Total</th><th>Type</th><th>Payment</th><th>OTIF</th><th>Health</th></tr></thead>
+        <tbody>
+          <tr><td>Hacienda B&G McDonough</td><td>$115,011</td><td>11.8%</td><td>Internal</td><td>N/A</td><td>99%</td><td><span class="health-dot dot-green"></span>Good</td></tr>
+          <tr><td>The Grove Taqueria</td><td>$76,854</td><td>7.9%</td><td>Internal</td><td>N/A</td><td>98%</td><td><span class="health-dot dot-green"></span>Good</td></tr>
+          <tr><td>Zokalo Collage Park</td><td>$76,787</td><td>7.8%</td><td>TBD</td><td>Net-15</td><td>97%</td><td><span class="health-dot dot-yellow"></span>Review</td></tr>
+          <tr><td>Los Mariachis Fairburn</td><td>$61,966</td><td>6.3%</td><td>External</td><td>Net-7</td><td>96%</td><td><span class="health-dot dot-green"></span>Good</td></tr>
+          <tr><td>Hacienda B&G Buford</td><td>$59,935</td><td>6.1%</td><td>Internal</td><td>N/A</td><td>99%</td><td><span class="health-dot dot-green"></span>Good</td></tr>
+          <tr><td>Hacienda B&G Dahlonega</td><td>$52,970</td><td>5.4%</td><td>Internal</td><td>N/A</td><td>97%</td><td><span class="health-dot dot-green"></span>Good</td></tr>
+          <tr><td>Hacienda B&G Suwanee</td><td>$52,071</td><td>5.3%</td><td>Internal</td><td>N/A</td><td>98%</td><td><span class="health-dot dot-green"></span>Good</td></tr>
+          <tr><td>Zokalo Newnan</td><td>$46,609</td><td>4.8%</td><td>TBD</td><td>Net-15</td><td>95%</td><td><span class="health-dot dot-yellow"></span>Review</td></tr>
+          <tr><td>Hacienda B&G Newnan</td><td>$45,390</td><td>4.6%</td><td>Internal</td><td>N/A</td><td>99%</td><td><span class="health-dot dot-green"></span>Good</td></tr>
+          <tr><td>Hacienda Taqueria Lawrenceville</td><td>$42,075</td><td>4.3%</td><td>Internal</td><td>N/A</td><td>98%</td><td><span class="health-dot dot-green"></span>Good</td></tr>
+          <tr><td>Hacienda B&G Cumming</td><td>$38,925</td><td>4.0%</td><td>Internal</td><td>N/A</td><td>97%</td><td><span class="health-dot dot-green"></span>Good</td></tr>
+          <tr><td>Fuego & Mar Restaurant</td><td>$35,127</td><td>3.6%</td><td>TBD</td><td>Net-7</td><td>94%</td><td><span class="health-dot dot-green"></span>Good</td></tr>
+          <tr><td>Hacienda B&G Lagrange</td><td>$34,694</td><td>3.5%</td><td>Internal</td><td>N/A</td><td>96%</td><td><span class="health-dot dot-green"></span>Good</td></tr>
+          <tr><td>Fuego Tortilla</td><td>$33,036</td><td>3.4%</td><td>TBD</td><td>Net-7</td><td>95%</td><td><span class="health-dot dot-green"></span>Good</td></tr>
+          <tr><td>Zokalo Fayetteville</td><td>$29,133</td><td>3.0%</td><td>TBD</td><td>Net-15</td><td>94%</td><td><span class="health-dot dot-yellow"></span>Review</td></tr>
+          <tr><td>Botanico</td><td>$17,626</td><td>1.8%</td><td>External</td><td>COD</td><td>97%</td><td><span class="health-dot dot-green"></span>Good</td></tr>
+          <tr><td>Santa Maria Restaurant</td><td>$14,715</td><td>1.5%</td><td>External</td><td>Net-15</td><td>92%</td><td><span class="health-dot dot-red"></span>Past Due</td></tr>
+          <tr><td>Mi Taco Taqueria</td><td>$11,743</td><td>1.2%</td><td>External</td><td>COD</td><td>96%</td><td><span class="health-dot dot-green"></span>Good</td></tr>
+          <tr><td>The Golden Bite</td><td>$9,240</td><td>0.9%</td><td>TBD</td><td>Net-7</td><td>95%</td><td><span class="health-dot dot-green"></span>Good</td></tr>
+          <tr><td>Taqueria Norcross</td><td>$8,097</td><td>0.8%</td><td>External</td><td>COD</td><td>98%</td><td><span class="health-dot dot-green"></span>Good</td></tr>
+        </tbody>
+      </table>
+    </div>`;
+}
+
+function renderOwnerOrders(el) {
+  el.innerHTML = `
+    <div class="dash-welcome"><h2>All Orders</h2><p>Recent orders across all accounts</p></div>
+    <div class="dash-panel">
+      <h4>Order Log — May 2026</h4>
+      <table class="customer-table">
+        <thead><tr><th>Order #</th><th>Date</th><th>Account</th><th>Items</th><th>Total</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td>#ALM-3012</td><td>May 10</td><td>Hacienda B&G McDonough</td><td>24</td><td>$4,218.50</td><td><span class="d-status st-processing">Processing</span></td></tr>
+          <tr><td>#ALM-3011</td><td>May 10</td><td>Los Mariachis Fairburn</td><td>11</td><td>$1,842.30</td><td><span class="d-status st-transit">In Transit</span></td></tr>
+          <tr><td>#ALM-3010</td><td>May 9</td><td>Zokalo Collage Park</td><td>18</td><td>$3,105.75</td><td><span class="d-status st-delivered">Delivered</span></td></tr>
+          <tr><td>#ALM-3009</td><td>May 9</td><td>The Grove Taqueria</td><td>15</td><td>$2,640.00</td><td><span class="d-status st-delivered">Delivered</span></td></tr>
+          <tr><td>#ALM-3008</td><td>May 9</td><td>Fuego & Mar</td><td>8</td><td>$1,290.45</td><td><span class="d-status st-delivered">Delivered</span></td></tr>
+          <tr><td>#ALM-3007</td><td>May 8</td><td>Hacienda B&G Buford</td><td>22</td><td>$3,891.20</td><td><span class="d-status st-delivered">Delivered</span></td></tr>
+          <tr><td>#ALM-3006</td><td>May 8</td><td>Botanico</td><td>6</td><td>$894.50</td><td><span class="d-status st-delivered">Delivered</span></td></tr>
+          <tr><td>#ALM-3005</td><td>May 8</td><td>Taqueria Norcross</td><td>5</td><td>$642.30</td><td><span class="d-status st-delivered">Delivered</span></td></tr>
+          <tr><td>#ALM-3004</td><td>May 7</td><td>Hacienda B&G Dahlonega</td><td>19</td><td>$3,412.00</td><td><span class="d-status st-delivered">Delivered</span></td></tr>
+          <tr><td>#ALM-3003</td><td>May 7</td><td>Hacienda B&G Suwanee</td><td>16</td><td>$2,780.90</td><td><span class="d-status st-delivered">Delivered</span></td></tr>
+          <tr><td>#ALM-3002</td><td>May 7</td><td>Mi Taco Taqueria</td><td>4</td><td>$518.75</td><td><span class="d-status st-delivered">Delivered</span></td></tr>
+          <tr><td>#ALM-3001</td><td>May 6</td><td>Santa Maria Restaurant</td><td>9</td><td>$1,640.20</td><td><span class="d-status st-delivered">Delivered</span></td></tr>
+        </tbody>
+      </table>
+    </div>`;
+}
+
+function renderOwnerInventory(el) {
+  el.innerHTML = `
+    <div class="dash-welcome"><h2>Inventory Management</h2><p>Current stock levels — warehouse Newnan, GA</p></div>
+    <div class="stat-cards">
+      <div class="stat-card"><div class="sc-label">Total SKUs</div><div class="sc-value">248</div><div class="sc-change sc-neutral">Active catalog</div></div>
+      <div class="stat-card"><div class="sc-label">Low Stock Alerts</div><div class="sc-value" style="color:var(--gold)">4</div><div class="sc-change sc-down">Needs reorder</div></div>
+      <div class="stat-card"><div class="sc-label">Out of Stock</div><div class="sc-value" style="color:var(--red)">1</div><div class="sc-change sc-down">Tripas — ETA May 14</div></div>
+      <div class="stat-card"><div class="sc-label">Inventory Value</div><div class="sc-value">$184,200</div><div class="sc-change sc-neutral">At cost</div></div>
+    </div>
+    <div class="dash-panel">
+      <h4>Stock Levels — Key Items</h4>
+      <table class="customer-table">
+        <thead><tr><th>Product</th><th>On Hand</th><th>Weekly Usage</th><th>Days Supply</th><th>Reorder Point</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td>Corn Tortillas</td><td>840 cases</td><td>600 cases</td><td>9.8</td><td>400 cases</td><td><span class="health-dot dot-green"></span>OK</td></tr>
+          <tr><td>Queso Oaxaca</td><td>620 lbs</td><td>450 lbs</td><td>9.6</td><td>300 lbs</td><td><span class="health-dot dot-green"></span>OK</td></tr>
+          <tr><td>Pork Butt</td><td>1,400 lbs</td><td>800 lbs</td><td>12.3</td><td>500 lbs</td><td><span class="health-dot dot-green"></span>OK</td></tr>
+          <tr><td>Avocados Hass</td><td>42 cases</td><td>30 cases</td><td>9.8</td><td>20 cases</td><td><span class="health-dot dot-green"></span>OK</td></tr>
+          <tr><td>Chile Guajillo</td><td style="color:var(--gold);font-weight:700">28 lbs</td><td>18 lbs</td><td style="color:var(--gold);font-weight:700">10.9</td><td>40 lbs</td><td><span class="health-dot dot-yellow"></span>Low</td></tr>
+          <tr><td>Chorizo</td><td>180 lbs</td><td>240 lbs</td><td style="color:var(--gold);font-weight:700">5.3</td><td>200 lbs</td><td><span class="health-dot dot-yellow"></span>Low</td></tr>
+          <tr><td>Flour Tortillas</td><td>120 cases</td><td>80 cases</td><td>10.5</td><td>60 cases</td><td><span class="health-dot dot-green"></span>OK</td></tr>
+          <tr><td>Crema Mexicana</td><td>48 qt</td><td>60 qt</td><td style="color:var(--gold);font-weight:700">5.6</td><td>40 qt</td><td><span class="health-dot dot-yellow"></span>Low</td></tr>
+          <tr><td>Roma Tomatoes</td><td>800 lbs</td><td>420 lbs</td><td>13.3</td><td>300 lbs</td><td><span class="health-dot dot-green"></span>OK</td></tr>
+          <tr><td>Tripas de Res</td><td style="color:var(--red);font-weight:700">0 lbs</td><td>65 lbs</td><td style="color:var(--red);font-weight:700">0</td><td>50 lbs</td><td><span class="health-dot dot-red"></span>Out</td></tr>
+          <tr><td>Vegetable Oil 35lb</td><td>36 jugs</td><td>52 jugs</td><td style="color:var(--gold);font-weight:700">4.8</td><td>30 jugs</td><td><span class="health-dot dot-yellow"></span>Low</td></tr>
+        </tbody>
+      </table>
+    </div>`;
+}
+
+function renderOwnerInvoices(el) {
+  el.innerHTML = `
+    <div class="dash-welcome"><h2>Accounts Receivable</h2><p>Invoice status and aging report</p></div>
+    <div class="stat-cards">
+      <div class="stat-card"><div class="sc-label">Total AR</div><div class="sc-value">$42,180</div><div class="sc-change sc-neutral">All outstanding</div></div>
+      <div class="stat-card"><div class="sc-label">Current (0-7 days)</div><div class="sc-value" style="color:var(--green)">$28,420</div><div class="sc-change sc-up">67% of total</div></div>
+      <div class="stat-card"><div class="sc-label">Aging (8-15 days)</div><div class="sc-value" style="color:var(--gold)">$5,360</div><div class="sc-change sc-neutral">13% of total</div></div>
+      <div class="stat-card"><div class="sc-label">Past Due (15+ days)</div><div class="sc-value" style="color:var(--red)">$8,400</div><div class="sc-change sc-down">20% — needs action</div></div>
+    </div>
+    <div class="dash-panel">
+      <h4>Outstanding Invoices</h4>
+      <table class="customer-table">
+        <thead><tr><th>Invoice #</th><th>Account</th><th>Amount</th><th>Issued</th><th>Due</th><th>Days Out</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td>INV-4821</td><td>Santa Maria Restaurant</td><td style="font-weight:700">$14,715</td><td>Apr 18</td><td>May 2</td><td style="color:var(--red);font-weight:700">22</td><td><span class="d-status" style="background:var(--red-light);color:var(--red)">Past Due</span></td></tr>
+          <tr><td>INV-4856</td><td>Zokalo Newnan</td><td>$8,240</td><td>Apr 28</td><td>May 12</td><td style="color:var(--gold)">12</td><td><span class="d-status st-transit">Aging</span></td></tr>
+          <tr><td>INV-4872</td><td>Los Mariachis Fairburn</td><td>$5,360</td><td>May 3</td><td>May 10</td><td>7</td><td><span class="d-status st-processing">Current</span></td></tr>
+          <tr><td>INV-4890</td><td>Fuego & Mar</td><td>$4,180</td><td>May 5</td><td>May 12</td><td>5</td><td><span class="d-status st-processing">Current</span></td></tr>
+          <tr><td>INV-4901</td><td>Botanico</td><td>$3,420</td><td>May 7</td><td>COD</td><td>—</td><td><span class="d-status st-delivered">Paid</span></td></tr>
+          <tr><td>INV-4912</td><td>Taqueria Norcross</td><td>$1,840</td><td>May 8</td><td>COD</td><td>—</td><td><span class="d-status st-delivered">Paid</span></td></tr>
+          <tr><td>INV-4918</td><td>Mi Taco Taqueria</td><td>$2,180</td><td>May 9</td><td>COD</td><td>—</td><td><span class="d-status st-delivered">Paid</span></td></tr>
+        </tbody>
+      </table>
+    </div>`;
+}
+
+function renderOwnerFleet(el) {
+  el.innerHTML = `
+    <div class="dash-welcome"><h2>Fleet & Logistics</h2><p>Vehicle status and delivery performance</p></div>
+    <div class="stat-cards">
+      <div class="stat-card"><div class="sc-label">Trucks Active</div><div class="sc-value">2 / 2</div><div class="sc-change sc-up">100% availability</div></div>
+      <div class="stat-card"><div class="sc-label">Deliveries This Week</div><div class="sc-value">38</div><div class="sc-change sc-up">+5 vs last week</div></div>
+      <div class="stat-card"><div class="sc-label">Avg Delivery Time</div><div class="sc-value">2.4 hrs</div><div class="sc-change sc-neutral">Order to door</div></div>
+      <div class="stat-card"><div class="sc-label">Miles This Month</div><div class="sc-value">8,420</div><div class="sc-change sc-neutral">~100K annual pace</div></div>
+    </div>
+    <div class="dash-grid">
+      <div>
+        <div class="dash-panel">
+          <h4>Vehicle Status</h4>
+          <table class="customer-table">
+            <thead><tr><th>Vehicle</th><th>Type</th><th>Status</th><th>Driver</th><th>Next Service</th></tr></thead>
+            <tbody>
+              <tr><td>Truck A (Owned)</td><td>Reefer</td><td><span class="health-dot dot-green"></span>Active</td><td>Carlos M.</td><td>Jun 15, 2026</td></tr>
+              <tr><td>Truck B (Leased)</td><td>Box Truck</td><td><span class="health-dot dot-yellow"></span>Service Soon</td><td>Miguel R.</td><td style="color:var(--gold);font-weight:600">May 15, 2026</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="dash-panel">
+          <h4>Delivery Performance (30 days)</h4>
+          <div class="d-row"><div><strong>OTIF Rate</strong></div><div style="font-weight:700;color:var(--green)">96.4%</div></div>
+          <div class="d-row"><div><strong>Fill Rate</strong></div><div style="font-weight:700;color:var(--green)">98.7%</div></div>
+          <div class="d-row"><div><strong>Short-Ships</strong></div><div style="font-weight:700;color:var(--red)">3 incidents</div></div>
+          <div class="d-row"><div><strong>Late Deliveries</strong></div><div style="font-weight:700;color:var(--gold)">2 incidents</div></div>
+          <div class="d-row"><div><strong>Customer Complaints</strong></div><div style="font-weight:700">1 (resolved)</div></div>
+          <div class="d-row"><div><strong>Avg Stops per Route</strong></div><div>8.2</div></div>
+        </div>
       </div>
-      <div class="dash-grid">
-        <div>
-          <div class="dash-panel">
-            <h4>Recent Orders</h4>
-            <div class="d-row"><div><strong>#ALM-2847</strong><br><span style="font-size:0.75rem;color:var(--gray-400)">May 8 — 12 items</span></div><div style="text-align:right">$642.30<br><span class="d-status st-delivered">Delivered</span></div></div>
-            <div class="d-row"><div><strong>#ALM-2839</strong><br><span style="font-size:0.75rem;color:var(--gray-400)">May 5 — 8 items</span></div><div style="text-align:right">$418.75<br><span class="d-status st-delivered">Delivered</span></div></div>
-            <div class="d-row"><div><strong>#ALM-2831</strong><br><span style="font-size:0.75rem;color:var(--gray-400)">May 2 — 15 items</span></div><div style="text-align:right">$891.20<br><span class="d-status st-delivered">Delivered</span></div></div>
-            <div class="d-row"><div><strong>#ALM-2825</strong><br><span style="font-size:0.75rem;color:var(--gray-400)">Apr 29 — 10 items</span></div><div style="text-align:right">$567.50<br><span class="d-status st-transit">In Transit</span></div></div>
-          </div>
-          <div class="dash-panel">
-            <h4>Quick Reorder — Your Usual</h4>
-            <p style="font-size:0.82rem;color:var(--gray-400);margin-bottom:14px">Based on your last 6 orders. One click to reorder.</p>
-            <div class="reorder-grid">
-              <div class="reorder-item"><span>Queso Oaxaca 10lb</span><span class="ri-price">$42.50</span></div>
-              <div class="reorder-item"><span>Corn Tortillas x2</span><span class="ri-price">$37.98</span></div>
-              <div class="reorder-item"><span>Pork Butt 30lb</span><span class="ri-price">$89.70</span></div>
-              <div class="reorder-item"><span>Chile Guajillo 4lb</span><span class="ri-price">$35.00</span></div>
-              <div class="reorder-item"><span>Avocados 1 case</span><span class="ri-price">$42.00</span></div>
-              <div class="reorder-item"><span>Roma Tomatoes 25lb</span><span class="ri-price">$37.25</span></div>
-            </div>
-            <div style="display:flex;justify-content:space-between;align-items:center;padding-top:12px;border-top:1px solid var(--gray-100)">
-              <div style="font-weight:700">Est. Total: <span style="color:var(--green-dark)">$284.43</span></div>
-              <button class="btn btn-primary btn-sm" onclick="alert('Order placed! Delivery scheduled for tomorrow morning.')">Reorder for Tomorrow</button>
-            </div>
-          </div>
+      <div>
+        <div class="dash-panel">
+          <h4>Today's Routes</h4>
+          <div class="d-row"><div><strong>Route A — Carlos</strong><br><span style="font-size:0.75rem;color:var(--gray-400)">McDonough → Stockbridge → Jonesboro → Fairburn</span></div><div><span class="d-status st-transit">In Progress</span><br><span style="font-size:0.75rem">6/9 stops done</span></div></div>
+          <div class="d-row"><div><strong>Route B — Miguel</strong><br><span style="font-size:0.75rem;color:var(--gray-400)">Buford → Suwanee → Lawrenceville → Norcross</span></div><div><span class="d-status st-processing">Loading</span><br><span style="font-size:0.75rem">Departs 6:30 AM</span></div></div>
         </div>
-        <div>
-          <div class="dash-panel">
-            <h4>Your Top Products</h4>
-            <div class="d-row"><div>Queso Oaxaca</div><div style="font-weight:600">42 lbs/mo</div></div>
-            <div class="d-row"><div>Corn Tortillas</div><div style="font-weight:600">8 cases/mo</div></div>
-            <div class="d-row"><div>Pork Butt</div><div style="font-weight:600">120 lbs/mo</div></div>
-            <div class="d-row"><div>Chile Guajillo</div><div style="font-weight:600">15 lbs/mo</div></div>
-            <div class="d-row"><div>Avocados Hass</div><div style="font-weight:600">4 cases/mo</div></div>
-          </div>
-          <div class="dash-panel">
-            <h4>Account Health</h4>
-            <div style="margin-bottom:10px"><div style="display:flex;justify-content:space-between;font-size:0.82rem;margin-bottom:3px"><span>Order Fill Rate</span><span style="font-weight:700;color:var(--green)">99.1%</span></div><div class="progress-bar"><div class="fill fill-green" style="width:99.1%"></div></div></div>
-            <div style="margin-bottom:10px"><div style="display:flex;justify-content:space-between;font-size:0.82rem;margin-bottom:3px"><span>On-Time Delivery</span><span style="font-weight:700;color:var(--green)">98.2%</span></div><div class="progress-bar"><div class="fill fill-green" style="width:98.2%"></div></div></div>
-            <div style="margin-bottom:10px"><div style="display:flex;justify-content:space-between;font-size:0.82rem;margin-bottom:3px"><span>Payment Score</span><span style="font-weight:700;color:var(--green)">A+</span></div><div class="progress-bar"><div class="fill fill-green" style="width:100%"></div></div></div>
-            <div><div style="display:flex;justify-content:space-between;font-size:0.82rem;margin-bottom:3px"><span>Credit Limit Used</span><span style="font-weight:700">24%</span></div><div class="progress-bar"><div class="fill fill-gold" style="width:24%"></div></div></div>
-          </div>
+        <div class="dash-panel">
+          <h4>Fuel & Maintenance</h4>
+          <div class="d-row"><div>Fuel Cost (May)</div><div style="font-weight:600">$2,840</div></div>
+          <div class="d-row"><div>Avg MPG</div><div>8.2</div></div>
+          <div class="d-row"><div>Maintenance YTD</div><div style="font-weight:600">$4,120</div></div>
+          <div class="d-row"><div>Insurance (monthly)</div><div>$1,200</div></div>
         </div>
-      </div>`;
-  }
+      </div>
+    </div>`;
+}
+
+// ═══════════════════════════════════════════
+// CUSTOMER DASHBOARD
+// ═══════════════════════════════════════════
+function renderCustomerDash(el) {
+  const views = {
+    overview: renderCustOverview,
+    orders: renderCustOrders,
+    products: renderCustProducts,
+    invoices: renderCustInvoices,
+    reorder: renderCustReorder,
+  };
+  (views[dashTab] || views.overview)(el);
+}
+
+function renderCustOverview(el) {
+  el.innerHTML = `
+    <div class="dash-welcome"><h2>Welcome back, Taqueria El Sol</h2><p>Your account overview for May 2026</p></div>
+    <div class="stat-cards">
+      <div class="stat-card"><div class="sc-label">Monthly Spend</div><div class="sc-value">$8,420</div><div class="sc-change sc-up">+12% vs last month</div></div>
+      <div class="stat-card"><div class="sc-label">Orders This Month</div><div class="sc-value">14</div><div class="sc-change sc-up">+3 more than April</div></div>
+      <div class="stat-card"><div class="sc-label">On-Time Delivery</div><div class="sc-value" style="color:var(--green)">98.2%</div><div class="sc-change sc-up">Above 95% target</div></div>
+      <div class="stat-card"><div class="sc-label">Account Balance</div><div class="sc-value">$1,240</div><div class="sc-change sc-neutral">Due May 15, 2026</div></div>
+    </div>
+    <div class="dash-grid">
+      <div>
+        <div class="dash-panel">
+          <h4>Recent Orders</h4>
+          <div class="d-row"><div><strong>#ALM-2847</strong><br><span style="font-size:0.75rem;color:var(--gray-400)">May 8 — 12 items</span></div><div style="text-align:right">$642.30<br><span class="d-status st-delivered">Delivered</span></div></div>
+          <div class="d-row"><div><strong>#ALM-2839</strong><br><span style="font-size:0.75rem;color:var(--gray-400)">May 5 — 8 items</span></div><div style="text-align:right">$418.75<br><span class="d-status st-delivered">Delivered</span></div></div>
+          <div class="d-row"><div><strong>#ALM-2831</strong><br><span style="font-size:0.75rem;color:var(--gray-400)">May 2 — 15 items</span></div><div style="text-align:right">$891.20<br><span class="d-status st-delivered">Delivered</span></div></div>
+          <div class="d-row"><div><strong>#ALM-2825</strong><br><span style="font-size:0.75rem;color:var(--gray-400)">Apr 29 — 10 items</span></div><div style="text-align:right">$567.50<br><span class="d-status st-transit">In Transit</span></div></div>
+        </div>
+      </div>
+      <div>
+        <div class="dash-panel">
+          <h4>Your Top Products</h4>
+          <div class="d-row"><div>Queso Oaxaca</div><div style="font-weight:600">42 lbs/mo</div></div>
+          <div class="d-row"><div>Corn Tortillas</div><div style="font-weight:600">8 cases/mo</div></div>
+          <div class="d-row"><div>Pork Butt</div><div style="font-weight:600">120 lbs/mo</div></div>
+          <div class="d-row"><div>Chile Guajillo</div><div style="font-weight:600">15 lbs/mo</div></div>
+          <div class="d-row"><div>Avocados Hass</div><div style="font-weight:600">4 cases/mo</div></div>
+        </div>
+        <div class="dash-panel">
+          <h4>Account Health</h4>
+          <div style="margin-bottom:10px"><div style="display:flex;justify-content:space-between;font-size:0.82rem;margin-bottom:3px"><span>Order Fill Rate</span><span style="font-weight:700;color:var(--green)">99.1%</span></div><div class="progress-bar"><div class="fill fill-green" style="width:99.1%"></div></div></div>
+          <div style="margin-bottom:10px"><div style="display:flex;justify-content:space-between;font-size:0.82rem;margin-bottom:3px"><span>On-Time Delivery</span><span style="font-weight:700;color:var(--green)">98.2%</span></div><div class="progress-bar"><div class="fill fill-green" style="width:98.2%"></div></div></div>
+          <div style="margin-bottom:10px"><div style="display:flex;justify-content:space-between;font-size:0.82rem;margin-bottom:3px"><span>Payment Score</span><span style="font-weight:700;color:var(--green)">A+</span></div><div class="progress-bar"><div class="fill fill-green" style="width:100%"></div></div></div>
+          <div><div style="display:flex;justify-content:space-between;font-size:0.82rem;margin-bottom:3px"><span>Credit Limit Used</span><span style="font-weight:700">24%</span></div><div class="progress-bar"><div class="fill fill-gold" style="width:24%"></div></div></div>
+        </div>
+      </div>
+    </div>`;
+}
+
+function renderCustOrders(el) {
+  el.innerHTML = `
+    <div class="dash-welcome"><h2>Your Orders</h2><p>Complete order history</p></div>
+    <div class="dash-panel">
+      <table class="customer-table">
+        <thead><tr><th>Order #</th><th>Date</th><th>Items</th><th>Total</th><th>Status</th><th>Delivery</th></tr></thead>
+        <tbody>
+          <tr><td><strong>#ALM-2847</strong></td><td>May 8, 2026</td><td>12</td><td>$642.30</td><td><span class="d-status st-delivered">Delivered</span></td><td>May 9, 8:14 AM</td></tr>
+          <tr><td><strong>#ALM-2839</strong></td><td>May 5, 2026</td><td>8</td><td>$418.75</td><td><span class="d-status st-delivered">Delivered</span></td><td>May 6, 7:52 AM</td></tr>
+          <tr><td><strong>#ALM-2831</strong></td><td>May 2, 2026</td><td>15</td><td>$891.20</td><td><span class="d-status st-delivered">Delivered</span></td><td>May 3, 8:30 AM</td></tr>
+          <tr><td><strong>#ALM-2825</strong></td><td>Apr 29, 2026</td><td>10</td><td>$567.50</td><td><span class="d-status st-transit">In Transit</span></td><td>Est. today by 10 AM</td></tr>
+          <tr><td><strong>#ALM-2810</strong></td><td>Apr 25, 2026</td><td>9</td><td>$512.40</td><td><span class="d-status st-delivered">Delivered</span></td><td>Apr 26, 7:45 AM</td></tr>
+          <tr><td><strong>#ALM-2798</strong></td><td>Apr 22, 2026</td><td>14</td><td>$780.90</td><td><span class="d-status st-delivered">Delivered</span></td><td>Apr 23, 8:10 AM</td></tr>
+          <tr><td><strong>#ALM-2784</strong></td><td>Apr 18, 2026</td><td>7</td><td>$385.60</td><td><span class="d-status st-delivered">Delivered</span></td><td>Apr 19, 9:02 AM</td></tr>
+          <tr><td><strong>#ALM-2770</strong></td><td>Apr 15, 2026</td><td>11</td><td>$624.15</td><td><span class="d-status st-delivered">Delivered</span></td><td>Apr 16, 7:38 AM</td></tr>
+          <tr><td><strong>#ALM-2755</strong></td><td>Apr 11, 2026</td><td>13</td><td>$710.30</td><td><span class="d-status st-delivered">Delivered</span></td><td>Apr 12, 8:22 AM</td></tr>
+          <tr><td><strong>#ALM-2740</strong></td><td>Apr 8, 2026</td><td>8</td><td>$445.80</td><td><span class="d-status st-delivered">Delivered</span></td><td>Apr 9, 7:55 AM</td></tr>
+        </tbody>
+      </table>
+    </div>`;
+}
+
+function renderCustProducts(el) {
+  el.innerHTML = `
+    <div class="dash-welcome"><h2>Browse & Order Products</h2><p>Add items to your cart and request a delivery</p></div>
+    <div class="catalog-toolbar">
+      <div class="catalog-search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input type="text" placeholder="Search products..." oninput="searchProducts(this.value)"></div>
+      <div class="catalog-tabs">
+        <button class="catalog-tab${state.category==='all'?' active':''}" data-cat="all" onclick="filterCat('all')">All</button>
+        <button class="catalog-tab${state.category==='dairy'?' active':''}" data-cat="dairy" onclick="filterCat('dairy')">Dairy</button>
+        <button class="catalog-tab${state.category==='meat'?' active':''}" data-cat="meat" onclick="filterCat('meat')">Meat</button>
+        <button class="catalog-tab${state.category==='produce'?' active':''}" data-cat="produce" onclick="filterCat('produce')">Produce</button>
+        <button class="catalog-tab${state.category==='dry'?' active':''}" data-cat="dry" onclick="filterCat('dry')">Dry Goods</button>
+        <button class="catalog-tab${state.category==='supplies'?' active':''}" data-cat="supplies" onclick="filterCat('supplies')">Supplies</button>
+      </div>
+    </div>
+    <div class="products-grid" id="dash-products-grid"></div>`;
+  // Render products with prices into the dashboard grid
+  const grid = document.getElementById('dash-products-grid');
+  let list = products;
+  if (state.category !== 'all') list = list.filter(p => p.cat === state.category);
+  if (state.search) { const q = state.search.toLowerCase(); list = list.filter(p => p.name.toLowerCase().includes(q) || p.desc.toLowerCase().includes(q)); }
+  grid.innerHTML = list.map(p => `
+    <div class="product-card">
+      <div class="p-img">${p.badge ? `<span class="p-badge badge-${p.badge}">${p.badge}</span>` : ''}
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#bbb" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+      </div>
+      <div class="p-body">
+        <div class="p-cat">${p.cat}</div>
+        <div class="p-name">${p.name}</div>
+        <div class="p-desc">${p.desc}</div>
+        <div class="p-foot">
+          <div class="p-price">$${p.price.toFixed(2)} <span class="p-unit">${p.unit}</span></div>
+          <button class="p-add" onclick="addToCart(${p.id})">+</button>
+        </div>
+      </div>
+    </div>`).join('');
+}
+
+function renderCustInvoices(el) {
+  el.innerHTML = `
+    <div class="dash-welcome"><h2>Your Invoices</h2><p>Payment history and outstanding balances</p></div>
+    <div class="stat-cards">
+      <div class="stat-card"><div class="sc-label">Outstanding Balance</div><div class="sc-value">$1,240</div><div class="sc-change sc-neutral">Due May 15</div></div>
+      <div class="stat-card"><div class="sc-label">Paid This Month</div><div class="sc-value" style="color:var(--green)">$7,180</div><div class="sc-change sc-up">On time</div></div>
+      <div class="stat-card"><div class="sc-label">Payment Terms</div><div class="sc-value" style="font-size:1.3rem">Net-15</div><div class="sc-change sc-up">Good standing</div></div>
+      <div class="stat-card"><div class="sc-label">Credit Limit</div><div class="sc-value">$5,000</div><div class="sc-change sc-neutral">24% utilized</div></div>
+    </div>
+    <div class="dash-panel">
+      <table class="customer-table">
+        <thead><tr><th>Invoice #</th><th>Date</th><th>Amount</th><th>Due Date</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td>INV-4892</td><td>May 8, 2026</td><td>$642.30</td><td>May 23</td><td><span class="d-status st-processing">Current</span></td></tr>
+          <tr><td>INV-4878</td><td>May 5, 2026</td><td>$418.75</td><td>May 20</td><td><span class="d-status st-processing">Current</span></td></tr>
+          <tr><td>INV-4860</td><td>May 2, 2026</td><td>$891.20</td><td>May 17</td><td><span class="d-status st-processing">Current</span></td></tr>
+          <tr><td>INV-4845</td><td>Apr 29, 2026</td><td>$567.50</td><td>May 14</td><td><span class="d-status st-delivered">Paid May 10</span></td></tr>
+          <tr><td>INV-4830</td><td>Apr 25, 2026</td><td>$512.40</td><td>May 10</td><td><span class="d-status st-delivered">Paid May 8</span></td></tr>
+          <tr><td>INV-4815</td><td>Apr 22, 2026</td><td>$780.90</td><td>May 7</td><td><span class="d-status st-delivered">Paid May 5</span></td></tr>
+          <tr><td>INV-4800</td><td>Apr 18, 2026</td><td>$385.60</td><td>May 3</td><td><span class="d-status st-delivered">Paid May 1</span></td></tr>
+        </tbody>
+      </table>
+    </div>`;
+}
+
+function renderCustReorder(el) {
+  el.innerHTML = `
+    <div class="dash-welcome"><h2>Quick Reorder</h2><p>Based on your last 6 orders — one click to reorder your usual</p></div>
+    <div class="dash-panel">
+      <h4>Your Usual Weekly Order</h4>
+      <table class="customer-table">
+        <thead><tr><th>Product</th><th>Qty</th><th>Unit Price</th><th>Subtotal</th></tr></thead>
+        <tbody>
+          <tr><td>Queso Oaxaca</td><td>10 lbs</td><td>$4.25/lb</td><td style="font-weight:700">$42.50</td></tr>
+          <tr><td>Corn Tortillas — Case</td><td>2 cases</td><td>$18.99/case</td><td style="font-weight:700">$37.98</td></tr>
+          <tr><td>Pork Butt — Bone-In</td><td>30 lbs</td><td>$2.99/lb</td><td style="font-weight:700">$89.70</td></tr>
+          <tr><td>Chile Guajillo Seco</td><td>4 lbs</td><td>$8.75/lb</td><td style="font-weight:700">$35.00</td></tr>
+          <tr><td>Avocados Hass — Case</td><td>1 case</td><td>$42.00/case</td><td style="font-weight:700">$42.00</td></tr>
+          <tr><td>Roma Tomatoes</td><td>25 lbs</td><td>$1.49/lb</td><td style="font-weight:700">$37.25</td></tr>
+          <tr><td>Cilantro — 30 Bunch</td><td>1 case</td><td>$14.99/case</td><td style="font-weight:700">$14.99</td></tr>
+          <tr><td>White Onions — 50lb</td><td>1 bag</td><td>$18.99/bag</td><td style="font-weight:700">$18.99</td></tr>
+        </tbody>
+        <tfoot><tr><td colspan="3" style="text-align:right;font-weight:800;padding-top:12px">Estimated Total</td><td style="font-weight:800;font-size:1.1rem;color:var(--green-dark);padding-top:12px">$318.41</td></tr></tfoot>
+      </table>
+      <div style="display:flex;gap:12px;margin-top:20px;justify-content:flex-end">
+        <button class="btn btn-outline" onclick="alert('Order saved as draft.')">Save as Draft</button>
+        <button class="btn btn-primary" onclick="alert('Order #ALM-2850 placed! Delivery scheduled for tomorrow morning by 9 AM.')">Place Order for Tomorrow</button>
+      </div>
+    </div>
+    <div class="dash-panel" style="margin-top:16px">
+      <h4>Customize Before Ordering</h4>
+      <p style="font-size:0.85rem;color:var(--gray-500)">Need to adjust quantities or add items? Go to the <a href="#" onclick="setDashTab('products');return false" style="color:var(--green);font-weight:600">Products tab</a> to build a custom order, or text us at <strong>678-243-0503</strong> in Spanish or English.</p>
+    </div>`;
 }
 
 function handleContact(e) {
