@@ -19,7 +19,7 @@
   --ease: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; overflow-x: hidden; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
 body { font-family: 'Inter', system-ui, sans-serif; color: var(--ink); line-height: 1.6; background: var(--white); overflow-x: hidden; font-size: 15px; -webkit-font-smoothing: antialiased; }
 img { max-width: 100%; height: auto; display: block; }
 svg { fill: none; stroke-linecap: round; stroke-linejoin: round; }
