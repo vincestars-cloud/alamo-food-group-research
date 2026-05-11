@@ -44,7 +44,8 @@ function closeCart(){document.getElementById('cart-drawer').classList.remove('op
 function placeOrder(){if(!state.cart.length)return;const o={id:'ALM-'+Math.floor(3000+Math.random()*1000),date:new Date().toISOString().split('T')[0],customer:'Taqueria El Sol',items:state.cart.map(i=>({name:i.name,qty:i.qty,price:i.price})),status:'processing',total:state.cart.reduce((s,i)=>s+i.price*i.qty,0)};orders.unshift(o);saveOrders(orders);alert(T(`Order #${o.id} placed! $${o.total.toFixed(2)}. Delivery tomorrow.`,`Pedido #${o.id}! $${o.total.toFixed(2)}. Entrega mañana.`));state.cart=[];saveCart();updateCartCount();closeCart();if(document.getElementById('page-dash-customer')?.classList.contains('active'))renderCustDash();}
 function openMobile(){document.getElementById('mobile-menu').classList.add('open');document.getElementById('overlay').classList.add('active');}
 function closeMobile(){document.getElementById('mobile-menu').classList.remove('open');document.getElementById('overlay').classList.remove('active');}
-function formInit(){try{renderFormStep();}catch(e){console.error('formInit error:',e);}}
+function formInit(){state.formStep=1;state.formData={};try{renderFormStep();}catch(e){console.error('formInit error:',e);}}
+function applyForJob(title){state.formStep=1;state.formData={type:'career',jobTitle:title};goTo('contact');setTimeout(renderFormStep,200);}
 function formSelectType(t){state.formData.type=t;formNext();}
 function formSaveStep2(){state.formData.biz=document.getElementById('f-biz')?.value||'';state.formData.name=document.getElementById('f-name')?.value||'';formNext();}
 function formSaveStep3(){state.formData.needs=[...document.querySelectorAll('.msf-check input:checked')].map(i=>i.value);formNext();}
@@ -53,22 +54,40 @@ function renderFormStep(){
   var c=document.getElementById('msf-container');
   if(!c)return;
   var bar=document.getElementById('msf-bar');
-  if(bar)bar.style.width=(state.formStep*20)+'%';
+  var isCareer=!!(state.formData&&state.formData.jobTitle);
   var html='';
-  if(state.formStep===1){
-    var types=['Restaurant','Food Truck','Catering','Grocery','Church','Other'];
-    html='<div class="msf-step"><h3>'+T('What type of business are you?','Que tipo de negocio tienes?')+'</h3><div class="msf-cards">'+types.map(function(t){return '<button class="msf-card" onclick="formSelectType(\''+t+'\')">'+t+'</button>';}).join('')+'</div></div>';
-  }else if(state.formStep===2){
-    html='<div class="msf-step"><h3>'+T('Tell us about your business','Cuentanos sobre tu negocio')+'</h3><div class="form-group"><label>'+T('Business Name','Nombre del Negocio')+'</label><input id="f-biz" type="text" value="'+(state.formData.biz||'')+'"></div><div class="form-group"><label>'+T('Your Name','Tu Nombre')+'</label><input id="f-name" type="text" value="'+(state.formData.name||'')+'"></div><div style="display:flex;gap:8px;margin-top:20px"><button class="btn btn-ghost" onclick="formBack()">'+T('Back','Atras')+'</button><button class="btn btn-primary" onclick="formSaveStep2()">'+T('Continue','Continuar')+'</button></div></div>';
-  }else if(state.formStep===3){
-    var needs=['Dairy & Cheese','Meat & Protein','Fresh Produce','Dry Goods','Supplies'];
-    html='<div class="msf-step"><h3>'+T('What do you need most?','Que necesitas mas?')+'</h3><div class="msf-checks">'+needs.map(function(t){return '<label class="msf-check"><input type="checkbox" value="'+t+'"><span>'+t+'</span></label>';}).join('')+'</div><div style="display:flex;gap:8px;margin-top:20px"><button class="btn btn-ghost" onclick="formBack()">'+T('Back','Atras')+'</button><button class="btn btn-primary" onclick="formSaveStep3()">'+T('Continue','Continuar')+'</button></div></div>';
-  }else if(state.formStep===4){
-    html='<div class="msf-step"><h3>'+T('How can we reach you?','Como te contactamos?')+'</h3><div class="form-group"><label>'+T('Email','Correo')+'</label><input id="f-email" type="email" value="'+(state.formData.email||'')+'"></div><div class="form-group"><label>'+T('Phone','Telefono')+'</label><input id="f-phone" type="tel" value="'+(state.formData.phone||'')+'"></div><div style="display:flex;gap:8px;margin-top:20px"><button class="btn btn-ghost" onclick="formBack()">'+T('Back','Atras')+'</button><button class="btn btn-primary" onclick="formSaveStep4()">'+T('Get My Custom Quote','Obtener Cotizacion')+'</button></div><span class="assurance">'+T('No spam. We call within 24 hours.','Sin spam. Llamamos en 24 horas.')+'</span></div>';
-  }else if(state.formStep>=5){
-    html='<div class="msf-step" style="text-align:center"><div style="width:48px;height:48px;background:var(--green);border-radius:50%;display:inline-flex;align-items:center;justify-content:center;margin:0 auto 16px;color:white;font-size:1.5rem">&#10003;</div><h3>'+T('Thank you','Gracias')+', '+(state.formData.name||'')+'!</h3><p style="color:#6B6B6B;margin:12px 0">'+T('We will call within 24 hours.','Te llamaremos en 24 horas.')+'</p><button class="btn btn-primary" onclick="state.formStep=1;state.formData={};renderFormStep()">'+T('Start Over','Empezar de Nuevo')+'</button></div>';
+  if(isCareer){
+    if(bar)bar.style.width=state.formStep>=5?'100%':'60%';
+    if(state.formStep>=5){
+      html='<div class="msf-step" style="text-align:center"><div style="width:56px;height:56px;background:var(--green);border-radius:50%;display:inline-flex;align-items:center;justify-content:center;margin:0 auto 16px;color:white;font-size:1.8rem">&#10003;</div><h3>'+T('Application Submitted!','¡Solicitud Enviada!')+'</h3><p style="color:#6B6B6B;margin:12px 0 24px">'+T('We'll review your application and reach out within 48 hours.','Revisaremos tu solicitud y te contactaremos en 48 horas.')+'</p><button class="btn btn-outline" onclick="state.formStep=1;state.formData={};renderFormStep()">'+T('Submit Another','Otra Solicitud')+'</button></div>';
+    }else{
+      html='<div class="msf-step"><div style="background:var(--green-light);border:1px solid rgba(27,107,46,0.2);border-radius:var(--radius-sm);padding:10px 14px;margin-bottom:20px;font-size:0.85rem;color:var(--green-dark)"><strong>'+T('Applying for','Solicitud para')+':</strong> '+state.formData.jobTitle+'</div><h3>'+T('Tell Us About Yourself','Cuéntanos Sobre Ti')+'</h3><div class="form-group"><label>'+T('Full Name','Nombre Completo')+'</label><input id="f-name" type="text" placeholder="'+T('Your name','Tu nombre')+'" value="'+(state.formData.name||'')+'"></div><div class="form-row"><div class="form-group"><label>'+T('Phone','Teléfono')+'</label><input id="f-phone" type="tel" placeholder="678-xxx-xxxx" value="'+(state.formData.phone||'')+'"></div><div class="form-group"><label>'+T('Email','Correo')+'</label><input id="f-email" type="email" placeholder="you@email.com" value="'+(state.formData.email||'')+'"></div></div><div class="form-group"><label>'+T('Why are you a great fit?','¿Por qué eres un buen candidato?')+'</label><textarea id="f-notes" style="height:80px;resize:none">'+(state.formData.notes||'')+'</textarea></div><button class="btn btn-primary btn-block" style="margin-top:8px" onclick="formSubmitCareer()">'+T('Submit Application','Enviar Solicitud')+'</button><span class="assurance">'+T('No commitment. We'll contact you within 48 hours.','Sin compromiso. Te contactamos en 48 horas.')+'</span></div>';
+    }
+  }else{
+    if(bar)bar.style.width=(state.formStep*20)+'%';
+    if(state.formStep===1){
+      var types=['Restaurant','Food Truck','Catering','Grocery','Church','Other'];
+      html='<div class="msf-step"><h3>'+T('What type of business are you?','¿Qué tipo de negocio tienes?')+'</h3><div class="msf-cards">'+types.map(function(t){return '<button class="msf-card" onclick="formSelectType(\''+t+'\')">'+t+'</button>';}).join('')+'</div></div>';
+    }else if(state.formStep===2){
+      html='<div class="msf-step"><h3>'+T('Tell us about your business','Cuéntanos sobre tu negocio')+'</h3><div class="form-group"><label>'+T('Business Name','Nombre del Negocio')+'</label><input id="f-biz" type="text" value="'+(state.formData.biz||'')+'"></div><div class="form-group"><label>'+T('Your Name','Tu Nombre')+'</label><input id="f-name" type="text" value="'+(state.formData.name||'')+'"></div><div style="display:flex;gap:8px;margin-top:20px"><button class="btn btn-ghost" onclick="formBack()">'+T('Back','Atrás')+'</button><button class="btn btn-primary" onclick="formSaveStep2()">'+T('Continue','Continuar')+'</button></div></div>';
+    }else if(state.formStep===3){
+      var needs=['Dairy & Cheese','Meat & Protein','Fresh Produce','Dry Goods','Supplies'];
+      html='<div class="msf-step"><h3>'+T('What do you need most?','¿Qué necesitas más?')+'</h3><div class="msf-checks">'+needs.map(function(t){return '<label class="msf-check"><input type="checkbox" value="'+t+'"><span>'+t+'</span></label>';}).join('')+'</div><div style="display:flex;gap:8px;margin-top:20px"><button class="btn btn-ghost" onclick="formBack()">'+T('Back','Atrás')+'</button><button class="btn btn-primary" onclick="formSaveStep3()">'+T('Continue','Continuar')+'</button></div></div>';
+    }else if(state.formStep===4){
+      html='<div class="msf-step"><h3>'+T('How can we reach you?','¿Cómo te contactamos?')+'</h3><div class="form-group"><label>'+T('Email','Correo')+'</label><input id="f-email" type="email" value="'+(state.formData.email||'')+'"></div><div class="form-group"><label>'+T('Phone','Teléfono')+'</label><input id="f-phone" type="tel" value="'+(state.formData.phone||'')+'"></div><div style="display:flex;gap:8px;margin-top:20px"><button class="btn btn-ghost" onclick="formBack()">'+T('Back','Atrás')+'</button><button class="btn btn-primary" onclick="formSaveStep4()">'+T('Get My Custom Quote','Obtener Cotización')+'</button></div><span class="assurance">'+T('No spam. We call within 24 hours.','Sin spam. Llamamos en 24 horas.')+'</span></div>';
+    }else if(state.formStep>=5){
+      html='<div class="msf-step" style="text-align:center"><div style="width:56px;height:56px;background:var(--green);border-radius:50%;display:inline-flex;align-items:center;justify-content:center;margin:0 auto 16px;color:white;font-size:1.8rem">&#10003;</div><h3>'+T('Thank you','Gracias')+', '+(state.formData.name||'')+'!</h3><p style="color:#6B6B6B;margin:12px 0 24px">'+T('We will call within 24 hours.','Te llamaremos en 24 horas.')+'</p><button class="btn btn-primary" onclick="state.formStep=1;state.formData={};renderFormStep()">'+T('Start Over','Empezar de Nuevo')+'</button></div>';
+    }
   }
   c.innerHTML=html;
+}
+function formSubmitCareer(){
+  state.formData.name=document.getElementById('f-name')?.value||'';
+  state.formData.phone=document.getElementById('f-phone')?.value||'';
+  state.formData.email=document.getElementById('f-email')?.value||'';
+  state.formData.notes=document.getElementById('f-notes')?.value||'';
+  state.formStep=5;
+  renderFormStep();
 }
 function formNext(){state.formStep++;localStorage.setItem('alamo_form',JSON.stringify(state.formData));renderFormStep();}
 function formBack(){state.formStep=Math.max(1,state.formStep-1);renderFormStep();}

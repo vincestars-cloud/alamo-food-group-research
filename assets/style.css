@@ -19,7 +19,7 @@
   --ease: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; overflow-x: hidden; }
 body { font-family: 'Inter', system-ui, sans-serif; color: var(--ink); line-height: 1.6; background: var(--white); overflow-x: hidden; font-size: 15px; -webkit-font-smoothing: antialiased; }
 img { max-width: 100%; height: auto; display: block; }
 svg { fill: none; stroke-linecap: round; stroke-linejoin: round; }
@@ -124,11 +124,16 @@ h4 { font-size: 1.05rem; }
    6. LOGO TICKER
    ============================================ */
 .logo-ticker { padding: clamp(28px, 4vw, 48px) 0; border-bottom: 1px solid var(--gray-200); overflow: hidden; -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent); mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent); }
-.ticker-track { display: flex; gap: 48px; width: max-content; animation: tickerScroll 30s linear infinite; }
+/* ticker-section/ticker-wrap are the actual HTML classes */
+.ticker-section { padding: clamp(28px, 4vw, 48px) 0; border-bottom: 1px solid var(--gray-200); overflow: hidden; }
+.ticker-wrap { overflow: hidden; -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent); mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent); }
+.ticker-track { display: flex; gap: 48px; width: max-content; animation: tickerScroll 30s linear infinite; white-space: nowrap; }
 .ticker-track:hover { animation-play-state: paused; }
 @keyframes tickerScroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 .ticker-track img { height: 28px; opacity: 0.45; filter: grayscale(1); transition: opacity 0.3s, filter 0.3s; }
 .ticker-track img:hover { opacity: 0.85; filter: grayscale(0); }
+.ticker-item { display: inline-flex; align-items: center; gap: 8px; font-size: 0.85rem; font-weight: 600; color: var(--gray-400); white-space: nowrap; }
+.ticker-dot { width: 5px; height: 5px; background: var(--green); border-radius: 50%; display: inline-block; flex-shrink: 0; }
 
 /* ============================================
    7. SAVINGS CALCULATOR
@@ -179,6 +184,8 @@ h4 { font-size: 1.05rem; }
    10. TESTIMONIALS (bidirectional scroll)
    ============================================ */
 .testimonials-wrap { overflow: hidden; -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); }
+/* t-scroll-wrap is the actual HTML class */
+.t-scroll-wrap { overflow: hidden; -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); }
 .t-row { display: flex; gap: 20px; width: max-content; padding: 8px 0; }
 .t-row:hover { animation-play-state: paused; }
 .t-row--left { animation: scrollLeft 40s linear infinite; }
@@ -291,14 +298,7 @@ h4 { font-size: 1.05rem; }
 /* ============================================
    16. MULTI-STEP CONTACT FORM
    ============================================ */
-.msf-progress { position: fixed; top: 0; left: 0; right: 0; height: 3px; background: var(--gray-200); z-index: 110; }
-.msf-progress .msf-bar { height: 100%; background: linear-gradient(90deg, var(--green), var(--gold)); border-radius: 0 2px 2px 0; transition: width 0.4s ease; }
-.msf-wrap { min-height: 60vh; display: flex; align-items: center; justify-content: center; }
-.msf-step { display: none; max-width: 480px; width: 100%; margin: 0 auto; opacity: 0; transform: translateY(16px); }
-.msf-step.active { display: block; animation: msf-in 0.32s ease forwards; }
-@keyframes msf-in { to { opacity: 1; transform: translateY(0); } }
-.msf-step h3 { margin-bottom: 8px; }
-.msf-step p { color: var(--gray-500); font-size: 0.88rem; margin-bottom: 24px; }
+/* MSF progress/wrap/step consolidated in section 16b below */
 .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(32px, 5vw, 60px); }
 .contact-info h3 { margin-bottom: 20px; }
 .contact-item { display: flex; gap: 14px; margin-bottom: 16px; }
@@ -321,10 +321,10 @@ h4 { font-size: 1.05rem; }
 /* ============================================
    16b. MULTI-STEP FORM
    ============================================ */
-.msf-wrap { max-width: 560px; margin: 0 auto; }
-.msf-progress { height: 3px; background: var(--gray-200); border-radius: 2px; margin-bottom: 32px; overflow: hidden; }
-.msf-bar { height: 100%; background: linear-gradient(to right, var(--green), var(--gold)); border-radius: 2px; transition: width 0.4s ease; }
-.msf-step { min-height: 240px; display: flex; flex-direction: column; justify-content: center; animation: fadeUp 0.32s ease forwards; opacity: 1; }
+.msf-wrap { max-width: 560px; margin: 0 auto; padding: 0 0 16px; }
+.msf-progress { position: relative; height: 5px; background: var(--gray-200); border-radius: 3px; margin-bottom: 32px; overflow: hidden; }
+.msf-bar { height: 100%; background: linear-gradient(to right, var(--green), var(--gold)); border-radius: 3px; transition: width 0.4s ease; }
+.msf-step { display: flex; flex-direction: column; animation: fadeUp 0.32s ease forwards; opacity: 1; }
 @keyframes fadeUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 .msf-step h3 { font-size: 1.3rem; margin-bottom: 20px; text-align: center; }
 .msf-cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
@@ -504,7 +504,8 @@ h4 { font-size: 1.05rem; }
   .product-modal .pm-image { min-height: 200px; border-radius: var(--radius-lg) var(--radius-lg) 0 0; }
 }
 @media (max-width: 768px) {
-  .header-top .container { flex-direction: column; gap: 2px; }
+  .header-top .container { flex-direction: column; gap: 0; padding: 4px clamp(16px,4vw,32px); }
+  .header-top .container > div:first-child { font-size: 0.72rem; }
   .services-grid { grid-template-columns: 1fr; }
   .products-grid { grid-template-columns: repeat(auto-fill, minmax(min(220px, 100%), 1fr)); }
   .catalog-toolbar { flex-direction: column; align-items: stretch; }
