@@ -40,6 +40,7 @@
 html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
 body { font-family: var(--font-body); color: var(--ink); line-height: 1.6; background: var(--white); overflow-x: hidden; font-size: 15px; -webkit-font-smoothing: antialiased; }
 img { max-width: 100%; height: auto; display: block; }
+svg { fill: none; stroke-linecap: round; stroke-linejoin: round; }
 a { text-decoration: none; color: inherit; }
 button { cursor: pointer; border: none; background: none; font-family: inherit; font-size: inherit; }
 ul { list-style: none; }
@@ -116,8 +117,8 @@ h4 { font-size: 1.05rem; }
 .hero .container { position: relative; z-index: 2; }
 .hero-inner { max-width: 640px; color: var(--white); }
 .hero-inner .kicker { color: var(--gold); margin-bottom: 16px; }
-.hero-inner h1 { color: var(--white); margin-bottom: 16px; }
-.hero-inner h1 span { color: var(--gold); }
+.hero-inner h1 { color: var(--white) !important; margin-bottom: 16px; }
+.hero-inner h1 span { color: var(--gold) !important; }
 .hero-inner .hero-desc { font-size: clamp(0.95rem, 1.5vw, 1.1rem); color: rgba(255,255,255,0.8); margin-bottom: 32px; max-width: 520px; line-height: 1.7; }
 .hero-ctas { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 48px; }
 .hero-stats { display: flex; gap: clamp(24px, 4vw, 56px); padding-top: 32px; border-top: 1px solid rgba(255,255,255,0.12); }
@@ -140,7 +141,7 @@ h4 { font-size: 1.05rem; }
 .value-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px; }
 .value-item { text-align: center; }
 .value-item .v-icon { width: 48px; height: 48px; margin: 0 auto 14px; background: var(--green-light); border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center; }
-.value-item .v-icon svg { width: 22px; height: 22px; stroke: var(--green); fill: none; stroke-width: 2; }
+.value-item .v-icon svg { width: 22px; height: 22px; stroke: var(--green); fill: none !important; stroke-width: 2; flex-shrink: 0; }
 .value-item h4 { font-size: 0.9rem; margin-bottom: 4px; }
 .value-item p { font-size: 0.8rem; color: var(--gray-500); }
 
