@@ -153,8 +153,8 @@ function renderProducts() {
           ${state.loggedIn
             ? `<div class="p-price">$${p.price.toFixed(2)} <span class="p-unit">${p.unit}</span></div>
                <button class="p-add" onclick="addToCart(${p.id})">+</button>`
-            : `<div class="p-locked">Sign in for pricing</div>
-               <button class="btn btn-sm btn-outline" onclick="showLogin()">Sign In</button>`
+            : `<div class="p-locked">${i18n[state.lang]?.['p.locked'] || 'Sign in for pricing'}</div>
+               <button class="btn btn-sm btn-outline" onclick="showLogin()">${i18n[state.lang]?.['nav.signin'] || 'Sign In'}</button>`
           }
         </div>
       </div>
@@ -203,7 +203,7 @@ function renderCart() {
   const footer = document.getElementById('cart-footer');
   if (!body) return;
   if (!state.cart.length) {
-    body.innerHTML = `<div class="cart-empty"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="1.5"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg><p>Your cart is empty</p></div>`;
+    body.innerHTML = `<div class="cart-empty"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="1.5"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg><p>${i18n[state.lang]?.['cart.empty'] || 'Your cart is empty'}</p></div>`;
     footer.style.display = 'none'; return;
   }
   footer.style.display = '';
@@ -215,7 +215,7 @@ function renderCart() {
         <div class="ci-meta">${i.unit}</div>
         <div class="ci-price">$${(i.price * i.qty).toFixed(2)}</div>
         <div class="cart-qty"><button onclick="updateQty(${i.id},-1)">-</button><span>${i.qty}</span><button onclick="updateQty(${i.id},1)">+</button></div>
-        <div class="cart-remove" onclick="removeFromCart(${i.id})">Remove</div>
+        <div class="cart-remove" onclick="removeFromCart(${i.id})">${i18n[state.lang]?.['cart.remove'] || 'Remove'}</div>
       </div>
     </div>
   `).join('');
@@ -233,10 +233,111 @@ function requestQuote() {
 }
 
 // ── Language ──
+// ── Translations ──
+const i18n = {
+  en: {
+    'hero.kicker': 'RESTAURANT-QUALITY PRODUCTS AT WAREHOUSE PRICING',
+    'hero.h1': 'More Than a Distributor.<br><span>We\'re Your Partner.</span>',
+    'hero.desc': 'Built by restauranteros, for restauranteros. We supply 16+ restaurants of our own — so we know exactly what your kitchen needs. No contracts. No minimums. Just honest service.',
+    'hero.cta1': 'Browse Products',
+    'hero.cta2': 'Become a Customer',
+    'hero.s1': 'Products', 'hero.s2': 'Restaurants Served', 'hero.s3': 'Years in Atlanta',
+    'savings.text': '<span>How much could you save?</span> Send us your current invoice — we\'ll show you the difference.',
+    'savings.cta1': 'Send Your Invoice', 'savings.cta2': 'Call for Price Match',
+    'v1.h': 'Restauranteros Helping Restauranteros', 'v1.p': 'We own 16+ restaurants. We\'ve lived your challenges.',
+    'v2.h': 'Best Price. Best Quality.', 'v2.p': 'Volume pricing passed directly to you. No hidden fees.',
+    'v3.h': 'Reliable Delivery. Real People.', 'v3.p': 'We answer the phone and show up on time. Every time.',
+    'v4.h': 'No Contracts. No Minimums.', 'v4.p': 'We earn your business every delivery, not with fine print.',
+    'about.kicker': 'Our Story',
+    'about.h2': 'It Started in the Kitchen.<br>It Started Out of Necessity.',
+    'about.p1': 'In 2021, during the pandemic, our founder saw firsthand how hard it was for restaurants to get the products they needed — on time and at a fair price.',
+    'about.p2': 'So he started Alamo Food Services as a mission to help fellow restauranteros survive and thrive. What began as supply for our own restaurants quickly grew as other owners asked for the same help.',
+    'about.p3': 'Today, we serve restaurants, food trucks, schools, and businesses across the Southeast with quality products at the best prices.',
+    'catalog.kicker': 'Wholesale Catalog', 'catalog.h2': 'Product Catalog',
+    'catalog.p': 'Restaurant-grade ingredients at wholesale prices. Sign in to see pricing and place orders.',
+    'catalog.search': 'Search products...', 'catalog.all': 'All', 'catalog.dairy': 'Dairy & Cheese', 'catalog.meat': 'Meat & Protein', 'catalog.produce': 'Fresh Produce', 'catalog.dry': 'Dry Goods', 'catalog.supplies': 'Supplies',
+    'services.kicker': 'What Makes Us Different', 'services.h2': 'Why Alamo?', 'services.p': 'We\'re not Sysco. We\'re not Restaurant Depot. Here\'s why that matters.',
+    's1.h': 'We Own 16+ Restaurants', 's1.p': 'We don\'t just supply food — we serve it. We know exactly what your kitchen needs because we run ours every day.',
+    's2.h': 'Order by Text — In Spanish', 's2.p': 'Text us your order in Spanish and we\'ll confirm, price, and deliver. No portal required, no language barrier.',
+    's3.h': 'Authentic Mexican Products', 's3.p': 'The real brands and ingredients your kitchen depends on — from dried chiles to fresh queso oaxaca. Not generic substitutes.',
+    's4.h': 'Reliable Next-Day Delivery', 's4.p': 'Complete. On time. Every time. No shorts, no substitutions without calling you first.',
+    's5.h': 'Transparent Pricing', 's5.p': 'No hidden fees. No price creep. No surprises on your invoice. What we quote is what you pay.',
+    's6.h': 'No Contracts. No Minimums.', 's6.p': 'Order what you need, when you need it. We earn your business every delivery — not with a contract.',
+    'mp.kicker': 'Coming Soon', 'mp.h2': 'Hacienda Marketplace', 'mp.p': 'Wholesale prices. Open to the public. A one-stop shop for families, restaurants, and businesses — with a Mexican restaurant on-site.',
+    'mp.c1': 'Warehouse shopping', 'mp.c2': 'Mexican restaurant', 'mp.c3': 'Wholesale prices', 'mp.c4': 'Open to the public',
+    'test.kicker': 'Trusted by Restaurants', 'test.h2': 'What Our Customers Say',
+    'careers.kicker': 'Join Our Team', 'careers.h2': 'Build Your Career at Alamo', 'careers.p': 'We\'re growing and looking for hard-working people who want to be part of something bigger.',
+    'cta.h2': 'Ready to Save on Your Food Costs?', 'cta.p': 'Join the growing family of restaurants that trust Alamo. No contracts, no minimums, just honest service.', 'cta.btn1': 'Become a Customer', 'cta.btn2': 'Call 678-243-0503',
+    'contact.kicker': 'Let\'s Talk', 'contact.h2': 'Get In Touch', 'contact.p': 'Ready to become a customer? Questions about pricing? We\'d love to hear from you.',
+    'contact.submit': 'Submit Inquiry',
+    'nav.home': 'Home', 'nav.products': 'Products', 'nav.about': 'About', 'nav.services': 'Why Alamo', 'nav.careers': 'Careers', 'nav.contact': 'Contact', 'nav.signin': 'Sign In',
+    'footer.tagline': 'Your partner in food and success. Built by restauranteros, for restauranteros. De familia a familia.',
+    'p.locked': 'Sign in for pricing',
+    'cart.title': 'Your Order', 'cart.empty': 'Your cart is empty', 'cart.sub': 'Subtotal', 'cart.delivery': 'Delivery', 'cart.free': 'FREE', 'cart.total': 'Estimated Total', 'cart.checkout': 'Request Quote', 'cart.remove': 'Remove',
+    'login.h2': 'Sign In', 'login.sub': 'Access your account to view pricing, place orders, and manage deliveries.', 'login.customer': 'Customer', 'login.admin': 'Alamo Admin', 'login.email': 'Email', 'login.password': 'Password', 'login.submit': 'Sign In', 'login.back': 'Back to Website',
+    'we.serve': 'We Serve', 'perks.h': 'Why Work at Alamo',
+  },
+  es: {
+    'hero.kicker': 'PRODUCTOS DE CALIDAD RESTAURANTERA A PRECIOS DE MAYOREO',
+    'hero.h1': 'Más Que un Distribuidor.<br><span>Somos Tu Socio.</span>',
+    'hero.desc': 'Hecho por restauranteros, para restauranteros. Surtimos más de 16 restaurantes propios — así que sabemos exactamente lo que tu cocina necesita. Sin contratos. Sin mínimos. Solo servicio honesto.',
+    'hero.cta1': 'Ver Productos',
+    'hero.cta2': 'Hazte Cliente',
+    'hero.s1': 'Productos', 'hero.s2': 'Restaurantes Servidos', 'hero.s3': 'Años en Atlanta',
+    'savings.text': '<span>¿Cuánto podrías ahorrar?</span> Envíanos tu factura actual — te mostraremos la diferencia.',
+    'savings.cta1': 'Enviar Factura', 'savings.cta2': 'Llamar para Cotización',
+    'v1.h': 'Restauranteros Ayudando Restauranteros', 'v1.p': 'Somos dueños de 16+ restaurantes. Hemos vivido tus retos.',
+    'v2.h': 'Mejor Precio. Mejor Calidad.', 'v2.p': 'Precios de volumen directo para ti. Sin cargos ocultos.',
+    'v3.h': 'Entrega Confiable. Gente Real.', 'v3.p': 'Contestamos el teléfono y llegamos a tiempo. Siempre.',
+    'v4.h': 'Sin Contratos. Sin Mínimos.', 'v4.p': 'Nos ganamos tu negocio en cada entrega, no con letra chica.',
+    'about.kicker': 'Nuestra Historia',
+    'about.h2': 'Empezó en la Cocina.<br>Empezó por Necesidad.',
+    'about.p1': 'En 2021, durante la pandemia, nuestro fundador vio de primera mano lo difícil que era para los restaurantes conseguir los productos que necesitaban — a tiempo y a precio justo.',
+    'about.p2': 'Así que empezó Alamo Food Services como una misión para ayudar a otros restauranteros a sobrevivir y prosperar. Lo que empezó como suministro para nuestros propios restaurantes creció rápidamente cuando otros dueños pidieron la misma ayuda.',
+    'about.p3': 'Hoy, servimos a restaurantes, food trucks, escuelas y negocios en todo el sureste con productos de calidad a los mejores precios.',
+    'catalog.kicker': 'Catálogo Mayoreo', 'catalog.h2': 'Catálogo de Productos',
+    'catalog.p': 'Ingredientes de calidad restaurantera a precios de mayoreo. Inicia sesión para ver precios y hacer pedidos.',
+    'catalog.search': 'Buscar productos...', 'catalog.all': 'Todos', 'catalog.dairy': 'Lácteos y Quesos', 'catalog.meat': 'Carnes y Proteína', 'catalog.produce': 'Productos Frescos', 'catalog.dry': 'Abarrotes', 'catalog.supplies': 'Suministros',
+    'services.kicker': 'Lo Que Nos Hace Diferentes', 'services.h2': '¿Por Qué Alamo?', 'services.p': 'No somos Sysco. No somos Restaurant Depot. Esto es lo que importa.',
+    's1.h': 'Somos Dueños de 16+ Restaurantes', 's1.p': 'No solo surtimos comida — la servimos. Sabemos exactamente lo que tu cocina necesita porque manejamos las nuestras todos los días.',
+    's2.h': 'Ordena por Texto — En Español', 's2.p': 'Envíanos tu pedido por texto en español y confirmamos, cotizamos y entregamos. Sin portal, sin barrera de idioma.',
+    's3.h': 'Productos Mexicanos Auténticos', 's3.p': 'Las marcas e ingredientes reales que tu cocina necesita — desde chiles secos hasta queso oaxaca fresco. No sustitutos genéricos.',
+    's4.h': 'Entrega Confiable al Día Siguiente', 's4.p': 'Completo. A tiempo. Siempre. Sin faltantes, sin sustituciones sin avisarte primero.',
+    's5.h': 'Precios Transparentes', 's5.p': 'Sin cargos ocultos. Sin aumentos sorpresa. Sin sorpresas en tu factura. Lo que cotizamos es lo que pagas.',
+    's6.h': 'Sin Contratos. Sin Mínimos.', 's6.p': 'Ordena lo que necesites, cuando lo necesites. Nos ganamos tu negocio en cada entrega — no con un contrato.',
+    'mp.kicker': 'Próximamente', 'mp.h2': 'Hacienda Marketplace', 'mp.p': 'Precios de mayoreo. Abierto al público. Una tienda completa para familias, restaurantes y negocios — con restaurante mexicano en sitio.',
+    'mp.c1': 'Compras en almacén', 'mp.c2': 'Restaurante mexicano', 'mp.c3': 'Precios de mayoreo', 'mp.c4': 'Abierto al público',
+    'test.kicker': 'Confianza de Restaurantes', 'test.h2': 'Lo Que Dicen Nuestros Clientes',
+    'careers.kicker': 'Únete al Equipo', 'careers.h2': 'Construye Tu Carrera en Alamo', 'careers.p': 'Estamos creciendo y buscando gente trabajadora que quiera ser parte de algo más grande.',
+    'cta.h2': '¿Listo Para Ahorrar en Tus Costos de Alimentos?', 'cta.p': 'Únete a la familia creciente de restaurantes que confían en Alamo. Sin contratos, sin mínimos, solo servicio honesto.', 'cta.btn1': 'Hazte Cliente', 'cta.btn2': 'Llama al 678-243-0503',
+    'contact.kicker': 'Hablemos', 'contact.h2': 'Contáctanos', 'contact.p': '¿Listo para ser cliente? ¿Preguntas sobre precios? Nos encantaría saber de ti.',
+    'contact.submit': 'Enviar Consulta',
+    'nav.home': 'Inicio', 'nav.products': 'Productos', 'nav.about': 'Nosotros', 'nav.services': 'Por Qué Alamo', 'nav.careers': 'Carreras', 'nav.contact': 'Contacto', 'nav.signin': 'Iniciar Sesión',
+    'footer.tagline': 'Tu socio en alimentos y éxito. Hecho por restauranteros, para restauranteros. De familia a familia.',
+    'p.locked': 'Inicia sesión para ver precios',
+    'cart.title': 'Tu Pedido', 'cart.empty': 'Tu carrito está vacío', 'cart.sub': 'Subtotal', 'cart.delivery': 'Entrega', 'cart.free': 'GRATIS', 'cart.total': 'Total Estimado', 'cart.checkout': 'Solicitar Cotización', 'cart.remove': 'Eliminar',
+    'login.h2': 'Iniciar Sesión', 'login.sub': 'Accede a tu cuenta para ver precios, hacer pedidos y rastrear entregas.', 'login.customer': 'Cliente', 'login.admin': 'Admin Alamo', 'login.email': 'Correo Electrónico', 'login.password': 'Contraseña', 'login.submit': 'Iniciar Sesión', 'login.back': 'Volver al Sitio',
+    'we.serve': 'Servimos A', 'perks.h': 'Por Qué Trabajar en Alamo',
+  }
+};
+
 function setLang(l) {
   state.lang = l;
   document.querySelectorAll('.lang-toggle button').forEach(b => b.classList.toggle('active', b.dataset.lang === l));
+  // Update all data-i18n elements
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.dataset.i18n;
+    const val = i18n[l]?.[key];
+    if (val) el.innerHTML = val;
+  });
+  // Update placeholders
+  document.querySelectorAll('[data-i18n-ph]').forEach(el => {
+    const key = el.dataset.i18nPh;
+    const val = i18n[l]?.[key];
+    if (val) el.placeholder = val;
+  });
   renderProducts();
+  renderCart();
 }
 
 // ── Mobile ──
