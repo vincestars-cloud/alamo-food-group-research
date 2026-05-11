@@ -392,19 +392,24 @@
 <div class="page-login" id="page-login">
   <div class="login-card">
     <div class="logo" style="justify-content:center;margin-bottom:20px"><div class="logo-mark">A</div><div class="logo-text">ALAMO<small>Food Services</small></div></div>
+    <div class="lang-toggle" style="justify-content:center;margin-bottom:16px">
+      <button class="active" data-lang="en" onclick="setLang('en')" style="color:var(--gray-500);font-weight:700;padding:4px 10px;border-radius:4px">EN</button>
+      <span style="color:var(--gray-300)">|</span>
+      <button data-lang="es" onclick="setLang('es')" style="color:var(--gray-400);font-weight:700;padding:4px 10px;border-radius:4px">ES</button>
+    </div>
     <h2 data-i18n="login.h2">Sign In</h2>
-    <p class="sub">Access your account to view pricing, place orders, and manage deliveries.</p>
+    <p class="sub" data-i18n="login.sub">Access your account to view pricing, place orders, and manage deliveries.</p>
     <div class="login-tabs">
       <button class="login-tab active" data-role="customer" onclick="setLoginTab('customer')" data-i18n="login.customer">Customer</button>
       <button class="login-tab" data-role="owner" onclick="setLoginTab('owner')" data-i18n="login.admin">Alamo Admin</button>
     </div>
     <div class="demo-box" id="demo-creds"><strong>Customer Demo</strong> — Email: demo@restaurant.com / Password: demo</div>
     <form onsubmit="handleLogin(event)">
-      <div class="form-group"><label>Email</label><input type="email" required value="demo@restaurant.com"></div>
-      <div class="form-group"><label>Password</label><input type="password" required value="demo"></div>
-      <button type="submit" class="btn btn-primary btn-block btn-lg" style="margin-bottom:12px">Sign In</button>
+      <div class="form-group"><label data-i18n="login.email">Email</label><input type="email" required value="demo@restaurant.com"></div>
+      <div class="form-group"><label data-i18n="login.password">Password</label><input type="password" required value="demo"></div>
+      <button type="submit" class="btn btn-primary btn-block btn-lg" style="margin-bottom:12px" data-i18n="login.submit">Sign In</button>
     </form>
-    <button class="btn btn-ghost btn-block btn-sm" onclick="logout()">&#8592; Back to Website</button>
+    <button class="btn btn-ghost btn-block btn-sm" onclick="logout()" data-i18n="login.back">&#8592; Back to Website</button>
   </div>
 </div>
 
@@ -416,7 +421,14 @@
     <div class="container">
       <div class="logo"><div class="logo-mark">A</div><div class="logo-text">ALAMO<small>Portal</small></div></div>
       <div class="dash-tabs" id="dash-tabs"></div>
-      <div class="nav-actions"><button class="btn btn-sm btn-outline" onclick="logout()">Log Out</button></div>
+      <div class="nav-actions" style="gap:12px">
+        <div class="lang-toggle">
+          <button class="active" data-lang="en" onclick="setLang('en')" style="color:var(--gray-500);font-size:0.75rem;font-weight:700;padding:2px 8px;border-radius:4px">EN</button>
+          <span style="color:var(--gray-300);font-size:0.75rem">|</span>
+          <button data-lang="es" onclick="setLang('es')" style="color:var(--gray-400);font-size:0.75rem;font-weight:700;padding:2px 8px;border-radius:4px">ES</button>
+        </div>
+        <button class="btn btn-sm btn-outline" onclick="logout()" data-i18n="dash.logout">Log Out</button>
+      </div>
     </div>
   </div>
   <div class="dash-body"><div class="container" id="dash-content"></div></div>

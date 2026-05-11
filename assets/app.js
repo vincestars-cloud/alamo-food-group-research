@@ -275,7 +275,7 @@ const i18n = {
     'p.locked': 'Sign in for pricing',
     'cart.title': 'Your Order', 'cart.empty': 'Your cart is empty', 'cart.sub': 'Subtotal', 'cart.delivery': 'Delivery', 'cart.free': 'FREE', 'cart.total': 'Estimated Total', 'cart.checkout': 'Request Quote', 'cart.remove': 'Remove',
     'login.h2': 'Sign In', 'login.sub': 'Access your account to view pricing, place orders, and manage deliveries.', 'login.customer': 'Customer', 'login.admin': 'Alamo Admin', 'login.email': 'Email', 'login.password': 'Password', 'login.submit': 'Sign In', 'login.back': 'Back to Website',
-    'we.serve': 'We Serve', 'perks.h': 'Why Work at Alamo',
+    'we.serve': 'We Serve', 'perks.h': 'Why Work at Alamo', 'dash.logout': 'Log Out',
   },
   es: {
     'hero.kicker': 'PRODUCTOS DE CALIDAD RESTAURANTERA A PRECIOS DE MAYOREO',
@@ -317,12 +317,16 @@ const i18n = {
     'p.locked': 'Inicia sesión para ver precios',
     'cart.title': 'Tu Pedido', 'cart.empty': 'Tu carrito está vacío', 'cart.sub': 'Subtotal', 'cart.delivery': 'Entrega', 'cart.free': 'GRATIS', 'cart.total': 'Total Estimado', 'cart.checkout': 'Solicitar Cotización', 'cart.remove': 'Eliminar',
     'login.h2': 'Iniciar Sesión', 'login.sub': 'Accede a tu cuenta para ver precios, hacer pedidos y rastrear entregas.', 'login.customer': 'Cliente', 'login.admin': 'Admin Alamo', 'login.email': 'Correo Electrónico', 'login.password': 'Contraseña', 'login.submit': 'Iniciar Sesión', 'login.back': 'Volver al Sitio',
-    'we.serve': 'Servimos A', 'perks.h': 'Por Qué Trabajar en Alamo',
+    'we.serve': 'Servimos A', 'perks.h': 'Por Qué Trabajar en Alamo', 'dash.logout': 'Cerrar Sesión',
   }
 };
 
+// Quick translate helper for dashboard inline text
+function T(en, es) { return state.lang === 'es' ? es : en; }
+
 function setLang(l) {
   state.lang = l;
+  // Update ALL lang toggles on every page (header, login, dashboard)
   document.querySelectorAll('.lang-toggle button').forEach(b => b.classList.toggle('active', b.dataset.lang === l));
   // Update all data-i18n elements
   document.querySelectorAll('[data-i18n]').forEach(el => {
@@ -338,6 +342,25 @@ function setLang(l) {
   });
   renderProducts();
   renderCart();
+  // Re-render dashboard if it's active
+  if (document.getElementById('page-dash')?.classList.contains('active')) {
+    renderDashboard();
+  }
+  // Update login page demo creds text
+  const demoCreds = document.getElementById('demo-creds');
+  if (demoCreds) {
+    const activeTab = document.querySelector('.login-tab.active');
+    const role = activeTab?.dataset.role || 'customer';
+    if (role === 'owner') {
+      demoCreds.innerHTML = l === 'es'
+        ? '<strong>Demo Admin</strong> — Correo: owner@alamo.com / Contraseña: demo'
+        : '<strong>Owner Demo</strong> — Email: owner@alamo.com / Password: demo';
+    } else {
+      demoCreds.innerHTML = l === 'es'
+        ? '<strong>Demo Cliente</strong> — Correo: demo@restaurant.com / Contraseña: demo'
+        : '<strong>Customer Demo</strong> — Email: demo@restaurant.com / Password: demo';
+    }
+  }
 }
 
 // ── Mobile ──
@@ -360,19 +383,19 @@ function renderDashboard() {
   if (tabBar) {
     if (state.role === 'owner') {
       tabBar.innerHTML = `
-        <button class="dash-tab${dashTab==='overview'?' active':''}" data-tab="overview" onclick="setDashTab('overview')">Overview</button>
-        <button class="dash-tab${dashTab==='customers'?' active':''}" data-tab="customers" onclick="setDashTab('customers')">Customers</button>
-        <button class="dash-tab${dashTab==='orders'?' active':''}" data-tab="orders" onclick="setDashTab('orders')">Orders</button>
-        <button class="dash-tab${dashTab==='inventory'?' active':''}" data-tab="inventory" onclick="setDashTab('inventory')">Inventory</button>
-        <button class="dash-tab${dashTab==='invoices'?' active':''}" data-tab="invoices" onclick="setDashTab('invoices')">Invoices</button>
-        <button class="dash-tab${dashTab==='fleet'?' active':''}" data-tab="fleet" onclick="setDashTab('fleet')">Fleet</button>`;
+        <button class="dash-tab${dashTab==='overview'?' active':''}" data-tab="overview" onclick="setDashTab('overview')">${T('Overview','General')}</button>
+        <button class="dash-tab${dashTab==='customers'?' active':''}" data-tab="customers" onclick="setDashTab('customers')">${T('Customers','Clientes')}</button>
+        <button class="dash-tab${dashTab==='orders'?' active':''}" data-tab="orders" onclick="setDashTab('orders')">${T('Orders','Pedidos')}</button>
+        <button class="dash-tab${dashTab==='inventory'?' active':''}" data-tab="inventory" onclick="setDashTab('inventory')">${T('Inventory','Inventario')}</button>
+        <button class="dash-tab${dashTab==='invoices'?' active':''}" data-tab="invoices" onclick="setDashTab('invoices')">${T('Invoices','Facturas')}</button>
+        <button class="dash-tab${dashTab==='fleet'?' active':''}" data-tab="fleet" onclick="setDashTab('fleet')">${T('Fleet','Flota')}</button>`;
     } else {
       tabBar.innerHTML = `
-        <button class="dash-tab${dashTab==='overview'?' active':''}" data-tab="overview" onclick="setDashTab('overview')">Overview</button>
-        <button class="dash-tab${dashTab==='orders'?' active':''}" data-tab="orders" onclick="setDashTab('orders')">Orders</button>
-        <button class="dash-tab${dashTab==='products'?' active':''}" data-tab="products" onclick="setDashTab('products')">Products</button>
-        <button class="dash-tab${dashTab==='invoices'?' active':''}" data-tab="invoices" onclick="setDashTab('invoices')">Invoices</button>
-        <button class="dash-tab${dashTab==='reorder'?' active':''}" data-tab="reorder" onclick="setDashTab('reorder')">Quick Reorder</button>`;
+        <button class="dash-tab${dashTab==='overview'?' active':''}" data-tab="overview" onclick="setDashTab('overview')">${T('Overview','General')}</button>
+        <button class="dash-tab${dashTab==='orders'?' active':''}" data-tab="orders" onclick="setDashTab('orders')">${T('Orders','Pedidos')}</button>
+        <button class="dash-tab${dashTab==='products'?' active':''}" data-tab="products" onclick="setDashTab('products')">${T('Products','Productos')}</button>
+        <button class="dash-tab${dashTab==='invoices'?' active':''}" data-tab="invoices" onclick="setDashTab('invoices')">${T('Invoices','Facturas')}</button>
+        <button class="dash-tab${dashTab==='reorder'?' active':''}" data-tab="reorder" onclick="setDashTab('reorder')">${T('Quick Reorder','Reordenar')}</button>`;
     }
   }
 
@@ -397,17 +420,17 @@ function renderOwnerDash(el) {
 
 function renderOwnerOverview(el) {
   el.innerHTML = `
-    <div class="dash-welcome"><h2>Alamo Food Group — Operations Dashboard</h2><p>Business overview for May 2026</p></div>
+    <div class="dash-welcome"><h2>${T('Alamo Food Group — Operations Dashboard','Alamo Food Group — Panel de Operaciones')}</h2><p>${T('Business overview for May 2026','Resumen del negocio para mayo 2026')}</p></div>
       <div class="stat-cards">
-        <div class="stat-card"><div class="sc-label">Monthly Revenue</div><div class="sc-value">$978,436</div><div class="sc-change sc-up">+8.2% vs April</div></div>
-        <div class="stat-card"><div class="sc-label">External Revenue</div><div class="sc-value">$81,373</div><div class="sc-change sc-neutral">8.3% of total</div></div>
-        <div class="stat-card"><div class="sc-label">Active Accounts</div><div class="sc-value">27</div><div class="sc-change sc-up">+2 new this month</div></div>
-        <div class="stat-card"><div class="sc-label">OTIF Rate</div><div class="sc-value">96.4%</div><div class="sc-change sc-up">Above 95% target</div></div>
+        <div class="stat-card"><div class="sc-label">${T('Monthly Revenue','Ingresos Mensuales')}</div><div class="sc-value">$978,436</div><div class="sc-change sc-up">+8.2% vs ${T('April','abril')}</div></div>
+        <div class="stat-card"><div class="sc-label">${T('External Revenue','Ingresos Externos')}</div><div class="sc-value">$81,373</div><div class="sc-change sc-neutral">8.3% ${T('of total','del total')}</div></div>
+        <div class="stat-card"><div class="sc-label">${T('Active Accounts','Cuentas Activas')}</div><div class="sc-value">27</div><div class="sc-change sc-up">+2 ${T('new this month','nuevas este mes')}</div></div>
+        <div class="stat-card"><div class="sc-label">${T('OTIF Rate','Tasa OTIF')}</div><div class="sc-value">96.4%</div><div class="sc-change sc-up">${T('Above 95% target','Arriba del 95% meta')}</div></div>
       </div>
       <div class="owner-kpi">
-        <div class="kpi-card"><div class="kpi-label">Avg Order Value</div><div class="kpi-value" style="color:var(--green-dark)">$2,847</div><div class="kpi-sub">+12% vs Q1 avg</div></div>
-        <div class="kpi-card"><div class="kpi-label">Gross Margin</div><div class="kpi-value" style="color:var(--green-dark)">23.1%</div><div class="kpi-sub">Target: 22-25%</div></div>
-        <div class="kpi-card"><div class="kpi-label">AR Outstanding</div><div class="kpi-value" style="color:var(--gold)">$42,180</div><div class="kpi-sub">$8,400 past 15 days</div></div>
+        <div class="kpi-card"><div class="kpi-label">${T('Avg Order Value','Valor Promedio de Pedido')}</div><div class="kpi-value" style="color:var(--green-dark)">$2,847</div><div class="kpi-sub">+12% vs Q1</div></div>
+        <div class="kpi-card"><div class="kpi-label">${T('Gross Margin','Margen Bruto')}</div><div class="kpi-value" style="color:var(--green-dark)">23.1%</div><div class="kpi-sub">${T('Target','Meta')}: 22-25%</div></div>
+        <div class="kpi-card"><div class="kpi-label">${T('AR Outstanding','Cuentas por Cobrar')}</div><div class="kpi-value" style="color:var(--gold)">$42,180</div><div class="kpi-sub">$8,400 ${T('past 15 days','+15 días')}</div></div>
       </div>
       <div class="dash-grid">
         <div>
@@ -466,7 +489,7 @@ function renderOwnerOverview(el) {
 
 function renderOwnerCustomers(el) {
   el.innerHTML = `
-    <div class="dash-welcome"><h2>Customer Accounts</h2><p>All 27 active accounts — March 2026 data</p></div>
+    <div class="dash-welcome"><h2>${T('Customer Accounts','Cuentas de Clientes')}</h2><p>${T('All 27 active accounts — March 2026 data','Las 27 cuentas activas — datos de marzo 2026')}</p></div>
     <div class="dash-panel">
       <h4>All Accounts by Revenue</h4>
       <table class="customer-table">
@@ -499,7 +522,7 @@ function renderOwnerCustomers(el) {
 
 function renderOwnerOrders(el) {
   el.innerHTML = `
-    <div class="dash-welcome"><h2>All Orders</h2><p>Recent orders across all accounts</p></div>
+    <div class="dash-welcome"><h2>${T('All Orders','Todos los Pedidos')}</h2><p>${T('Recent orders across all accounts','Pedidos recientes de todas las cuentas')}</p></div>
     <div class="dash-panel">
       <h4>Order Log — May 2026</h4>
       <table class="customer-table">
@@ -524,7 +547,7 @@ function renderOwnerOrders(el) {
 
 function renderOwnerInventory(el) {
   el.innerHTML = `
-    <div class="dash-welcome"><h2>Inventory Management</h2><p>Current stock levels — warehouse Newnan, GA</p></div>
+    <div class="dash-welcome"><h2>${T('Inventory Management','Gestión de Inventario')}</h2><p>${T('Current stock levels — warehouse Newnan, GA','Niveles actuales — almacén Newnan, GA')}</p></div>
     <div class="stat-cards">
       <div class="stat-card"><div class="sc-label">Total SKUs</div><div class="sc-value">248</div><div class="sc-change sc-neutral">Active catalog</div></div>
       <div class="stat-card"><div class="sc-label">Low Stock Alerts</div><div class="sc-value" style="color:var(--gold)">4</div><div class="sc-change sc-down">Needs reorder</div></div>
@@ -554,7 +577,7 @@ function renderOwnerInventory(el) {
 
 function renderOwnerInvoices(el) {
   el.innerHTML = `
-    <div class="dash-welcome"><h2>Accounts Receivable</h2><p>Invoice status and aging report</p></div>
+    <div class="dash-welcome"><h2>${T('Accounts Receivable','Cuentas por Cobrar')}</h2><p>${T('Invoice status and aging report','Estado de facturas y reporte de antigüedad')}</p></div>
     <div class="stat-cards">
       <div class="stat-card"><div class="sc-label">Total AR</div><div class="sc-value">$42,180</div><div class="sc-change sc-neutral">All outstanding</div></div>
       <div class="stat-card"><div class="sc-label">Current (0-7 days)</div><div class="sc-value" style="color:var(--green)">$28,420</div><div class="sc-change sc-up">67% of total</div></div>
@@ -580,7 +603,7 @@ function renderOwnerInvoices(el) {
 
 function renderOwnerFleet(el) {
   el.innerHTML = `
-    <div class="dash-welcome"><h2>Fleet & Logistics</h2><p>Vehicle status and delivery performance</p></div>
+    <div class="dash-welcome"><h2>${T('Fleet & Logistics','Flota y Logística')}</h2><p>${T('Vehicle status and delivery performance','Estado de vehículos y rendimiento de entregas')}</p></div>
     <div class="stat-cards">
       <div class="stat-card"><div class="sc-label">Trucks Active</div><div class="sc-value">2 / 2</div><div class="sc-change sc-up">100% availability</div></div>
       <div class="stat-card"><div class="sc-label">Deliveries This Week</div><div class="sc-value">38</div><div class="sc-change sc-up">+5 vs last week</div></div>
@@ -642,12 +665,12 @@ function renderCustomerDash(el) {
 
 function renderCustOverview(el) {
   el.innerHTML = `
-    <div class="dash-welcome"><h2>Welcome back, Taqueria El Sol</h2><p>Your account overview for May 2026</p></div>
+    <div class="dash-welcome"><h2>${T('Welcome back, Taqueria El Sol','Bienvenido, Taqueria El Sol')}</h2><p>${T('Your account overview for May 2026','Resumen de tu cuenta para mayo 2026')}</p></div>
     <div class="stat-cards">
-      <div class="stat-card"><div class="sc-label">Monthly Spend</div><div class="sc-value">$8,420</div><div class="sc-change sc-up">+12% vs last month</div></div>
-      <div class="stat-card"><div class="sc-label">Orders This Month</div><div class="sc-value">14</div><div class="sc-change sc-up">+3 more than April</div></div>
-      <div class="stat-card"><div class="sc-label">On-Time Delivery</div><div class="sc-value" style="color:var(--green)">98.2%</div><div class="sc-change sc-up">Above 95% target</div></div>
-      <div class="stat-card"><div class="sc-label">Account Balance</div><div class="sc-value">$1,240</div><div class="sc-change sc-neutral">Due May 15, 2026</div></div>
+      <div class="stat-card"><div class="sc-label">${T('Monthly Spend','Gasto Mensual')}</div><div class="sc-value">$8,420</div><div class="sc-change sc-up">+12% vs ${T('last month','mes pasado')}</div></div>
+      <div class="stat-card"><div class="sc-label">${T('Orders This Month','Pedidos Este Mes')}</div><div class="sc-value">14</div><div class="sc-change sc-up">+3 ${T('more than April','más que abril')}</div></div>
+      <div class="stat-card"><div class="sc-label">${T('On-Time Delivery','Entrega a Tiempo')}</div><div class="sc-value" style="color:var(--green)">98.2%</div><div class="sc-change sc-up">${T('Above 95% target','Arriba del 95% meta')}</div></div>
+      <div class="stat-card"><div class="sc-label">${T('Account Balance','Saldo de Cuenta')}</div><div class="sc-value">$1,240</div><div class="sc-change sc-neutral">${T('Due May 15, 2026','Vence 15 mayo 2026')}</div></div>
     </div>
     <div class="dash-grid">
       <div>
@@ -681,7 +704,7 @@ function renderCustOverview(el) {
 
 function renderCustOrders(el) {
   el.innerHTML = `
-    <div class="dash-welcome"><h2>Your Orders</h2><p>Complete order history</p></div>
+    <div class="dash-welcome"><h2>${T('Your Orders','Tus Pedidos')}</h2><p>${T('Complete order history','Historial completo de pedidos')}</p></div>
     <div class="dash-panel">
       <table class="customer-table">
         <thead><tr><th>Order #</th><th>Date</th><th>Items</th><th>Total</th><th>Status</th><th>Delivery</th></tr></thead>
@@ -703,7 +726,7 @@ function renderCustOrders(el) {
 
 function renderCustProducts(el) {
   el.innerHTML = `
-    <div class="dash-welcome"><h2>Browse & Order Products</h2><p>Add items to your cart and request a delivery</p></div>
+    <div class="dash-welcome"><h2>${T('Browse & Order Products','Explorar y Ordenar Productos')}</h2><p>${T('Add items to your cart and request a delivery','Agrega artículos a tu carrito y solicita una entrega')}</p></div>
     <div class="catalog-toolbar">
       <div class="catalog-search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input type="text" placeholder="Search products..." oninput="searchProducts(this.value)"></div>
       <div class="catalog-tabs">
@@ -740,7 +763,7 @@ function renderCustProducts(el) {
 
 function renderCustInvoices(el) {
   el.innerHTML = `
-    <div class="dash-welcome"><h2>Your Invoices</h2><p>Payment history and outstanding balances</p></div>
+    <div class="dash-welcome"><h2>${T('Your Invoices','Tus Facturas')}</h2><p>${T('Payment history and outstanding balances','Historial de pagos y saldos pendientes')}</p></div>
     <div class="stat-cards">
       <div class="stat-card"><div class="sc-label">Outstanding Balance</div><div class="sc-value">$1,240</div><div class="sc-change sc-neutral">Due May 15</div></div>
       <div class="stat-card"><div class="sc-label">Paid This Month</div><div class="sc-value" style="color:var(--green)">$7,180</div><div class="sc-change sc-up">On time</div></div>
@@ -765,7 +788,7 @@ function renderCustInvoices(el) {
 
 function renderCustReorder(el) {
   el.innerHTML = `
-    <div class="dash-welcome"><h2>Quick Reorder</h2><p>Based on your last 6 orders — one click to reorder your usual</p></div>
+    <div class="dash-welcome"><h2>${T('Quick Reorder','Reordenar Rápido')}</h2><p>${T('Based on your last 6 orders — one click to reorder your usual','Basado en tus últimos 6 pedidos — un clic para reordenar lo de siempre')}</p></div>
     <div class="dash-panel">
       <h4>Your Usual Weekly Order</h4>
       <table class="customer-table">
