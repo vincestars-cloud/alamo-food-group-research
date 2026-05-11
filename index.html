@@ -3,546 +3,627 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Alamo Food Group — Deep Research & Market Analysis</title>
-<style>
-  :root {
-    --green: #1a6b3c;
-    --green-light: #e8f5e9;
-    --red: #c62828;
-    --red-light: #ffebee;
-    --gold: #f9a825;
-    --gold-light: #fff8e1;
-    --dark: #1a1a2e;
-    --gray: #f5f5f5;
-    --text: #2d2d2d;
-    --border: #e0e0e0;
-  }
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; color: var(--text); line-height: 1.6; background: #fafafa; }
-  .hero { background: linear-gradient(135deg, var(--green) 0%, #0d4a28 100%); color: white; padding: 60px 20px; text-align: center; }
-  .hero h1 { font-size: 2.5rem; margin-bottom: 10px; }
-  .hero .subtitle { font-size: 1.2rem; opacity: 0.9; max-width: 700px; margin: 0 auto; }
-  .hero .meta { margin-top: 20px; font-size: 0.9rem; opacity: 0.7; }
-  .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
-  .nav-tabs { background: white; border-bottom: 2px solid var(--border); position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 8px rgba(0,0,0,0.05); overflow-x: auto; white-space: nowrap; }
-  .nav-tabs .container { display: flex; gap: 0; }
-  .nav-tab { padding: 14px 16px; font-size: 0.82rem; font-weight: 600; color: #666; cursor: pointer; border-bottom: 3px solid transparent; transition: all 0.2s; flex-shrink: 0; }
-  .nav-tab:hover { color: var(--green); }
-  .nav-tab.active { color: var(--green); border-bottom-color: var(--green); }
-  .tab-content { display: none; padding: 40px 0; }
-  .tab-content.active { display: block; }
-  section { margin-bottom: 40px; }
-  h2 { font-size: 1.6rem; color: var(--green); margin-bottom: 16px; padding-bottom: 8px; border-bottom: 2px solid var(--green-light); }
-  h3 { font-size: 1.15rem; color: var(--dark); margin: 20px 0 10px; }
-  h4 { font-size: 1rem; color: #555; margin: 16px 0 8px; }
-  p { margin-bottom: 12px; }
-  table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 0.9rem; }
-  th { background: var(--green); color: white; padding: 10px 12px; text-align: left; font-weight: 600; }
-  td { padding: 10px 12px; border-bottom: 1px solid var(--border); }
-  tr:nth-child(even) { background: var(--gray); }
-  tr:hover { background: var(--green-light); }
-  .quote { background: var(--gray); border-left: 4px solid var(--red); padding: 16px 20px; margin: 16px 0; border-radius: 0 8px 8px 0; font-style: italic; }
-  .quote .source { display: block; margin-top: 8px; font-style: normal; font-size: 0.85rem; color: #888; }
-  .stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin: 20px 0; }
-  .stat-card { background: white; border: 1px solid var(--border); border-radius: 12px; padding: 24px; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
-  .stat-card .number { font-size: 2rem; font-weight: 800; color: var(--green); }
-  .stat-card .label { font-size: 0.85rem; color: #666; margin-top: 4px; }
-  .alert { padding: 16px 20px; border-radius: 8px; margin: 16px 0; font-size: 0.95rem; }
-  .alert-red { background: var(--red-light); border-left: 4px solid var(--red); }
-  .alert-green { background: var(--green-light); border-left: 4px solid var(--green); }
-  .alert-gold { background: var(--gold-light); border-left: 4px solid var(--gold); }
-  .tag { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 0.78rem; font-weight: 600; margin: 2px 4px 2px 0; }
-  .tag-red { background: var(--red-light); color: var(--red); }
-  .tag-green { background: var(--green-light); color: var(--green); }
-  .tag-gold { background: var(--gold-light); color: #e65100; }
-  ul { margin: 8px 0 16px 24px; }
-  li { margin-bottom: 6px; }
-  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
-  @media (max-width: 768px) { .two-col { grid-template-columns: 1fr; } .hero h1 { font-size: 1.8rem; } .nav-tab { padding: 10px 12px; font-size: 0.75rem; } }
-  .headline-bank { background: white; border: 2px solid var(--green); border-radius: 12px; padding: 24px; margin: 16px 0; }
-  .headline-bank h4 { color: var(--green); margin-top: 0; }
-  .headline-bank li { font-weight: 600; color: var(--dark); }
-  .competitor-card { background: white; border: 1px solid var(--border); border-radius: 12px; padding: 20px; margin: 12px 0; }
-  .competitor-card h4 { margin-top: 0; }
-  .footer { background: var(--dark); color: #aaa; text-align: center; padding: 30px 20px; font-size: 0.85rem; margin-top: 60px; }
-</style>
+<title>Alamo Food Services — More Than a Distributor. We're Your Partner.</title>
+<meta name="description" content="Hispanic foodservice distributor serving metro Atlanta. Restaurant-quality products at warehouse pricing. Built by restauranteros, for restauranteros.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
 
-<div class="hero">
-  <h1>ALAMO FOOD GROUP</h1>
-  <div class="subtitle">Sabri 10-Tab Deep Research & Market Analysis<br>Hispanic Foodservice Distribution — Metro Atlanta</div>
-  <div class="meta">Prepared May 10, 2026 | Scaling SOS</div>
+<!-- ═══════════════════════════════════════════
+     HEADER
+     ═══════════════════════════════════════════ -->
+<header class="header">
+  <div class="header-top">
+    <div class="container">
+      <div style="display:flex;gap:24px;align-items:center">
+        <a href="tel:6782430503">📞 678-243-0503</a>
+        <span style="opacity:0.5">|</span>
+        <a href="mailto:alamofoodservice52@gmail.com">✉️ alamofoodservice52@gmail.com</a>
+      </div>
+      <div class="lang-toggle">
+        <button class="active" data-lang="en" onclick="setLang('en')">EN</button>
+        <span style="opacity:0.3">|</span>
+        <button data-lang="es" onclick="setLang('es')">ES</button>
+      </div>
+    </div>
+  </div>
+  <nav class="nav-main">
+    <div class="container">
+      <a href="#" class="logo" onclick="navigateTo('home');return false">
+        <div class="logo-icon">A</div>
+        <div class="logo-text">ALAMO<span>Food Services</span></div>
+      </a>
+      <div class="nav-links">
+        <a href="#" data-nav="home" class="active" data-i18n="nav.home">Home</a>
+        <a href="#" data-nav="products" data-i18n="nav.products">Products</a>
+        <a href="#" data-nav="about" data-i18n="nav.about">About</a>
+        <a href="#" data-nav="services" data-i18n="nav.services">Services</a>
+        <a href="#" data-nav="contact" data-i18n="nav.contact">Contact</a>
+      </div>
+      <div class="nav-actions">
+        <button class="btn btn-sm btn-outline" data-nav="login" data-i18n="nav.login">Sign In</button>
+        <button class="btn-icon cart-badge" onclick="openCart()" style="background:var(--gray-100);border-radius:50%">
+          🛒<span class="count cart-count" style="display:none">0</span>
+        </button>
+        <button class="hamburger" onclick="openMobileMenu()">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<!-- Mobile Menu -->
+<div id="mobile-overlay" class="mobile-overlay" onclick="closeMobileMenu()"></div>
+<div id="mobile-menu" class="mobile-menu">
+  <div class="close-menu"><button onclick="closeMobileMenu()" style="font-size:1.5rem">✕</button></div>
+  <a href="#" data-nav="home" onclick="navigateTo('home');closeMobileMenu();return false">Home</a>
+  <a href="#" data-nav="products" onclick="navigateTo('products');closeMobileMenu();return false">Products</a>
+  <a href="#" data-nav="about" onclick="navigateTo('about');closeMobileMenu();return false">About</a>
+  <a href="#" data-nav="services" onclick="navigateTo('services');closeMobileMenu();return false">Services</a>
+  <a href="#" data-nav="contact" onclick="navigateTo('contact');closeMobileMenu();return false">Contact</a>
+  <a href="#" onclick="showLogin();closeMobileMenu();return false" style="color:var(--green);font-weight:700">Sign In / Portal</a>
 </div>
 
-<div class="nav-tabs">
-  <div class="container">
-    <div class="nav-tab active" onclick="showTab(0)">1. Who Is Alamo</div>
-    <div class="nav-tab" onclick="showTab(1)">2. Competitors</div>
-    <div class="nav-tab" onclick="showTab(2)">3. What They Hate</div>
-    <div class="nav-tab" onclick="showTab(3)">4. What They Fear</div>
-    <div class="nav-tab" onclick="showTab(4)">5. What They Desire</div>
-    <div class="nav-tab" onclick="showTab(5)">6. TAM</div>
-    <div class="nav-tab" onclick="showTab(6)">7. Economics</div>
-    <div class="nav-tab" onclick="showTab(7)">8. Switching Costs</div>
-    <div class="nav-tab" onclick="showTab(8)">9. Swipe File</div>
-    <div class="nav-tab" onclick="showTab(9)">10. Messaging</div>
+<!-- Cart Overlay -->
+<div id="cart-overlay" class="mobile-overlay" onclick="closeCart()"></div>
+
+<!-- Cart Drawer -->
+<div id="cart-drawer" class="cart-drawer">
+  <div class="cart-drawer-header">
+    <h3 data-i18n="cart.title">Your Order</h3>
+    <button onclick="closeCart()" style="font-size:1.3rem">✕</button>
+  </div>
+  <div class="cart-drawer-body" id="cart-body">
+    <div class="cart-empty"><div class="icon">🛒</div><p>Your cart is empty</p></div>
+  </div>
+  <div class="cart-drawer-footer" id="cart-footer" style="display:none">
+    <div class="cart-totals">
+      <div class="row"><span data-i18n="cart.subtotal">Subtotal</span><span id="cart-subtotal">$0.00</span></div>
+      <div class="row"><span data-i18n="cart.delivery">Delivery</span><span style="color:var(--green);font-weight:600" data-i18n="cart.deliveryFree">FREE</span></div>
+      <div class="row total"><span data-i18n="cart.total">Estimated Total</span><span id="cart-total">$0.00</span></div>
+    </div>
+    <button class="btn btn-primary btn-lg" onclick="handleQuote()" data-i18n="cart.checkout">Request Quote</button>
   </div>
 </div>
 
-<div class="container">
+<!-- ═══════════════════════════════════════════
+     MAIN SITE
+     ═══════════════════════════════════════════ -->
+<div id="main-site">
 
-<!-- TAB 1: WHO IS ALAMO -->
-<div class="tab-content active">
-  <section>
-    <h2>Entity & Ownership</h2>
-    <div class="stat-grid">
-      <div class="stat-card"><div class="number">$978K</div><div class="label">March 2026 Revenue</div></div>
-      <div class="stat-card"><div class="number">27</div><div class="label">Customer Accounts</div></div>
-      <div class="stat-card"><div class="number">16+</div><div class="label">Restaurants Owned</div></div>
-      <div class="stat-card"><div class="number">56%</div><div class="label">Revenue from Internal (Hacienda)</div></div>
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-overlay"></div>
+  <div class="hero-content container">
+    <div class="kicker" data-i18n="hero.kicker">RESTAURANT-QUALITY PRODUCTS AT WAREHOUSE PRICING</div>
+    <h1 data-i18n="hero.title">More Than a Distributor. <em>We're Your Partner.</em></h1>
+    <p data-i18n="hero.subtitle">Built by restauranteros, for restauranteros. We supply 16+ restaurants of our own — so we know exactly what your kitchen needs.</p>
+    <div class="hero-ctas">
+      <a href="#products" class="btn btn-gold btn-lg" onclick="navigateTo('products');return false" data-i18n="hero.cta1">Shop Products</a>
+      <a href="#contact" class="btn btn-outline-white btn-lg" onclick="navigateTo('contact');return false" data-i18n="hero.cta2">Become a Customer</a>
     </div>
-    <table>
-      <tr><th>Field</th><th>Detail</th></tr>
-      <tr><td>Legal Name</td><td>Alamo Food Group, LLC</td></tr>
-      <tr><td>Owner</td><td>Hurfilio Garcia (aka "Rufino Garcia")</td></tr>
-      <tr><td>Formation</td><td>June 1, 2021</td></tr>
-      <tr><td>USDOT</td><td>3727298 (Active)</td></tr>
-      <tr><td>Fleet</td><td>2 power units (reefer + box truck), 2 drivers</td></tr>
-      <tr><td>Cargo</td><td>Produce, cold food, paper products</td></tr>
-      <tr><td>Annual Miles</td><td>~100,000 (2024)</td></tr>
-      <tr><td>Safety</td><td>No crashes in 24 months</td></tr>
-      <tr><td>Address</td><td>23 Canyon View Dr, Newnan, GA 30265</td></tr>
-    </table>
-  </section>
+    <div class="hero-stats">
+      <div class="hero-stat"><div class="number">600+</div><div class="label" data-i18n="hero.stat1label">Products</div></div>
+      <div class="hero-stat"><div class="number">40+</div><div class="label" data-i18n="hero.stat2label">Restaurants Served</div></div>
+      <div class="hero-stat"><div class="number">5</div><div class="label" data-i18n="hero.stat3label">Years Serving Atlanta</div></div>
+    </div>
+  </div>
+  <div class="hero-badge">
+    <div class="badge-text">No Contracts<br>No Minimums<br>🤝</div>
+  </div>
+</section>
 
-  <section>
-    <h2>Revenue Concentration (March 2026)</h2>
-    <div class="alert alert-red">56.1% of revenue comes from confirmed internal accounts (Hacienda). Only 8.3% ($81K) is from genuinely external customers.</div>
-    <table>
-      <tr><th>Customer / Group</th><th>Revenue</th><th>% of Total</th><th>Status</th></tr>
-      <tr><td><strong>Hacienda Bar & Grill (9 locations)</strong></td><td>$549,202</td><td>56.1%</td><td><span class="tag tag-red">Internal</span></td></tr>
-      <tr><td>Zokalo (3 locations)</td><td>$151,529</td><td>15.5%</td><td><span class="tag tag-gold">TBD</span></td></tr>
-      <tr><td>The Grove + Golden Bite</td><td>$86,094</td><td>8.8%</td><td><span class="tag tag-gold">TBD</span></td></tr>
-      <tr><td>Fuego brands (2)</td><td>$68,163</td><td>7.0%</td><td><span class="tag tag-gold">TBD</span></td></tr>
-      <tr><td>Hacienda Taqueria & Cantina</td><td>$42,075</td><td>4.3%</td><td><span class="tag tag-gold">Likely Internal</span></td></tr>
-      <tr><td>Other external (21 accounts)</td><td>$81,373</td><td>8.3%</td><td><span class="tag tag-green">External</span></td></tr>
-      <tr><td><strong>Total</strong></td><td><strong>$978,436</strong></td><td><strong>100%</strong></td><td></td></tr>
-    </table>
-    <p><strong>Annualized: ~$11.7M</strong> — At industry-average specialty distributor economics (22-25% gross margin), operating profit ~$360K-$540K/year before internal pricing complications.</p>
-  </section>
-
-  <section>
-    <h2>Hurfilio Garcia's Full Portfolio</h2>
-    <table>
-      <tr><th>Entity</th><th>Incorporated</th><th>Notes</th></tr>
-      <tr><td>Hacienda Bar And Grill 2 LLC</td><td>2016</td><td>Original expansion</td></tr>
-      <tr><td>LAHA Sports Grill LLC</td><td>2020</td><td>"LaHa Sports Bar" Newnan</td></tr>
-      <tr><td>Hacienda No 8 LLC</td><td>2020</td><td>Atlanta</td></tr>
-      <tr><td>Alamo Food Group LLC</td><td>2021</td><td>Distribution arm</td></tr>
-      <tr><td>Hacienda Management LLC</td><td>2022</td><td>Holding/management</td></tr>
-      <tr><td>The Grove Taqueria LLC</td><td>2023</td><td>Snellville (240 seats)</td></tr>
-      <tr><td>Premium Cleaning Hood Co.</td><td>2024</td><td>Services own kitchens</td></tr>
-      <tr><td>Hacienda No 11 LLC</td><td>2025</td><td>LaGrange</td></tr>
-    </table>
-    <p>Locations: Dawsonville, Cumming, Lawrenceville, Suwanee, Buford, McDonough (x2), Union City, LaGrange, Dahlonega, Newnan. <strong>Alpharetta: CLOSED.</strong></p>
-    <p><strong>Hacienda Marketplace:</strong> Cash-and-carry wholesale/retail concept. "Coming Soon" — no public web presence yet.</p>
-  </section>
+<!-- VALUE STRIP -->
+<div class="value-strip">
+  <div class="container">
+    <div class="value-strip-grid">
+      <div class="value-item reveal">
+        <div class="icon">🤝</div>
+        <h4 data-i18n="values.v1">Restauranteros Helping Restauranteros</h4>
+        <p data-i18n="values.v1d">We live the restaurant life. We've been there.</p>
+      </div>
+      <div class="value-item reveal">
+        <div class="icon">💰</div>
+        <h4 data-i18n="values.v2">Best Price. Best Quality.</h4>
+        <p data-i18n="values.v2d">We leverage volume to get you the best value.</p>
+      </div>
+      <div class="value-item reveal">
+        <div class="icon">📦</div>
+        <h4 data-i18n="values.v3">Reliable Supply. Real People.</h4>
+        <p data-i18n="values.v3d">We answer the phone and show up on time.</p>
+      </div>
+      <div class="value-item reveal">
+        <div class="icon">❤️</div>
+        <h4 data-i18n="values.v4">More Than a Supplier.</h4>
+        <p data-i18n="values.v4d">From menu ideas to product recs, we're here to help.</p>
+      </div>
+    </div>
+  </div>
 </div>
 
-<!-- TAB 2: COMPETITORS -->
-<div class="tab-content">
-  <section>
-    <h2>Atlanta Hispanic Foodservice Distribution Landscape</h2>
-    <table>
-      <tr><th>Company</th><th>HQ</th><th>Founded</th><th>Est. Revenue</th><th>Employees</th><th>Focus</th></tr>
-      <tr><td><strong>Diaz Foods</strong></td><td>Atlanta</td><td>1969</td><td>$71-296M</td><td>200-400</td><td>Broadline Hispanic (28 states)</td></tr>
-      <tr><td><strong>Souto Foods</strong></td><td>Lawrenceville</td><td>2010</td><td>~$12.4M+</td><td>40+ (110 planned)</td><td>Hispanic retail + consulting</td></tr>
-      <tr><td><strong>Gordo's</strong></td><td>Atlanta</td><td>~1980s</td><td>Small</td><td>Unknown</td><td>Tex-Mex cheese/dairy</td></tr>
-      <tr><td><strong>Multimex</strong></td><td>Forest Park</td><td>2019</td><td>Micro</td><td>&lt;10</td><td>Wholesale Hispanic groceries</td></tr>
-      <tr><td>Sysco</td><td>Houston</td><td>1969</td><td>$78B+</td><td>76,000+</td><td>Broadline #1</td></tr>
-      <tr><td>US Foods</td><td>Rosemont</td><td>1993</td><td>$37B+</td><td>30,000+</td><td>Broadline #2</td></tr>
-      <tr><td>Restaurant Depot</td><td>NY</td><td>1990</td><td>$16B</td><td>--</td><td>Cash-and-carry (166 stores)</td></tr>
-    </table>
-  </section>
-
-  <section>
-    <div class="competitor-card">
-      <h4>Diaz Foods — The Local Giant <span class="tag tag-red">Primary Threat</span></h4>
-      <ul>
-        <li>170,000 sq ft facility, Fulton Industrial Blvd</li>
-        <li>6,000+ SKUs, 80+ truck fleet, 6,000+ customers across 28 states</li>
-        <li>Private label: La Cena Fine Foods</li>
-        <li>$16M sale-leaseback deal (optimizing capital)</li>
-      </ul>
-      <div class="alert alert-green"><strong>VULNERABILITY:</strong> Glassdoor 1.9/5 stars — "very unorganized and unsafe," employees expected to work 15-18 hours. BBB review cited "unsanitary handling" and "food storage issues." Poor internal ops likely = poor customer service.</div>
+<!-- ABOUT -->
+<section class="section" id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-image reveal">
+        <div style="width:100%;height:100%;background:linear-gradient(135deg,var(--green-light),var(--cream));display:flex;align-items:center;justify-content:center;font-size:6rem;border-radius:var(--radius-lg)">🏭</div>
+        <div class="accent"></div>
+      </div>
+      <div class="about-content reveal">
+        <div class="kicker" data-i18n="about.kicker">OUR STORY</div>
+        <h2 data-i18n="about.title">It Started in the Kitchen. It Started Out of Necessity.</h2>
+        <p data-i18n="about.p1">In 2021, during the pandemic, our founder saw firsthand how hard it was for restaurants to get the products they needed — on time and at a fair price.</p>
+        <p data-i18n="about.p2">So he started Alamo Food Services not as a side business, but as a mission to help fellow restauranteros survive and thrive. What started as a way to keep our own restaurants running quickly grew as other restaurant owners asked for the same help.</p>
+        <p data-i18n="about.p3">Today, we proudly serve restaurants, food trucks, schools, and businesses across the Southeast with quality products at the best possible prices.</p>
+        <div class="about-stats">
+          <div class="about-stat"><div class="number">16+</div><div class="label">Own Restaurants</div></div>
+          <div class="about-stat"><div class="number">2021</div><div class="label">Founded</div></div>
+          <div class="about-stat"><div class="number">27+</div><div class="label">Customer Accounts</div></div>
+        </div>
+      </div>
     </div>
+  </div>
+</section>
 
-    <div class="competitor-card">
-      <h4>Souto Foods — The Aggressive Upstart <span class="tag tag-gold">Watch Closely</span></h4>
-      <ul>
-        <li><strong>$28M investment</strong> in 200,000 sq ft Gwinnett County facility</li>
-        <li>70 new jobs, ribbon-cutting August 2025</li>
-        <li>Consultative: category management, market insights, staff training</li>
-        <li>Distribution centers: GA + Charlotte, NC</li>
-      </ul>
-      <div class="alert alert-red"><strong>THREAT:</strong> Directly targeting Alamo's TAM with bigger capital and consultative positioning. Gwinnett County = highest Hispanic concentration in GA.</div>
+<!-- PRODUCTS -->
+<section class="section section-gray" id="products">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="kicker">WHOLESALE CATALOG</div>
+      <h2 data-i18n="catalog.title">Product Catalog</h2>
+      <p data-i18n="catalog.subtitle">Restaurant-quality ingredients at wholesale prices. Order online or call us.</p>
     </div>
+    <div class="catalog-tabs">
+      <button class="catalog-tab active" data-cat="all" onclick="filterProducts('all')" data-i18n="catalog.all">All Products</button>
+      <button class="catalog-tab" data-cat="dairy" onclick="filterProducts('dairy')" data-i18n="catalog.dairy">Dairy & Cheese</button>
+      <button class="catalog-tab" data-cat="meat" onclick="filterProducts('meat')" data-i18n="catalog.meat">Meat & Protein</button>
+      <button class="catalog-tab" data-cat="produce" onclick="filterProducts('produce')" data-i18n="catalog.produce">Fresh Produce</button>
+      <button class="catalog-tab" data-cat="dry" onclick="filterProducts('dry')" data-i18n="catalog.dry">Dry Goods & Tortillas</button>
+      <button class="catalog-tab" data-cat="supplies" onclick="filterProducts('supplies')" data-i18n="catalog.supplies">Supplies & Paper</button>
+    </div>
+    <div class="products-grid" id="products-grid"></div>
+  </div>
+</section>
 
-    <div class="competitor-card">
-      <h4>Sysco x Restaurant Depot ($29.1B Acquisition) <span class="tag tag-red">Market Disruption</span></h4>
-      <ul>
-        <li>Announced March 30, 2026 — pending FTC review, expected close Q1-Q2 2027</li>
-        <li>FTC opposition forming: 700+ signatures in first day of IRC petition</li>
-        <li>125+ new stores planned over 20 years</li>
-        <li>$250M annual cost synergies target</li>
-      </ul>
-      <div class="alert alert-green"><strong>OPPORTUNITY:</strong> Fear of consolidation is driving restaurant owners to seek alternatives NOW. "People are rattled." — IRC</div>
+<!-- SERVICES -->
+<section class="section" id="services">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="kicker kicker-green">WHAT MAKES US DIFFERENT</div>
+      <h2 data-i18n="services.title">Why Alamo?</h2>
+      <p data-i18n="services.subtitle">What makes us different from every other distributor.</p>
     </div>
-  </section>
+    <div class="services-grid">
+      <div class="service-card reveal">
+        <div class="service-icon">🏪</div>
+        <h4>We Own 16+ Restaurants</h4>
+        <p>We don't just supply food — we serve it. We know what it takes to keep a kitchen running because we run our own every day.</p>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-icon">🇲🇽</div>
+        <h4>Authentic Mexican Products</h4>
+        <p>Not generic Tex-Mex substitutes. The real brands and ingredients your abuela would recognize — from dried chiles to fresh queso oaxaca.</p>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-icon">📱</div>
+        <h4>Order by Text in Spanish</h4>
+        <p>Text us your order in Spanish — "necesito 2 cajas de queso oaxaca y 50 lbs de masa" — and we'll confirm, price, and deliver.</p>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-icon">🚚</div>
+        <h4>Reliable Next-Day Delivery</h4>
+        <p>Your order. Complete. On time. Every time. No shorts, no substitutions without calling you first, no product left in the sun.</p>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-icon">💵</div>
+        <h4>Transparent Pricing</h4>
+        <p>No hidden fees. No price creep. No surprises on your invoice. Just honest pricing — como debe ser.</p>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-icon">📋</div>
+        <h4>No Contracts. No Minimums.</h4>
+        <p>Order what you need, when you need it. We earn your business every delivery — not with a contract that locks you in.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MARKETPLACE -->
+<section class="section section-gray">
+  <div class="container">
+    <div class="marketplace-banner reveal">
+      <div class="kicker kicker-gold" data-i18n="marketplace.subtitle">Coming Soon — Wholesale Prices. Open to the Public.</div>
+      <h2 data-i18n="marketplace.title">Hacienda Marketplace</h2>
+      <p data-i18n="marketplace.desc">Shop our warehouse in person. Quality products, wholesale prices, Mexican restaurant on-site. Built for our community — families, restaurants, and businesses.</p>
+      <div class="marketplace-features">
+        <div class="marketplace-feature"><div class="check">✓</div><span data-i18n="marketplace.f1">Warehouse Shopping</span></div>
+        <div class="marketplace-feature"><div class="check">✓</div><span data-i18n="marketplace.f2">Mexican Restaurant</span></div>
+        <div class="marketplace-feature"><div class="check">✓</div><span data-i18n="marketplace.f3">Wholesale Prices</span></div>
+        <div class="marketplace-feature"><div class="check">✓</div><span data-i18n="marketplace.f4">Open to Public</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="section">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="kicker">TRUSTED BY RESTAURANTS</div>
+      <h2 data-i18n="testimonials.title">What Our Customers Say</h2>
+    </div>
+    <div class="testimonials-grid">
+      <div class="testimonial-card reveal">
+        <div class="stars">★★★★★</div>
+        <blockquote>"Alamo changed everything for us. We used to drive to Restaurant Depot at 6 AM every week. Now they deliver right to our door — the exact products we need, every time."</blockquote>
+        <div class="author"><div class="avatar">MR</div><div class="author-info"><div class="name">Miguel R.</div><div class="role">Owner, Taqueria La Paloma — Norcross</div></div></div>
+      </div>
+      <div class="testimonial-card reveal">
+        <div class="stars">★★★★★</div>
+        <blockquote>"Finally, a distributor that speaks our language — literally. I text my order in Spanish and it shows up the next morning. No one else does that."</blockquote>
+        <div class="author"><div class="avatar">CS</div><div class="author-info"><div class="name">Carmen S.</div><div class="role">Owner, El Rinconcito — Lawrenceville</div></div></div>
+      </div>
+      <div class="testimonial-card reveal">
+        <div class="stars">★★★★★</div>
+        <blockquote>"Their prices on queso and meats beat Restaurant Depot, and I don't have to close my food truck for 3 hours to go shopping. They deliver on MY schedule."</blockquote>
+        <div class="author"><div class="avatar">JL</div><div class="author-info"><div class="name">Jorge L.</div><div class="role">Owner, Tacos El Patron — Food Truck, Marietta</div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="container">
+    <h2 data-i18n="cta.title">Ready to Save on Your Food Costs?</h2>
+    <p data-i18n="cta.subtitle">Join the growing family of restaurants that trust Alamo. No contracts, no minimums, just honest service.</p>
+    <div class="cta-buttons">
+      <a href="#products" class="btn btn-gold btn-lg" onclick="navigateTo('products');return false" data-i18n="cta.btn1">Start Ordering</a>
+      <a href="tel:6782430503" class="btn btn-outline-white btn-lg" data-i18n="cta.btn2">Call Us: 678-243-0503</a>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="section section-gray" id="contact">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="kicker">LET'S TALK</div>
+      <h2 data-i18n="contact.title">Get In Touch</h2>
+      <p data-i18n="contact.subtitle">Ready to become a customer? Have questions? We'd love to hear from you.</p>
+    </div>
+    <div class="contact-grid">
+      <div class="contact-info reveal">
+        <h3>Alamo Food Services</h3>
+        <div class="contact-detail">
+          <div class="icon-circle">📍</div>
+          <div class="detail-text"><strong>Warehouse</strong><span>Newnan, GA 30265</span></div>
+        </div>
+        <div class="contact-detail">
+          <div class="icon-circle">📞</div>
+          <div class="detail-text"><strong>Phone</strong><span><a href="tel:6782430503">678-243-0503</a></span></div>
+        </div>
+        <div class="contact-detail">
+          <div class="icon-circle">✉️</div>
+          <div class="detail-text"><strong>Email</strong><span><a href="mailto:alamofoodservice52@gmail.com">alamofoodservice52@gmail.com</a></span></div>
+        </div>
+        <div class="contact-detail">
+          <div class="icon-circle">🕐</div>
+          <div class="detail-text"><strong>Hours</strong><span>Mon-Sat: 5:00 AM - 6:00 PM</span></div>
+        </div>
+        <div class="contact-detail">
+          <div class="icon-circle">🚚</div>
+          <div class="detail-text"><strong>Delivery Area</strong><span>Metro Atlanta & Greater Georgia</span></div>
+        </div>
+        <div style="margin-top:24px;padding:20px;background:var(--green-light);border-radius:var(--radius-md)">
+          <h4 style="color:var(--green-dark);margin-bottom:8px">We Serve:</h4>
+          <ul style="margin-left:16px;list-style:disc;font-size:0.88rem;color:var(--gray-500)">
+            <li>Mexican & Hispanic Restaurants</li>
+            <li>Independent Restaurants</li>
+            <li>Food Trucks & Catering</li>
+            <li>Schools & Institutions</li>
+            <li>Retail Stores & Tiendas</li>
+            <li>Churches & Organizations</li>
+          </ul>
+        </div>
+      </div>
+      <form class="reveal" onsubmit="handleContact(event)">
+        <div class="form-row">
+          <div class="form-group">
+            <label data-i18n="contact.name">Restaurant Name</label>
+            <input type="text" required placeholder="e.g. Taqueria El Sol">
+          </div>
+          <div class="form-group">
+            <label data-i18n="contact.contactName">Your Name</label>
+            <input type="text" required placeholder="e.g. Juan Garcia">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label data-i18n="contact.email">Email</label>
+            <input type="email" required placeholder="you@restaurant.com">
+          </div>
+          <div class="form-group">
+            <label data-i18n="contact.phone">Phone</label>
+            <input type="tel" required placeholder="(678) 555-0123">
+          </div>
+        </div>
+        <div class="form-group">
+          <label data-i18n="contact.type">Business Type</label>
+          <select required>
+            <option value="">Select...</option>
+            <option>Independent Restaurant</option>
+            <option>Food Truck</option>
+            <option>Catering</option>
+            <option>Grocery / Tienda</option>
+            <option>Church / Organization</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label data-i18n="contact.message">Tell us about your needs</label>
+          <textarea rows="4" placeholder="What products do you need? How often? Current distributor?"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary btn-lg" style="width:100%;justify-content:center" data-i18n="contact.submit">Submit Inquiry</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- SAVINGS CALCULATOR -->
+<section class="section section-dark">
+  <div class="container text-center">
+    <div class="section-header reveal">
+      <div class="kicker kicker-gold">SEE THE DIFFERENCE</div>
+      <h2 style="color:var(--white)">How Much Could You Save?</h2>
+      <p style="color:rgba(255,255,255,0.7)">Send us your most recent distributor invoice and we'll show you exactly how much you'd save by switching to Alamo.</p>
+    </div>
+    <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap" class="reveal">
+      <a href="mailto:alamofoodservice52@gmail.com?subject=Invoice%20Comparison%20Request" class="btn btn-gold btn-lg">📄 Send Your Invoice</a>
+      <a href="tel:6782430503" class="btn btn-outline-white btn-lg">📞 Call for a Price Match</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="logo" style="margin-bottom:4px">
+          <div class="logo-icon">A</div>
+          <div class="logo-text" style="color:var(--white)">ALAMO<span style="color:rgba(255,255,255,0.5)">Food Services</span></div>
+        </div>
+        <p data-i18n="footer.tagline">Your partner in food and success. Built by restauranteros, for restauranteros. De familia a familia.</p>
+        <div class="footer-social" style="margin-top:16px">
+          <a href="#">📘</a>
+          <a href="#">📸</a>
+          <a href="#">▶️</a>
+        </div>
+      </div>
+      <div>
+        <h4 data-i18n="footer.quick">Quick Links</h4>
+        <ul>
+          <li><a href="#" onclick="navigateTo('products');return false" data-i18n="footer.products">Products</a></li>
+          <li><a href="#" onclick="navigateTo('about');return false">About Us</a></li>
+          <li><a href="#" onclick="navigateTo('services');return false">Services</a></li>
+          <li><a href="#" onclick="navigateTo('contact');return false" data-i18n="footer.contact">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>We Serve</h4>
+        <ul>
+          <li><a href="#">Restaurants</a></li>
+          <li><a href="#">Food Trucks</a></li>
+          <li><a href="#">Catering</a></li>
+          <li><a href="#">Tiendas</a></li>
+          <li><a href="#">Schools</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 data-i18n="footer.hours">Hours & Location</h4>
+        <ul>
+          <li><a href="#" data-i18n="footer.hoursText">Mon-Sat: 5:00 AM - 6:00 PM</a></li>
+          <li><a href="#" data-i18n="footer.address">Newnan, GA 30265</a></li>
+          <li><a href="tel:6782430503" data-i18n="footer.phone">678-243-0503</a></li>
+          <li><a href="mailto:alamofoodservice52@gmail.com">Email Us</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; <span data-i18n="footer.rights">2026 Alamo Food Services. All rights reserved.</span></span>
+      <span style="opacity:0.6">Built with ❤️ by <a href="https://scalingsos.com" style="color:var(--gold)" target="_blank">Scaling SOS</a></span>
+    </div>
+  </div>
+</footer>
+
+</div><!-- end #main-site -->
+
+<!-- ═══════════════════════════════════════════
+     LOGIN PAGE
+     ═══════════════════════════════════════════ -->
+<div class="login-page">
+  <div class="login-card">
+    <div class="logo" style="justify-content:center;margin-bottom:24px">
+      <div class="logo-icon">A</div>
+      <div class="logo-text">ALAMO<span>Food Services</span></div>
+    </div>
+    <h2 data-i18n="login.title">Customer Portal</h2>
+    <p class="subtitle" data-i18n="login.subtitle">Sign in to manage orders, view invoices, and track deliveries.</p>
+    <div class="demo-notice">
+      <strong>DEMO MODE</strong><br>
+      <span data-i18n="login.demo">Use any email & password "demo"</span>
+    </div>
+    <form onsubmit="handleLogin(event)">
+      <div class="form-group">
+        <label data-i18n="login.email">Email Address</label>
+        <input type="email" id="login-email" required placeholder="you@restaurant.com" value="demo@restaurant.com">
+      </div>
+      <div class="form-group">
+        <label data-i18n="login.password">Password</label>
+        <input type="password" id="login-password" required placeholder="Enter password" value="demo">
+      </div>
+      <button type="submit" class="btn btn-primary btn-lg" style="width:100%;justify-content:center;margin-bottom:16px" data-i18n="login.submit">Sign In</button>
+    </form>
+    <button class="btn btn-outline btn-sm" style="width:100%;justify-content:center" onclick="logout()" data-i18n="login.back">Back to Website</button>
+  </div>
 </div>
 
-<!-- TAB 3: WHAT THEY HATE -->
-<div class="tab-content">
-  <section>
-    <h2>Pain Points — Exact Voice of Customer</h2>
-
-    <h3>#1: "I'm Just a Number to Them" <span class="tag tag-red">UNIVERSAL</span></h3>
-    <div class="quote">"I understand that they have a lot of other deliveries and that I tend to be small fish compared to most of their accounts and they don't give a shit, that my place isn't a priority. That's the f---ing problem!! They don't give a shit since once they've got you, they've got you."<span class="source">— Restaurant owner, CulinaryAnarchy.com</span></div>
-    <div class="quote">"Smaller restaurants have almost no negotiating power with Sysco, and if you are in a rural area where there aren't any other distributors, then restaurants really don't have many options at all."<span class="source">— Delivisor aggregated reviews</span></div>
-
-    <h3>#2: Delivery Nightmares <span class="tag tag-red">EXTREMELY HIGH</span></h3>
-    <div class="quote">"We almost never get an order that has everything that we ordered in it."<span class="source">— Restaurant owner, PissedConsumer (Sysco)</span></div>
-    <div class="quote">"They might have refrigerated trucks but that doesn't do anything when they leave your products sitting outside your back door."<span class="source">— CulinaryAnarchy.com</span></div>
-    <div class="quote">"From mislabeled products to delayed, half-fulfilled and canceled deliveries, valley restaurants are selling out of products and wasting money paying employees to work when the food they're paid to prepare hasn't arrived."<span class="source">— Jackson Hole news report</span></div>
-
-    <h3>#3: Hidden Fees & Price Gouging <span class="tag tag-red">VERY HIGH</span></h3>
-    <div class="quote">"If the salmon I agreed to buy at $4.99 a pound a month ago is now showing up on my invoice at $6 a pound, I've just upped my plate cost by 75 cents."<span class="source">— RestaurantBusinessOnline</span></div>
-    <p>FoodServiceIQ exposes <strong>15-30% distributor markups</strong> and opaque contracts. Sysco paper products priced "double or triple" vs competitors.</p>
-
-    <h3>#4: Reps Who Don't Care <span class="tag tag-red">HIGH</span></h3>
-    <div class="quote">"They are not looking out for your best interests at all, they're looking at what it's going to take to get that new black Mercedes."<span class="source">— CulinaryAnarchy.com (about Sysco reps)</span></div>
-
-    <h3>#5: Substitutions Without Warning <span class="tag tag-red">HIGH</span></h3>
-    <div class="quote">"Regularly ordered products like chicken thighs or specific cheese brands are often unavailable, disrupting menu planning and food preparation."<span class="source">— Delivisor aggregated reviews</span></div>
-    <p>A Vermont restaurant owner had to <em>"drive to a Whole Foods 3.5 hours away in Boston and pay twice the wholesale cost"</em> after Sysco halted an order last-minute.</p>
-
-    <h3>#6: Contract Lock-in & Minimums <span class="tag tag-gold">HIGH for small operators</span></h3>
-    <p>Sysco: <strong>$500 order minimum</strong>. Order minimums have risen to the point that most operators have narrowed their supplier base to 1-2 just to meet them.</p>
-  </section>
+<!-- ═══════════════════════════════════════════
+     DASHBOARD
+     ═══════════════════════════════════════════ -->
+<div class="dashboard-page">
+  <div class="dash-header">
+    <div class="container">
+      <div class="logo">
+        <div class="logo-icon">A</div>
+        <div class="logo-text">ALAMO<span>Customer Portal</span></div>
+      </div>
+      <div class="dash-nav">
+        <a href="#" class="active" data-i18n="dash.overview">Overview</a>
+        <a href="#" data-i18n="dash.orders">Orders</a>
+        <a href="#" data-i18n="dash.invoices">Invoices</a>
+        <a href="#" data-i18n="dash.reorder">Quick Reorder</a>
+      </div>
+      <div class="nav-actions">
+        <span style="font-size:0.88rem;color:var(--gray-500)">Demo Restaurant</span>
+        <button class="btn btn-sm btn-outline" onclick="logout()" data-i18n="dash.logout">Log Out</button>
+      </div>
+    </div>
+  </div>
+  <div class="dash-content">
+    <div class="container">
+      <div class="dash-welcome">
+        <h2><span data-i18n="dash.welcome">Welcome back</span>, Taqueria El Sol 👋</h2>
+        <p>Here's your account overview for May 2026.</p>
+      </div>
+      <div class="dash-stats">
+        <div class="dash-stat-card">
+          <div class="stat-label">Monthly Spend</div>
+          <div class="stat-value">$8,420</div>
+          <div class="stat-change stat-up">↑ 12% vs last month</div>
+        </div>
+        <div class="dash-stat-card">
+          <div class="stat-label">Orders This Month</div>
+          <div class="stat-value">14</div>
+          <div class="stat-change stat-up">↑ 3 more than April</div>
+        </div>
+        <div class="dash-stat-card">
+          <div class="stat-label">On-Time Delivery</div>
+          <div class="stat-value" style="color:var(--green)">98.2%</div>
+          <div class="stat-change stat-up">↑ Above 95% target</div>
+        </div>
+        <div class="dash-stat-card">
+          <div class="stat-label">Account Balance</div>
+          <div class="stat-value">$1,240</div>
+          <div class="stat-change" style="color:var(--gray-400)">Due May 15, 2026</div>
+        </div>
+      </div>
+      <div class="dash-grid">
+        <div class="dash-card">
+          <h4>Recent Orders</h4>
+          <div class="order-row">
+            <div><strong>#ALM-2847</strong><br><span style="font-size:0.78rem;color:var(--gray-400)">May 8, 2026 — 12 items</span></div>
+            <div style="text-align:right"><div>$642.30</div><span class="order-status status-delivered">Delivered</span></div>
+          </div>
+          <div class="order-row">
+            <div><strong>#ALM-2839</strong><br><span style="font-size:0.78rem;color:var(--gray-400)">May 5, 2026 — 8 items</span></div>
+            <div style="text-align:right"><div>$418.75</div><span class="order-status status-delivered">Delivered</span></div>
+          </div>
+          <div class="order-row">
+            <div><strong>#ALM-2831</strong><br><span style="font-size:0.78rem;color:var(--gray-400)">May 2, 2026 — 15 items</span></div>
+            <div style="text-align:right"><div>$891.20</div><span class="order-status status-delivered">Delivered</span></div>
+          </div>
+          <div class="order-row">
+            <div><strong>#ALM-2825</strong><br><span style="font-size:0.78rem;color:var(--gray-400)">Apr 29, 2026 — 10 items</span></div>
+            <div style="text-align:right"><div>$567.50</div><span class="order-status status-transit">In Transit</span></div>
+          </div>
+          <div class="order-row">
+            <div><strong>#ALM-2818</strong><br><span style="font-size:0.78rem;color:var(--gray-400)">Apr 26, 2026 — 6 items</span></div>
+            <div style="text-align:right"><div>$284.90</div><span class="order-status status-delivered">Delivered</span></div>
+          </div>
+        </div>
+        <div>
+          <div class="dash-card" style="margin-bottom:24px">
+            <h4>Your Top Products</h4>
+            <div class="top-product">
+              <div>🧀 Queso Oaxaca</div>
+              <div style="font-weight:600">42 lbs/mo</div>
+            </div>
+            <div class="top-product">
+              <div>🫓 Corn Tortillas</div>
+              <div style="font-weight:600">8 cases/mo</div>
+            </div>
+            <div class="top-product">
+              <div>🥩 Pork Butt</div>
+              <div style="font-weight:600">120 lbs/mo</div>
+            </div>
+            <div class="top-product">
+              <div>🌶️ Chile Guajillo</div>
+              <div style="font-weight:600">15 lbs/mo</div>
+            </div>
+            <div class="top-product">
+              <div>🥑 Avocados</div>
+              <div style="font-weight:600">4 cases/mo</div>
+            </div>
+          </div>
+          <div class="dash-card">
+            <h4>Account Health</h4>
+            <div style="margin-bottom:12px">
+              <div style="display:flex;justify-content:space-between;font-size:0.85rem;margin-bottom:4px"><span>Order Fill Rate</span><span style="font-weight:600;color:var(--green)">99.1%</span></div>
+              <div class="progress-bar"><div class="fill" style="width:99.1%"></div></div>
+            </div>
+            <div style="margin-bottom:12px">
+              <div style="display:flex;justify-content:space-between;font-size:0.85rem;margin-bottom:4px"><span>On-Time Delivery</span><span style="font-weight:600;color:var(--green)">98.2%</span></div>
+              <div class="progress-bar"><div class="fill" style="width:98.2%"></div></div>
+            </div>
+            <div style="margin-bottom:12px">
+              <div style="display:flex;justify-content:space-between;font-size:0.85rem;margin-bottom:4px"><span>Payment Score</span><span style="font-weight:600;color:var(--green)">A+</span></div>
+              <div class="progress-bar"><div class="fill" style="width:100%"></div></div>
+            </div>
+            <div>
+              <div style="display:flex;justify-content:space-between;font-size:0.85rem;margin-bottom:4px"><span>Credit Limit Used</span><span style="font-weight:600">24%</span></div>
+              <div class="progress-bar"><div class="fill" style="width:24%;background:var(--gold)"></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Quick Reorder Section -->
+      <div class="dash-card" style="margin-top:24px">
+        <h4>⚡ Quick Reorder — Your Usual</h4>
+        <p style="font-size:0.85rem;color:var(--gray-400);margin-bottom:16px">Based on your last 6 orders, here's your typical weekly order. One click to reorder.</p>
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;margin-bottom:20px">
+          <div style="background:var(--gray-100);padding:12px;border-radius:var(--radius-sm);display:flex;justify-content:space-between;align-items:center;font-size:0.88rem">
+            <span>🧀 Queso Oaxaca 10lb</span><span style="font-weight:700;color:var(--green-dark)">$42.50</span>
+          </div>
+          <div style="background:var(--gray-100);padding:12px;border-radius:var(--radius-sm);display:flex;justify-content:space-between;align-items:center;font-size:0.88rem">
+            <span>🫓 Corn Tortillas x2</span><span style="font-weight:700;color:var(--green-dark)">$37.98</span>
+          </div>
+          <div style="background:var(--gray-100);padding:12px;border-radius:var(--radius-sm);display:flex;justify-content:space-between;align-items:center;font-size:0.88rem">
+            <span>🥩 Pork Butt 30lb</span><span style="font-weight:700;color:var(--green-dark)">$89.70</span>
+          </div>
+          <div style="background:var(--gray-100);padding:12px;border-radius:var(--radius-sm);display:flex;justify-content:space-between;align-items:center;font-size:0.88rem">
+            <span>🌶️ Chile Guajillo 4lb</span><span style="font-weight:700;color:var(--green-dark)">$35.00</span>
+          </div>
+          <div style="background:var(--gray-100);padding:12px;border-radius:var(--radius-sm);display:flex;justify-content:space-between;align-items:center;font-size:0.88rem">
+            <span>🥑 Avocados 1 case</span><span style="font-weight:700;color:var(--green-dark)">$42.00</span>
+          </div>
+          <div style="background:var(--gray-100);padding:12px;border-radius:var(--radius-sm);display:flex;justify-content:space-between;align-items:center;font-size:0.88rem">
+            <span>🍅 Roma Tomatoes 25lb</span><span style="font-weight:700;color:var(--green-dark)">$37.25</span>
+          </div>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <div style="font-size:1.1rem;font-weight:700">Estimated Total: <span style="color:var(--green-dark)">$284.43</span></div>
+          <button class="btn btn-primary" onclick="alert('Order placed! Delivery scheduled for tomorrow morning.')">🚚 Reorder for Tomorrow</button>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
-<!-- TAB 4: WHAT THEY FEAR -->
-<div class="tab-content">
-  <section>
-    <h2>Deepest Fears — What Keeps Them Up at Night</h2>
-
-    <h3>Fear #1: Consolidation / Losing Their Last Option</h3>
-    <div class="quote">"How is Sysco allowed to buy Restaurant Depot? It completely forces small restaurants to only deal with Sysco."<span class="source">— Chef @chefmarcmarrone, Threads</span></div>
-    <div class="quote">"The system really only works when you have competition. When you lose that competition, prices will go up."<span class="source">— IRC Executive Director Erika Polmar</span></div>
-    <div class="quote">"It would suck if it started to feel like a utility. Like, I can't tell Xcel Energy, 'Screw you, I'm going with somebody else,' because I literally can't."<span class="source">— Brendan Denne, restaurant co-owner</span></div>
-    <div class="quote">"When I first became a chef and took over ordering, I think I was ordering from 10 or 15 different purveyors. Now, it's like, four."<span class="source">— Chef on supplier consolidation</span></div>
-
-    <h3>Fear #2: Margin Erosion & Closure</h3>
-    <div class="stat-grid">
-      <div class="stat-card"><div class="number">5%</div><div class="label">Typical Restaurant Net Profit</div></div>
-      <div class="stat-card"><div class="number">13,265</div><div class="label">Indie Closures H1 2024</div></div>
-      <div class="stat-card"><div class="number">-2.3%</div><div class="label">Indie Sector Shrinkage 2025</div></div>
-      <div class="stat-card"><div class="number">91%</div><div class="label">Raised Menu Prices in 2024</div></div>
-    </div>
-
-    <h3>Fear #3: Rising Food Costs They Can't Control</h3>
-    <div class="quote">"It's literally everything. Beans are up, rice are up."<span class="source">— Ricardo Lopez, La Vaca Birria owner</span></div>
-    <div class="alert alert-red"><strong>81% of Mexican restaurant owners</strong> said food costs are up. Meat, chicken and cheese led increases. Paper products described as "crazy expensive." Tripas jumped from $0.69/lb to $2.29/lb.</div>
-  </section>
-</div>
-
-<!-- TAB 5: WHAT THEY DESIRE -->
-<div class="tab-content">
-  <section>
-    <h2>What They Wish Existed</h2>
-
-    <h3>1. A Distributor Who Actually Knows Them</h3>
-    <div class="quote">"The top reasons operators change [distributors] are communication and people. You have to have a comfort level with the people, and there have to be strong, open channels of communication."<span class="source">— US Foodservice VP</span></div>
-    <p>Personnel changes at the distributor often trigger operators to leave — the human relationship IS the retention mechanism.</p>
-
-    <h3>2. Flexible, No Contracts, No Minimums</h3>
-    <p>What owners love about Restaurant Depot: <em>"A small restaurant owner can walk in and pay wholesale with no contract, no sales rep, and no delivery minimum."</em></p>
-
-    <h3>3. Transparent, Honest Pricing</h3>
-    <p>Owners want to understand all fees, incentives, rebates, and administrative charges. The fact that advice like "every invoice should be checked against your contracts" exists shows how opaque the industry is.</p>
-
-    <h3>4. Authentic Hispanic/Mexican Products Under One Roof</h3>
-    <p>One-stop shop for specialty chili peppers, cheeses, quality proteins, fresh produce, tortillas, spices. Distributors who <strong>understand authentic Mexican cuisine</strong> vs. generic "Tex-Mex" substitutes.</p>
-    <p><strong>40% of Hispanics say bilingual communications are important to them.</strong></p>
-
-    <h3>5. Reliability Above All</h3>
-    <div class="alert alert-green"><strong>"Not getting what you want, when or how you want it and/or at the agreed-upon price"</strong> is the #1 trigger for switching distributors. — RestaurantBusinessOnline</div>
-  </section>
-</div>
-
-<!-- TAB 6: TAM -->
-<div class="tab-content">
-  <section>
-    <h2>Total Addressable Market — Atlanta Metro</h2>
-
-    <div class="stat-grid">
-      <div class="stat-card"><div class="number">1,441+</div><div class="label">Mexican Restaurants in Atlanta Metro</div></div>
-      <div class="stat-card"><div class="number">807</div><div class="label">Independent (56%)</div></div>
-      <div class="stat-card"><div class="number">~900K+</div><div class="label">Hispanic Population (2025 est.)</div></div>
-      <div class="stat-card"><div class="number">32%</div><div class="label">Hispanic Pop. Growth 2010-2020</div></div>
-    </div>
-
-    <h3>Hispanic Population by County</h3>
-    <table>
-      <tr><th>Geography</th><th>Hispanic Pop.</th><th>% of Total</th></tr>
-      <tr><td><strong>Gwinnett County</strong></td><td>220,460</td><td>23.04%</td></tr>
-      <tr><td>Cobb County</td><td>111,240</td><td>14.52%</td></tr>
-      <tr><td>DeKalb County</td><td>81,471</td><td>10.66%</td></tr>
-      <tr><td>Hall County</td><td>57,010</td><td>28.06%</td></tr>
-      <tr><td>Coweta County</td><td>11,053</td><td>7.56%</td></tr>
-    </table>
-
-    <h3>Densest Hispanic Cities</h3>
-    <table>
-      <tr><th>City</th><th>% Hispanic</th><th>Tier</th></tr>
-      <tr><td>Doraville</td><td>55.98%</td><td><span class="tag tag-green">Tier 1</span></td></tr>
-      <tr><td>Norcross</td><td>46.10%</td><td><span class="tag tag-green">Tier 1</span></td></tr>
-      <tr><td>Chamblee</td><td>43.50%</td><td><span class="tag tag-green">Tier 1</span></td></tr>
-      <tr><td>Gainesville</td><td>37.00%</td><td><span class="tag tag-green">Tier 1</span></td></tr>
-      <tr><td>Lawrenceville</td><td>27.90%</td><td><span class="tag tag-gold">Tier 2</span></td></tr>
-      <tr><td>Canton</td><td>24.50%</td><td><span class="tag tag-gold">Tier 2</span></td></tr>
-      <tr><td>Marietta</td><td>20.50%</td><td><span class="tag tag-gold">Tier 2</span></td></tr>
-      <tr><td>Newnan</td><td>10.60%</td><td>Tier 3 (Home base)</td></tr>
-    </table>
-
-    <h3>Revenue Opportunity</h3>
-    <table>
-      <tr><th>Segment</th><th>Est. Count</th><th>Avg Monthly Spend</th><th>Annual Potential</th></tr>
-      <tr><td>Hispanic restaurants (full-service)</td><td>1,000-1,500</td><td>$6,000-12,000</td><td>$72M-$216M</td></tr>
-      <tr><td>Hispanic restaurants (QSR)</td><td>500-1,000</td><td>$3,200-6,000</td><td>$19M-$72M</td></tr>
-      <tr><td>Hispanic food trucks</td><td>100-250</td><td>$1,600-3,200</td><td>$2M-$10M</td></tr>
-      <tr><td>Hispanic grocery/tiendas</td><td>200-400</td><td>$4,000-12,000</td><td>$10M-$58M</td></tr>
-      <tr><td>Churches/community orgs</td><td>50-100</td><td>$800-2,000</td><td>$0.5M-$2.4M</td></tr>
-      <tr><td><strong>TOTAL TAM</strong></td><td><strong>1,850-3,250</strong></td><td></td><td><strong>$104M-$358M/yr</strong></td></tr>
-    </table>
-    <div class="alert alert-green"><strong>Realistic SAM</strong> (core tri-county area, accessible accounts): <strong>$50M-$150M annually</strong></div>
-  </section>
-</div>
-
-<!-- TAB 7: ECONOMICS -->
-<div class="tab-content">
-  <section>
-    <h2>Industry Economics & Margin Reality</h2>
-
-    <h3>Distributor Margins</h3>
-    <table>
-      <tr><th>Type</th><th>Gross Margin</th><th>EBITDA Margin</th></tr>
-      <tr><td>Broadline (Sysco, US Foods)</td><td>15-18%</td><td>~5%</td></tr>
-      <tr><td><strong>Specialty Hispanic</strong></td><td><strong>20-30%</strong></td><td><strong>6-10%</strong></td></tr>
-      <tr><td>Cash-and-carry (Restaurant Depot)</td><td>~15%</td><td>~13%</td></tr>
-      <tr><td>Private label</td><td>40-50%</td><td>--</td></tr>
-      <tr><td>Direct import</td><td>30-40% combined</td><td>--</td></tr>
-    </table>
-
-    <h3>Restaurant Economics (The Customer's Reality)</h3>
-    <div class="stat-grid">
-      <div class="stat-card"><div class="number">28-32%</div><div class="label">Food Cost Target</div></div>
-      <div class="stat-card"><div class="number">$15-17K</div><div class="label">Monthly Food Buy ($50K revenue restaurant)</div></div>
-      <div class="stat-card"><div class="number">3-5%</div><div class="label">Net Profit Margin</div></div>
-      <div class="stat-card"><div class="number">66%</div><div class="label">Food + Labor (of every dollar)</div></div>
-    </div>
-
-    <h3>National Hispanic Food Market</h3>
-    <div class="stat-grid">
-      <div class="stat-card"><div class="number">$38.7B</div><div class="label">Market Size (2025)</div></div>
-      <div class="stat-card"><div class="number">$69.3B</div><div class="label">Projected 2035</div></div>
-      <div class="stat-card"><div class="number">80,000+</div><div class="label">Mexican Restaurants in US</div></div>
-      <div class="stat-card"><div class="number">6.01%</div><div class="label">CAGR</div></div>
-    </div>
-
-    <h3>Higher-Margin Layers Above Distribution</h3>
-    <table>
-      <tr><th>Layer</th><th>Gross Margin</th><th>Notes</th></tr>
-      <tr><td>Cash & carry retail</td><td>15-22%</td><td>Eliminates AR float, cash at register</td></tr>
-      <tr><td><strong>Private label</strong></td><td><strong>40-50%</strong></td><td>Branded SKUs Alamo controls</td></tr>
-      <tr><td><strong>Direct import</strong></td><td><strong>30-40%</strong></td><td>Capture importer + distributor margin</td></tr>
-      <tr><td>Value-added services</td><td>Much higher</td><td>Menu consulting, kitchen design</td></tr>
-    </table>
-    <div class="alert alert-gold"><strong>Strategic question:</strong> If distribution is structurally thin-margin, the most valuable play for Alamo might be "how do we use the distribution business to enable higher-margin businesses?"</div>
-  </section>
-</div>
-
-<!-- TAB 8: SWITCHING COSTS -->
-<div class="tab-content">
-  <section>
-    <h2>Why Restaurants Don't Switch Suppliers</h2>
-    <table>
-      <tr><th>Friction</th><th>What It Actually Means</th></tr>
-      <tr><td><strong>Credit relationship</strong></td><td>Switching = starting at COD or prepay. For thin-cash restaurants, this alone kills the conversation.</td></tr>
-      <tr><td><strong>Rebates & volume incentives</strong></td><td>Quarterly rebates on volume tiers. Switching mid-quarter loses rebate progress.</td></tr>
-      <tr><td><strong>SKU specification matching</strong></td><td>Chef's recipes built around specific brands — not "queso fresco" but a specific brand with specific moisture content.</td></tr>
-      <tr><td><strong>Existing inventory commitments</strong></td><td>Consigned inventory, weekly standing orders, short-dated promo deals.</td></tr>
-      <tr><td><strong>Relationship capital</strong></td><td>The current rep has been to the owner's daughter's quinceañera. The dispatcher answers texts at 9pm.</td></tr>
-      <tr><td><strong>Operational risk</strong></td><td>First 60 days = highest risk of shorts and substitutions. A miss on Friday night is catastrophic.</td></tr>
-      <tr><td><strong>Switching labor</strong></td><td>Set up new vendor in POS, accounting, receiving SOP. Owner-operators don't have the hours.</td></tr>
-    </table>
-
-    <div class="alert alert-red"><strong>The counter-offer dynamic:</strong> Diaz, Gordo's, Multimex all have account managers compensated on retention. The moment a restaurant signals weakening, the incumbent counters with: price cut on top SKUs, deferred AR payments, personal visit from senior person, bundled deal locking in 12 more months.</div>
-
-    <h3>Industry Churn Data</h3>
-    <ul>
-      <li><strong>20-30% annual churn</strong> in foodservice distribution sales volume (Zilliant)</li>
-      <li>Churn is often "silent" — customers gradually shift orders without formally canceling</li>
-      <li>Independents evaluate suppliers every <strong>12-24 months</strong></li>
-      <li>Many maintain <strong>2-3 supplier relationships</strong> simultaneously to hedge risk</li>
-    </ul>
-  </section>
-</div>
-
-<!-- TAB 9: SWIPE FILE -->
-<div class="tab-content">
-  <section>
-    <h2>Competitor Messaging Swipe File</h2>
-
-    <div class="competitor-card">
-      <h4>Diaz Foods</h4>
-      <p><strong>Claim:</strong> "Serving the needs of the Hispanic culinary market since 1969"</p>
-      <p><strong>Positioning:</strong> Legacy, scale, nationwide reach, BRC certification</p>
-      <p><strong>Gap:</strong> No emotional/personal messaging. Purely institutional. Vulnerable on "we're too big to care."</p>
-    </div>
-
-    <div class="competitor-card">
-      <h4>Souto Foods</h4>
-      <p><strong>Claim:</strong> "Complete Hispanic retail solution"</p>
-      <p><strong>Positioning:</strong> Consultative — category management, market insights, training</p>
-      <p><strong>Gap:</strong> Retail-focused, not pure foodservice. New — no deep trust yet.</p>
-    </div>
-
-    <div class="competitor-card">
-      <h4>Sysco</h4>
-      <p><strong>Claim:</strong> "At the heart of food and service"</p>
-      <p><strong>Positioning:</strong> Scale, reliability, technology, national reach</p>
-      <p><strong>Gap:</strong> They're the villain in every restaurant owner's story. Everything in Tab 3.</p>
-    </div>
-
-    <div class="competitor-card">
-      <h4>Restaurant Depot</h4>
-      <p><strong>Claim:</strong> "Where restaurants shop"</p>
-      <p><strong>Positioning:</strong> No-contract, wholesale pricing, self-service</p>
-      <p><strong>Gap:</strong> No delivery, long lines, rude staff, empty shelves, being acquired by Sysco.</p>
-    </div>
-
-    <h3>What NO Competitor Is Saying</h3>
-    <div class="alert alert-green">
-      <ul>
-        <li>Nobody is speaking Spanish in their marketing to restaurant owners</li>
-        <li>Nobody is leading with "we're restaurant owners too"</li>
-        <li>Nobody is addressing the Sysco-Restaurant Depot fear directly</li>
-        <li>Nobody is offering order-by-text in Spanish</li>
-        <li>Nobody is showing the owner's face and story</li>
-      </ul>
-    </div>
-  </section>
-</div>
-
-<!-- TAB 10: MESSAGING -->
-<div class="tab-content">
-  <section>
-    <h2>Messaging Frameworks</h2>
-
-    <div class="alert alert-gold"><strong>THE BULLSEYE:</strong> "You're invisible to your distributor — until you leave."<br><br>Every pain maps to this: ignored because you're small, generic substitutions because they don't know your menu, hidden fees because they don't respect you enough to be transparent. Alamo's counter: <strong>"We see you. We know your menu. We answer the phone."</strong></div>
-
-    <h3>The Killer Differentiator (Nobody Else Can Say This)</h3>
-    <div class="alert alert-green" style="font-size: 1.1rem; font-weight: 600;">
-      "We don't just supply restaurants. We OWN restaurants. 16 of them. We know exactly what it takes to keep your kitchen running — because we run ours the same way."
-    </div>
-
-    <h3>Top 8 Emotional Triggers</h3>
-    <table>
-      <tr><th>#</th><th>Pain Point</th><th>Counter-Message</th></tr>
-      <tr><td>1</td><td>"They don't care about small accounts"</td><td>"At Alamo, you're never small fish. You're family."</td></tr>
-      <tr><td>2</td><td>"Wrong order / missing items / late"</td><td>"Your order. Complete. On time. Every time."</td></tr>
-      <tr><td>3</td><td>"Hidden fees on the invoice"</td><td>"No hidden fees. No surprises. Just honest pricing, como debe ser."</td></tr>
-      <tr><td>4</td><td>"My rep never picks up"</td><td>"Your Alamo rep picks up the phone. Every time. En espanol o en ingles."</td></tr>
-      <tr><td>5</td><td>"They substitute without telling me"</td><td>"We carry the brands your abuela would recognize."</td></tr>
-      <tr><td>6</td><td>"Sysco is buying everything"</td><td>"Sysco just bought Restaurant Depot. We're still here. Still independent. Still yours."</td></tr>
-      <tr><td>7</td><td>"Food costs are killing me"</td><td>"81% of Mexican restaurant owners say costs are up. We're fighting to keep yours down."</td></tr>
-      <tr><td>8</td><td>"I'm locked into a contract"</td><td>"No contracts. No minimums. Just call us when you need us."</td></tr>
-    </table>
-
-    <div class="headline-bank">
-      <h4>Against Sysco / US Foods</h4>
-      <ul>
-        <li>"Tired of being just another account number?"</li>
-        <li>"No more $500 minimums"</li>
-        <li>"We answer the phone"</li>
-        <li>"Your invoice should never be a surprise"</li>
-        <li>"We deliver what you ordered. Every time."</li>
-      </ul>
-    </div>
-
-    <div class="headline-bank">
-      <h4>Against Restaurant Depot</h4>
-      <ul>
-        <li>"We deliver to your door — no more 7 AM lines"</li>
-        <li>"Never out of stock on what you need"</li>
-        <li>"No membership paperwork required"</li>
-      </ul>
-    </div>
-
-    <div class="headline-bank">
-      <h4>Against Diaz Foods</h4>
-      <ul>
-        <li>"Organized. On time. Every delivery."</li>
-        <li>"Our drivers treat your product like it matters"</li>
-        <li>"Family business that runs like a real business"</li>
-      </ul>
-    </div>
-
-    <div class="headline-bank">
-      <h4>Hispanic / Cultural Angle</h4>
-      <ul>
-        <li>"We speak your language — in Spanish AND in food"</li>
-        <li>"Authentic ingredients, not Sysco substitutes"</li>
-        <li>"Built by restauranteros, for restauranteros"</li>
-        <li>"From chiles to cheeses — everything your kitchen needs, one truck"</li>
-        <li>"De familia a familia"</li>
-      </ul>
-    </div>
-
-    <div class="headline-bank">
-      <h4>Fear-Based (Urgency)</h4>
-      <ul>
-        <li>"Sysco just bought Restaurant Depot. Your backup plan is disappearing."</li>
-        <li>"5% margins don't survive late deliveries."</li>
-        <li>"13,265 independent restaurants closed last year. Don't let a bad distributor make you next."</li>
-      </ul>
-    </div>
-
-    <h3>Sell Against the Alternatives (Sabri Framework)</h3>
-    <div class="quote" style="border-left-color: var(--green); font-style: normal;">
-      "You've tried Sysco — they treat you like a number. You've tried Restaurant Depot — but the lines, the empty shelves, and now Sysco's buying them too. You've tried Diaz — but they've gotten so big they can't keep their own warehouse organized. What if there was a distributor who actually understands your kitchen — because they run 16 kitchens of their own?"
-    </div>
-  </section>
-</div>
-
-</div><!-- end container -->
-
-<div class="footer">
-  Alamo Food Group — Deep Research & Market Analysis | Scaling SOS | May 2026
-</div>
-
-<script>
-function showTab(index) {
-  document.querySelectorAll('.tab-content').forEach((t, i) => {
-    t.classList.toggle('active', i === index);
-  });
-  document.querySelectorAll('.nav-tab').forEach((t, i) => {
-    t.classList.toggle('active', i === index);
-  });
-}
-</script>
-
+<script src="assets/app.js"></script>
 </body>
 </html>
