@@ -3,144 +3,141 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Alamo Food Services — More Than a Distributor. We're Your Partner.</title>
-<meta name="description" content="Hispanic foodservice distributor serving metro Atlanta. Restaurant-quality products at warehouse pricing. Built by restauranteros, for restauranteros.">
+<title>Alamo Food Services — Restaurant-Quality Products at Warehouse Pricing</title>
+<meta name="description" content="Hispanic foodservice distributor serving metro Atlanta. Built by restauranteros, for restauranteros. No contracts, no minimums.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
 
-<!-- ═══════════════════════════════════════════
-     HEADER
-     ═══════════════════════════════════════════ -->
+<!-- ── HEADER ── -->
 <header class="header">
   <div class="header-top">
     <div class="container">
-      <div style="display:flex;gap:24px;align-items:center">
-        <a href="tel:6782430503">📞 678-243-0503</a>
-        <span style="opacity:0.5">|</span>
-        <a href="mailto:alamofoodservice52@gmail.com">✉️ alamofoodservice52@gmail.com</a>
+      <div style="display:flex;gap:20px;align-items:center">
+        <a href="tel:6782430503">678-243-0503</a>
+        <span style="opacity:0.3">|</span>
+        <a href="mailto:alamofoodservice52@gmail.com">alamofoodservice52@gmail.com</a>
       </div>
       <div class="lang-toggle">
         <button class="active" data-lang="en" onclick="setLang('en')">EN</button>
-        <span style="opacity:0.3">|</span>
         <button data-lang="es" onclick="setLang('es')">ES</button>
       </div>
     </div>
   </div>
   <nav class="nav-main">
     <div class="container">
-      <a href="#" class="logo" onclick="navigateTo('home');return false">
-        <div class="logo-icon">A</div>
-        <div class="logo-text">ALAMO<span>Food Services</span></div>
+      <a href="#" class="logo" onclick="goTo('home');return false">
+        <div class="logo-mark">A</div>
+        <div class="logo-text">ALAMO<small>Food Services</small></div>
       </a>
       <div class="nav-links">
-        <a href="#" data-nav="home" class="active" data-i18n="nav.home">Home</a>
-        <a href="#" data-nav="products" data-i18n="nav.products">Products</a>
-        <a href="#" data-nav="about" data-i18n="nav.about">About</a>
-        <a href="#" data-nav="services" data-i18n="nav.services">Services</a>
-        <a href="#" data-nav="contact" data-i18n="nav.contact">Contact</a>
+        <a href="#" data-nav="home" class="active">Home</a>
+        <a href="#" data-nav="products">Products</a>
+        <a href="#" data-nav="about">About</a>
+        <a href="#" data-nav="services">Why Alamo</a>
         <a href="#" data-nav="careers">Careers</a>
+        <a href="#" data-nav="contact">Contact</a>
       </div>
       <div class="nav-actions">
-        <button class="btn btn-sm btn-outline" data-nav="login" data-i18n="nav.login">Sign In</button>
-        <button class="btn-icon cart-badge" onclick="openCart()" style="background:var(--gray-100);border-radius:50%">
-          🛒<span class="count cart-count" style="display:none">0</span>
+        <button class="btn btn-sm btn-primary" data-nav="login">Sign In</button>
+        <button class="cart-btn" onclick="openCart()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+          <span class="count cart-count" style="display:none">0</span>
         </button>
-        <button class="hamburger" onclick="openMobileMenu()">
-          <span></span><span></span><span></span>
-        </button>
+        <button class="hamburger" onclick="openMobile()"><span></span><span></span><span></span></button>
       </div>
     </div>
   </nav>
 </header>
 
-<!-- Mobile Menu -->
-<div id="mobile-overlay" class="mobile-overlay" onclick="closeMobileMenu()"></div>
+<!-- ── MOBILE MENU ── -->
+<div id="overlay" class="overlay" onclick="closeCart();closeMobile()"></div>
 <div id="mobile-menu" class="mobile-menu">
-  <div class="close-menu"><button onclick="closeMobileMenu()" style="font-size:1.5rem">✕</button></div>
-  <a href="#" data-nav="home" onclick="navigateTo('home');closeMobileMenu();return false">Home</a>
-  <a href="#" data-nav="products" onclick="navigateTo('products');closeMobileMenu();return false">Products</a>
-  <a href="#" data-nav="about" onclick="navigateTo('about');closeMobileMenu();return false">About</a>
-  <a href="#" data-nav="services" onclick="navigateTo('services');closeMobileMenu();return false">Services</a>
-  <a href="#" data-nav="contact" onclick="navigateTo('contact');closeMobileMenu();return false">Contact</a>
-  <a href="#" data-nav="careers" onclick="navigateTo('careers');closeMobileMenu();return false">Careers</a>
-  <a href="#" onclick="showLogin();closeMobileMenu();return false" style="color:var(--green);font-weight:700">Sign In / Portal</a>
+  <div class="mm-close"><button onclick="closeMobile()" style="font-size:1.2rem;padding:8px">&#10005;</button></div>
+  <a href="#" data-nav="home">Home</a>
+  <a href="#" data-nav="products">Products</a>
+  <a href="#" data-nav="about">About</a>
+  <a href="#" data-nav="services">Why Alamo</a>
+  <a href="#" data-nav="careers">Careers</a>
+  <a href="#" data-nav="contact">Contact</a>
+  <a href="#" data-nav="login" style="color:var(--green);font-weight:700">Sign In</a>
 </div>
 
-<!-- Cart Overlay -->
-<div id="cart-overlay" class="mobile-overlay" onclick="closeCart()"></div>
-
-<!-- Cart Drawer -->
+<!-- ── CART DRAWER ── -->
 <div id="cart-drawer" class="cart-drawer">
-  <div class="cart-drawer-header">
-    <h3 data-i18n="cart.title">Your Order</h3>
-    <button onclick="closeCart()" style="font-size:1.3rem">✕</button>
-  </div>
-  <div class="cart-drawer-body" id="cart-body">
-    <div class="cart-empty"><div class="icon">🛒</div><p>Your cart is empty</p></div>
-  </div>
-  <div class="cart-drawer-footer" id="cart-footer" style="display:none">
-    <div class="cart-totals">
-      <div class="row"><span data-i18n="cart.subtotal">Subtotal</span><span id="cart-subtotal">$0.00</span></div>
-      <div class="row"><span data-i18n="cart.delivery">Delivery</span><span style="color:var(--green);font-weight:600" data-i18n="cart.deliveryFree">FREE</span></div>
-      <div class="row total"><span data-i18n="cart.total">Estimated Total</span><span id="cart-total">$0.00</span></div>
-    </div>
-    <button class="btn btn-primary btn-lg" onclick="handleQuote()" data-i18n="cart.checkout">Request Quote</button>
+  <div class="cart-header"><h3>Your Order</h3><button onclick="closeCart()" style="font-size:1.1rem">&#10005;</button></div>
+  <div class="cart-body" id="cart-body"><div class="cart-empty"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="1.5"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg><p>Your cart is empty</p></div></div>
+  <div class="cart-footer" id="cart-footer" style="display:none">
+    <div class="cart-row"><span>Subtotal</span><span id="cart-sub">$0</span></div>
+    <div class="cart-row"><span>Delivery</span><span style="color:var(--green);font-weight:600">FREE</span></div>
+    <div class="cart-row total"><span>Estimated Total</span><span id="cart-total">$0</span></div>
+    <button class="btn btn-primary btn-block" style="margin-top:14px" onclick="requestQuote()">Request Quote</button>
   </div>
 </div>
 
-<!-- ═══════════════════════════════════════════
+<!-- ════════════════════════════════════════════════
      MAIN SITE
-     ═══════════════════════════════════════════ -->
+     ════════════════════════════════════════════════ -->
 <div id="main-site">
 
 <!-- HERO -->
 <section class="hero" id="home">
-  <div class="hero-overlay"></div>
-  <div class="hero-content container">
-    <div class="kicker" data-i18n="hero.kicker">RESTAURANT-QUALITY PRODUCTS AT WAREHOUSE PRICING</div>
-    <h1 data-i18n="hero.title">More Than a Distributor. <em>We're Your Partner.</em></h1>
-    <p data-i18n="hero.subtitle">Built by restauranteros, for restauranteros. We supply 16+ restaurants of our own — so we know exactly what your kitchen needs.</p>
-    <div class="hero-ctas">
-      <a href="#products" class="btn btn-gold btn-lg" onclick="navigateTo('products');return false" data-i18n="hero.cta1">Shop Products</a>
-      <a href="#contact" class="btn btn-outline-white btn-lg" onclick="navigateTo('contact');return false" data-i18n="hero.cta2">Become a Customer</a>
+  <div class="container">
+    <div class="hero-inner">
+      <div class="kicker kicker-gold">RESTAURANT-QUALITY PRODUCTS AT WAREHOUSE PRICING</div>
+      <h1>More Than a Distributor.<br><span>We're Your Partner.</span></h1>
+      <p class="hero-desc">Built by restauranteros, for restauranteros. We supply 16+ restaurants of our own — so we know exactly what your kitchen needs. No contracts. No minimums. Just honest service.</p>
+      <div class="hero-ctas">
+        <a href="#products" class="btn btn-gold btn-lg" onclick="goTo('products');return false">Browse Products</a>
+        <a href="#contact" class="btn btn-outline-white btn-lg" onclick="goTo('contact');return false">Become a Customer</a>
+      </div>
+      <div class="hero-stats">
+        <div class="hero-stat"><div class="num">600+</div><div class="lbl">Products</div></div>
+        <div class="hero-stat"><div class="num">40+</div><div class="lbl">Restaurants Served</div></div>
+        <div class="hero-stat"><div class="num">5</div><div class="lbl">Years in Atlanta</div></div>
+      </div>
     </div>
-    <div class="hero-stats">
-      <div class="hero-stat"><div class="number">600+</div><div class="label" data-i18n="hero.stat1label">Products</div></div>
-      <div class="hero-stat"><div class="number">40+</div><div class="label" data-i18n="hero.stat2label">Restaurants Served</div></div>
-      <div class="hero-stat"><div class="number">5</div><div class="label" data-i18n="hero.stat3label">Years Serving Atlanta</div></div>
-    </div>
-  </div>
-  <div class="hero-badge">
-    <div class="badge-text">No Contracts<br>No Minimums<br>🤝</div>
   </div>
 </section>
+
+<!-- SAVINGS BANNER (right under hero) -->
+<div class="savings-banner">
+  <div class="container">
+    <div class="savings-inner">
+      <div class="savings-text"><span>How much could you save?</span> Send us your current invoice — we'll show you the difference.</div>
+      <div class="savings-actions">
+        <a href="mailto:alamofoodservice52@gmail.com?subject=Invoice%20Comparison" class="btn btn-sm btn-primary">Send Your Invoice</a>
+        <a href="tel:6782430503" class="btn btn-sm btn-outline">Call for Price Match</a>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!-- VALUE STRIP -->
 <div class="value-strip">
   <div class="container">
-    <div class="value-strip-grid">
+    <div class="value-grid">
       <div class="value-item reveal">
-        <div class="icon">🤝</div>
-        <h4 data-i18n="values.v1">Restauranteros Helping Restauranteros</h4>
-        <p data-i18n="values.v1d">We live the restaurant life. We've been there.</p>
+        <div class="v-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+        <h4>Restauranteros Helping Restauranteros</h4>
+        <p>We own 16+ restaurants. We've lived your challenges.</p>
       </div>
       <div class="value-item reveal">
-        <div class="icon">💰</div>
-        <h4 data-i18n="values.v2">Best Price. Best Quality.</h4>
-        <p data-i18n="values.v2d">We leverage volume to get you the best value.</p>
+        <div class="v-icon"><svg viewBox="0 0 24 24"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+        <h4>Best Price. Best Quality.</h4>
+        <p>Volume pricing passed directly to you. No hidden fees.</p>
       </div>
       <div class="value-item reveal">
-        <div class="icon">📦</div>
-        <h4 data-i18n="values.v3">Reliable Supply. Real People.</h4>
-        <p data-i18n="values.v3d">We answer the phone and show up on time.</p>
+        <div class="v-icon"><svg viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></div>
+        <h4>Reliable Delivery. Real People.</h4>
+        <p>We answer the phone and show up on time. Every time.</p>
       </div>
       <div class="value-item reveal">
-        <div class="icon">❤️</div>
-        <h4 data-i18n="values.v4">More Than a Supplier.</h4>
-        <p data-i18n="values.v4d">From menu ideas to product recs, we're here to help.</p>
+        <div class="v-icon"><svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
+        <h4>No Contracts. No Minimums.</h4>
+        <p>We earn your business every delivery, not with fine print.</p>
       </div>
     </div>
   </div>
@@ -150,20 +147,20 @@
 <section class="section" id="about">
   <div class="container">
     <div class="about-grid">
-      <div class="about-image reveal">
-        <div style="width:100%;height:100%;background:linear-gradient(135deg,var(--green-light),var(--cream));display:flex;align-items:center;justify-content:center;font-size:6rem;border-radius:var(--radius-lg)">🏭</div>
-        <div class="accent"></div>
+      <div class="about-visual reveal">
+        <svg width="120" height="120" viewBox="0 0 24 24" fill="none" stroke="rgba(27,107,46,0.2)" stroke-width="0.5"><rect x="2" y="2" width="20" height="20" rx="4"/><path d="M2 14l5-5 4 4 4-6 7 9"/></svg>
+        <div class="overlay-text"><strong>Alamo Food Services Warehouse</strong>Newnan, GA — Serving metro Atlanta since 2021</div>
       </div>
       <div class="about-content reveal">
-        <div class="kicker" data-i18n="about.kicker">OUR STORY</div>
-        <h2 data-i18n="about.title">It Started in the Kitchen. It Started Out of Necessity.</h2>
-        <p data-i18n="about.p1">In 2021, during the pandemic, our founder saw firsthand how hard it was for restaurants to get the products they needed — on time and at a fair price.</p>
-        <p data-i18n="about.p2">So he started Alamo Food Services not as a side business, but as a mission to help fellow restauranteros survive and thrive. What started as a way to keep our own restaurants running quickly grew as other restaurant owners asked for the same help.</p>
-        <p data-i18n="about.p3">Today, we proudly serve restaurants, food trucks, schools, and businesses across the Southeast with quality products at the best possible prices.</p>
-        <div class="about-stats">
-          <div class="about-stat"><div class="number">16+</div><div class="label">Own Restaurants</div></div>
-          <div class="about-stat"><div class="number">2021</div><div class="label">Founded</div></div>
-          <div class="about-stat"><div class="number">27+</div><div class="label">Customer Accounts</div></div>
+        <div class="kicker">Our Story</div>
+        <h2>It Started in the Kitchen.<br>It Started Out of Necessity.</h2>
+        <p>In 2021, during the pandemic, our founder saw firsthand how hard it was for restaurants to get the products they needed — on time and at a fair price.</p>
+        <p>So he started Alamo Food Services as a mission to help fellow restauranteros survive and thrive. What began as supply for our own restaurants quickly grew as other owners asked for the same help.</p>
+        <p>Today, we serve restaurants, food trucks, schools, and businesses across the Southeast with quality products at the best prices.</p>
+        <div class="about-metrics">
+          <div class="about-metric"><div class="num">16+</div><div class="lbl">Own Restaurants</div></div>
+          <div class="about-metric"><div class="num">2021</div><div class="lbl">Founded</div></div>
+          <div class="about-metric"><div class="num">27+</div><div class="lbl">Active Accounts</div></div>
         </div>
       </div>
     </div>
@@ -171,20 +168,26 @@
 </section>
 
 <!-- PRODUCTS -->
-<section class="section section-gray" id="products">
+<section class="section section-alt" id="products">
   <div class="container">
     <div class="section-header reveal">
-      <div class="kicker">WHOLESALE CATALOG</div>
-      <h2 data-i18n="catalog.title">Product Catalog</h2>
-      <p data-i18n="catalog.subtitle">Restaurant-quality ingredients at wholesale prices. Order online or call us.</p>
+      <div class="kicker">Wholesale Catalog</div>
+      <h2>Product Catalog</h2>
+      <p>Restaurant-grade ingredients at wholesale prices. Sign in to see pricing and place orders.</p>
     </div>
-    <div class="catalog-tabs">
-      <button class="catalog-tab active" data-cat="all" onclick="filterProducts('all')" data-i18n="catalog.all">All Products</button>
-      <button class="catalog-tab" data-cat="dairy" onclick="filterProducts('dairy')" data-i18n="catalog.dairy">Dairy & Cheese</button>
-      <button class="catalog-tab" data-cat="meat" onclick="filterProducts('meat')" data-i18n="catalog.meat">Meat & Protein</button>
-      <button class="catalog-tab" data-cat="produce" onclick="filterProducts('produce')" data-i18n="catalog.produce">Fresh Produce</button>
-      <button class="catalog-tab" data-cat="dry" onclick="filterProducts('dry')" data-i18n="catalog.dry">Dry Goods & Tortillas</button>
-      <button class="catalog-tab" data-cat="supplies" onclick="filterProducts('supplies')" data-i18n="catalog.supplies">Supplies & Paper</button>
+    <div class="catalog-toolbar">
+      <div class="catalog-search">
+        <svg viewBox="0 0 24 24" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input type="text" placeholder="Search products..." oninput="searchProducts(this.value)">
+      </div>
+      <div class="catalog-tabs">
+        <button class="catalog-tab active" data-cat="all" onclick="filterCat('all')">All</button>
+        <button class="catalog-tab" data-cat="dairy" onclick="filterCat('dairy')">Dairy & Cheese</button>
+        <button class="catalog-tab" data-cat="meat" onclick="filterCat('meat')">Meat & Protein</button>
+        <button class="catalog-tab" data-cat="produce" onclick="filterCat('produce')">Fresh Produce</button>
+        <button class="catalog-tab" data-cat="dry" onclick="filterCat('dry')">Dry Goods</button>
+        <button class="catalog-tab" data-cat="supplies" onclick="filterCat('supplies')">Supplies</button>
+      </div>
     </div>
     <div class="products-grid" id="products-grid"></div>
   </div>
@@ -194,57 +197,62 @@
 <section class="section" id="services">
   <div class="container">
     <div class="section-header reveal">
-      <div class="kicker kicker-green">WHAT MAKES US DIFFERENT</div>
-      <h2 data-i18n="services.title">Why Alamo?</h2>
-      <p data-i18n="services.subtitle">What makes us different from every other distributor.</p>
+      <div class="kicker">What Makes Us Different</div>
+      <h2>Why Alamo?</h2>
+      <p>We're not Sysco. We're not Restaurant Depot. Here's why that matters.</p>
     </div>
     <div class="services-grid">
       <div class="service-card reveal">
-        <div class="service-icon">🏪</div>
+        <div class="s-icon"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
         <h4>We Own 16+ Restaurants</h4>
-        <p>We don't just supply food — we serve it. We know what it takes to keep a kitchen running because we run our own every day.</p>
+        <p>We don't just supply food — we serve it. We know exactly what your kitchen needs because we run ours every day.</p>
       </div>
       <div class="service-card reveal">
-        <div class="service-icon">🇲🇽</div>
+        <div class="s-icon"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
+        <h4>Order by Text — In Spanish</h4>
+        <p>Text us your order in Spanish and we'll confirm, price, and deliver. No portal required, no language barrier.</p>
+      </div>
+      <div class="service-card reveal">
+        <div class="s-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
         <h4>Authentic Mexican Products</h4>
-        <p>Not generic Tex-Mex substitutes. The real brands and ingredients your abuela would recognize — from dried chiles to fresh queso oaxaca.</p>
+        <p>The real brands and ingredients your kitchen depends on — from dried chiles to fresh queso oaxaca. Not generic substitutes.</p>
       </div>
       <div class="service-card reveal">
-        <div class="service-icon">📱</div>
-        <h4>Order by Text in Spanish</h4>
-        <p>Text us your order in Spanish — "necesito 2 cajas de queso oaxaca y 50 lbs de masa" — and we'll confirm, price, and deliver.</p>
-      </div>
-      <div class="service-card reveal">
-        <div class="service-icon">🚚</div>
+        <div class="s-icon"><svg viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></div>
         <h4>Reliable Next-Day Delivery</h4>
-        <p>Your order. Complete. On time. Every time. No shorts, no substitutions without calling you first, no product left in the sun.</p>
+        <p>Complete. On time. Every time. No shorts, no substitutions without calling you first.</p>
       </div>
       <div class="service-card reveal">
-        <div class="service-icon">💵</div>
+        <div class="s-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
         <h4>Transparent Pricing</h4>
-        <p>No hidden fees. No price creep. No surprises on your invoice. Just honest pricing — como debe ser.</p>
+        <p>No hidden fees. No price creep. No surprises on your invoice. What we quote is what you pay.</p>
       </div>
       <div class="service-card reveal">
-        <div class="service-icon">📋</div>
+        <div class="s-icon"><svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
         <h4>No Contracts. No Minimums.</h4>
-        <p>Order what you need, when you need it. We earn your business every delivery — not with a contract that locks you in.</p>
+        <p>Order what you need, when you need it. We earn your business every delivery — not with a contract.</p>
       </div>
     </div>
   </div>
 </section>
 
 <!-- MARKETPLACE -->
-<section class="section section-gray">
+<section class="section section-alt">
   <div class="container">
-    <div class="marketplace-banner reveal">
-      <div class="kicker kicker-gold" data-i18n="marketplace.subtitle">Coming Soon — Wholesale Prices. Open to the Public.</div>
-      <h2 data-i18n="marketplace.title">Hacienda Marketplace</h2>
-      <p data-i18n="marketplace.desc">Shop our warehouse in person. Quality products, wholesale prices, Mexican restaurant on-site. Built for our community — families, restaurants, and businesses.</p>
-      <div class="marketplace-features">
-        <div class="marketplace-feature"><div class="check">✓</div><span data-i18n="marketplace.f1">Warehouse Shopping</span></div>
-        <div class="marketplace-feature"><div class="check">✓</div><span data-i18n="marketplace.f2">Mexican Restaurant</span></div>
-        <div class="marketplace-feature"><div class="check">✓</div><span data-i18n="marketplace.f3">Wholesale Prices</span></div>
-        <div class="marketplace-feature"><div class="check">✓</div><span data-i18n="marketplace.f4">Open to Public</span></div>
+    <div class="marketplace-card reveal">
+      <div>
+        <div class="kicker kicker-gold">Coming Soon</div>
+        <h2>Hacienda Marketplace</h2>
+        <p>Wholesale prices. Open to the public. A one-stop shop for families, restaurants, and businesses — with a Mexican restaurant on-site.</p>
+        <div class="marketplace-checks">
+          <div class="check-item"><div class="check-icon">&#10003;</div>Warehouse shopping</div>
+          <div class="check-item"><div class="check-icon">&#10003;</div>Mexican restaurant</div>
+          <div class="check-item"><div class="check-icon">&#10003;</div>Wholesale prices</div>
+          <div class="check-item"><div class="check-icon">&#10003;</div>Open to the public</div>
+        </div>
+      </div>
+      <div class="marketplace-visual">
+        <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.15)" stroke-width="1"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
       </div>
     </div>
   </div>
@@ -254,122 +262,56 @@
 <section class="section">
   <div class="container">
     <div class="section-header reveal">
-      <div class="kicker">TRUSTED BY RESTAURANTS</div>
-      <h2 data-i18n="testimonials.title">What Our Customers Say</h2>
+      <div class="kicker">Trusted by Restaurants</div>
+      <h2>What Our Customers Say</h2>
     </div>
     <div class="testimonials-grid">
-      <div class="testimonial-card reveal">
-        <div class="stars">★★★★★</div>
+      <div class="t-card reveal">
+        <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
         <blockquote>"Alamo changed everything for us. We used to drive to Restaurant Depot at 6 AM every week. Now they deliver right to our door — the exact products we need, every time."</blockquote>
-        <div class="author"><div class="avatar">MR</div><div class="author-info"><div class="name">Miguel R.</div><div class="role">Owner, Taqueria La Paloma — Norcross</div></div></div>
+        <div class="t-author"><div class="t-avatar">MR</div><div><div class="t-name">Miguel R.</div><div class="t-role">Owner, Taqueria La Paloma — Norcross</div></div></div>
       </div>
-      <div class="testimonial-card reveal">
-        <div class="stars">★★★★★</div>
+      <div class="t-card reveal">
+        <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
         <blockquote>"Finally, a distributor that speaks our language — literally. I text my order in Spanish and it shows up the next morning. No one else does that."</blockquote>
-        <div class="author"><div class="avatar">CS</div><div class="author-info"><div class="name">Carmen S.</div><div class="role">Owner, El Rinconcito — Lawrenceville</div></div></div>
+        <div class="t-author"><div class="t-avatar">CS</div><div><div class="t-name">Carmen S.</div><div class="t-role">Owner, El Rinconcito — Lawrenceville</div></div></div>
       </div>
-      <div class="testimonial-card reveal">
-        <div class="stars">★★★★★</div>
-        <blockquote>"Their prices on queso and meats beat Restaurant Depot, and I don't have to close my food truck for 3 hours to go shopping. They deliver on MY schedule."</blockquote>
-        <div class="author"><div class="avatar">JL</div><div class="author-info"><div class="name">Jorge L.</div><div class="role">Owner, Tacos El Patron — Food Truck, Marietta</div></div></div>
+      <div class="t-card reveal">
+        <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <blockquote>"Their prices on queso and meats beat Restaurant Depot, and I don't have to close my food truck for 3 hours to go shopping. They deliver on my schedule."</blockquote>
+        <div class="t-author"><div class="t-avatar">JL</div><div><div class="t-name">Jorge L.</div><div class="t-role">Tacos El Patron — Food Truck, Marietta</div></div></div>
       </div>
     </div>
   </div>
 </section>
 
 <!-- CAREERS -->
-<section class="section" id="careers">
+<section class="section section-alt" id="careers">
   <div class="container">
-    <div class="careers-hero" style="border-radius:var(--radius-lg);padding:48px;margin-bottom:40px">
-      <div class="kicker kicker-gold">JOIN OUR TEAM</div>
+    <div class="careers-banner reveal">
+      <div class="kicker kicker-gold">Join Our Team</div>
       <h2>Build Your Career at Alamo</h2>
-      <p>We're growing fast and looking for hard-working, reliable people who want to be part of something bigger. Competitive pay, family environment, growth opportunities.</p>
+      <p>We're growing and looking for hard-working people who want to be part of something bigger.</p>
     </div>
     <div class="careers-grid">
-      <div class="career-card reveal">
-        <span class="career-type career-type-ft">Full-Time</span>
-        <h4>CDL Delivery Driver</h4>
-        <div class="career-location">📍 Newnan, GA</div>
-        <p>Deliver food products to restaurants across metro Atlanta. Must have clean CDL Class B or higher. Refrigerated truck experience preferred.</p>
-        <div class="career-details">
-          <span>💰 $22-28/hr</span>
-          <span>🕐 Mon-Sat, early AM start</span>
-          <span>🚚 Company truck provided</span>
-        </div>
-        <a href="#contact" class="btn btn-primary btn-sm" onclick="navigateTo('contact');return false">Apply Now</a>
-      </div>
-      <div class="career-card reveal">
-        <span class="career-type career-type-ft">Full-Time</span>
-        <h4>Warehouse Associate</h4>
-        <div class="career-location">📍 Newnan, GA</div>
-        <p>Pick, pack, and stage orders in our cooler/freezer warehouse. Forklift certification a plus. Must be able to lift 50+ lbs regularly.</p>
-        <div class="career-details">
-          <span>💰 $16-20/hr</span>
-          <span>🕐 5:00 AM - 2:00 PM</span>
-          <span>❄️ Cold storage environment</span>
-        </div>
-        <a href="#contact" class="btn btn-primary btn-sm" onclick="navigateTo('contact');return false">Apply Now</a>
-      </div>
-      <div class="career-card reveal">
-        <span class="career-type career-type-ft">Full-Time</span>
-        <h4>B2B Sales Representative</h4>
-        <div class="career-location">📍 Metro Atlanta (field-based)</div>
-        <p>Visit Hispanic restaurants across metro Atlanta to build relationships and grow our customer base. Bilingual Spanish/English required.</p>
-        <div class="career-details">
-          <span>💰 $45-65K + commission</span>
-          <span>🚗 Company vehicle</span>
-          <span>🇲🇽 Bilingual required</span>
-        </div>
-        <a href="#contact" class="btn btn-primary btn-sm" onclick="navigateTo('contact');return false">Apply Now</a>
-      </div>
-      <div class="career-card reveal">
-        <span class="career-type career-type-ft">Full-Time</span>
-        <h4>Dispatcher / Route Coordinator</h4>
-        <div class="career-location">📍 Newnan, GA</div>
-        <p>Plan delivery routes, coordinate with drivers, and ensure on-time deliveries. Strong organizational skills and bilingual preferred.</p>
-        <div class="career-details">
-          <span>💰 $40-50K</span>
-          <span>🕐 4:00 AM - 1:00 PM</span>
-          <span>📋 Route planning software</span>
-        </div>
-        <a href="#contact" class="btn btn-primary btn-sm" onclick="navigateTo('contact');return false">Apply Now</a>
-      </div>
-      <div class="career-card reveal">
-        <span class="career-type career-type-pt">Part-Time</span>
-        <h4>Delivery Helper / Lumper</h4>
-        <div class="career-location">📍 Newnan, GA</div>
-        <p>Ride along with drivers to help load/unload deliveries at restaurant locations. Great entry-level position with growth potential.</p>
-        <div class="career-details">
-          <span>💰 $14-17/hr</span>
-          <span>🕐 Flexible schedule</span>
-          <span>💪 Physical role</span>
-        </div>
-        <a href="#contact" class="btn btn-primary btn-sm" onclick="navigateTo('contact');return false">Apply Now</a>
-      </div>
-      <div class="career-card reveal">
-        <span class="career-type career-type-ft">Full-Time</span>
-        <h4>Warehouse Operations Manager</h4>
-        <div class="career-location">📍 Newnan, GA</div>
-        <p>Oversee daily warehouse operations, inventory management, and team of 5-10. Food distribution experience required.</p>
-        <div class="career-details">
-          <span>💰 $55-70K</span>
-          <span>🕐 Full-time, on-site</span>
-          <span>👥 Team leadership</span>
-        </div>
-        <a href="#contact" class="btn btn-primary btn-sm" onclick="navigateTo('contact');return false">Apply Now</a>
-      </div>
+      <div class="career-card reveal"><span class="career-tag tag-ft">Full-Time</span><h4>CDL Delivery Driver</h4><div class="c-location">Newnan, GA</div><p class="c-desc">Deliver food products to restaurants across metro Atlanta. Clean CDL Class B+ required.</p><div class="c-details"><span>$22–28/hr</span><span>Mon–Sat, early AM</span><span>Company truck</span></div><a href="#contact" class="btn btn-sm btn-primary" onclick="goTo('contact');return false">Apply</a></div>
+      <div class="career-card reveal"><span class="career-tag tag-ft">Full-Time</span><h4>Warehouse Associate</h4><div class="c-location">Newnan, GA</div><p class="c-desc">Pick, pack, and stage orders in cooler/freezer warehouse. Must lift 50+ lbs.</p><div class="c-details"><span>$16–20/hr</span><span>5 AM – 2 PM</span><span>Cold storage</span></div><a href="#contact" class="btn btn-sm btn-primary" onclick="goTo('contact');return false">Apply</a></div>
+      <div class="career-card reveal"><span class="career-tag tag-ft">Full-Time</span><h4>B2B Sales Representative</h4><div class="c-location">Metro Atlanta (field)</div><p class="c-desc">Build relationships with Hispanic restaurants. Bilingual Spanish/English required.</p><div class="c-details"><span>$45–65K + commission</span><span>Company vehicle</span><span>Bilingual req.</span></div><a href="#contact" class="btn btn-sm btn-primary" onclick="goTo('contact');return false">Apply</a></div>
+      <div class="career-card reveal"><span class="career-tag tag-ft">Full-Time</span><h4>Dispatcher / Route Coordinator</h4><div class="c-location">Newnan, GA</div><p class="c-desc">Plan delivery routes, coordinate drivers, ensure on-time deliveries.</p><div class="c-details"><span>$40–50K</span><span>4 AM – 1 PM</span><span>Bilingual pref.</span></div><a href="#contact" class="btn btn-sm btn-primary" onclick="goTo('contact');return false">Apply</a></div>
+      <div class="career-card reveal"><span class="career-tag tag-pt">Part-Time</span><h4>Delivery Helper</h4><div class="c-location">Newnan, GA</div><p class="c-desc">Ride along with drivers to load/unload at restaurant locations.</p><div class="c-details"><span>$14–17/hr</span><span>Flexible</span><span>Physical role</span></div><a href="#contact" class="btn btn-sm btn-primary" onclick="goTo('contact');return false">Apply</a></div>
+      <div class="career-card reveal"><span class="career-tag tag-ft">Full-Time</span><h4>Warehouse Operations Manager</h4><div class="c-location">Newnan, GA</div><p class="c-desc">Oversee daily ops, inventory, and team of 5-10. Distribution experience required.</p><div class="c-details"><span>$55–70K</span><span>Full-time</span><span>Leadership</span></div><a href="#contact" class="btn btn-sm btn-primary" onclick="goTo('contact');return false">Apply</a></div>
     </div>
     <div class="career-perks reveal">
-      <h4>Why Work at Alamo?</h4>
+      <h4>Why Work at Alamo</h4>
       <div class="perks-grid">
-        <div class="perk-item"><span class="perk-icon">💵</span><span>Competitive weekly pay</span></div>
-        <div class="perk-item"><span class="perk-icon">🍽️</span><span>Free meals from our restaurants</span></div>
-        <div class="perk-item"><span class="perk-icon">📈</span><span>Growth opportunities — we promote from within</span></div>
-        <div class="perk-item"><span class="perk-icon">👨‍👩‍👧‍👦</span><span>Family-first culture</span></div>
-        <div class="perk-item"><span class="perk-icon">🗣️</span><span>Bilingual workplace (Spanish & English)</span></div>
-        <div class="perk-item"><span class="perk-icon">🏥</span><span>Health benefits for full-time team</span></div>
-        <div class="perk-item"><span class="perk-icon">🎯</span><span>Referral bonuses at 90/180/365 days</span></div>
-        <div class="perk-item"><span class="perk-icon">🚚</span><span>Company vehicles for drivers & sales</span></div>
+        <div class="perk-item"><span class="perk-dot"></span>Competitive weekly pay</div>
+        <div class="perk-item"><span class="perk-dot"></span>Free meals from our restaurants</div>
+        <div class="perk-item"><span class="perk-dot"></span>Promote from within</div>
+        <div class="perk-item"><span class="perk-dot"></span>Family-first culture</div>
+        <div class="perk-item"><span class="perk-dot"></span>Bilingual workplace</div>
+        <div class="perk-item"><span class="perk-dot"></span>Health benefits (full-time)</div>
+        <div class="perk-item"><span class="perk-dot"></span>Referral bonuses</div>
+        <div class="perk-item"><span class="perk-dot"></span>Company vehicles for drivers</div>
       </div>
     </div>
   </div>
@@ -378,112 +320,42 @@
 <!-- CTA -->
 <section class="cta-section">
   <div class="container">
-    <h2 data-i18n="cta.title">Ready to Save on Your Food Costs?</h2>
-    <p data-i18n="cta.subtitle">Join the growing family of restaurants that trust Alamo. No contracts, no minimums, just honest service.</p>
+    <h2>Ready to Save on Your Food Costs?</h2>
+    <p>Join the growing family of restaurants that trust Alamo. No contracts, no minimums, just honest service.</p>
     <div class="cta-buttons">
-      <a href="#products" class="btn btn-gold btn-lg" onclick="navigateTo('products');return false" data-i18n="cta.btn1">Start Ordering</a>
-      <a href="tel:6782430503" class="btn btn-outline-white btn-lg" data-i18n="cta.btn2">Call Us: 678-243-0503</a>
+      <a href="#contact" class="btn btn-gold btn-lg" onclick="goTo('contact');return false">Become a Customer</a>
+      <a href="tel:6782430503" class="btn btn-outline-white btn-lg">Call 678-243-0503</a>
     </div>
   </div>
 </section>
 
 <!-- CONTACT -->
-<section class="section section-gray" id="contact">
+<section class="section" id="contact">
   <div class="container">
-    <div class="section-header reveal">
-      <div class="kicker">LET'S TALK</div>
-      <h2 data-i18n="contact.title">Get In Touch</h2>
-      <p data-i18n="contact.subtitle">Ready to become a customer? Have questions? We'd love to hear from you.</p>
-    </div>
+    <div class="section-header reveal"><div class="kicker">Let's Talk</div><h2>Get In Touch</h2><p>Ready to become a customer? Questions about pricing? We'd love to hear from you.</p></div>
     <div class="contact-grid">
       <div class="contact-info reveal">
         <h3>Alamo Food Services</h3>
-        <div class="contact-detail">
-          <div class="icon-circle">📍</div>
-          <div class="detail-text"><strong>Warehouse</strong><span>Newnan, GA 30265</span></div>
-        </div>
-        <div class="contact-detail">
-          <div class="icon-circle">📞</div>
-          <div class="detail-text"><strong>Phone</strong><span><a href="tel:6782430503">678-243-0503</a></span></div>
-        </div>
-        <div class="contact-detail">
-          <div class="icon-circle">✉️</div>
-          <div class="detail-text"><strong>Email</strong><span><a href="mailto:alamofoodservice52@gmail.com">alamofoodservice52@gmail.com</a></span></div>
-        </div>
-        <div class="contact-detail">
-          <div class="icon-circle">🕐</div>
-          <div class="detail-text"><strong>Hours</strong><span>Mon-Sat: 5:00 AM - 6:00 PM</span></div>
-        </div>
-        <div class="contact-detail">
-          <div class="icon-circle">🚚</div>
-          <div class="detail-text"><strong>Delivery Area</strong><span>Metro Atlanta & Greater Georgia</span></div>
-        </div>
-        <div style="margin-top:24px;padding:20px;background:var(--green-light);border-radius:var(--radius-md)">
-          <h4 style="color:var(--green-dark);margin-bottom:8px">We Serve:</h4>
-          <ul style="margin-left:16px;list-style:disc;font-size:0.88rem;color:var(--gray-500)">
-            <li>Mexican & Hispanic Restaurants</li>
-            <li>Independent Restaurants</li>
-            <li>Food Trucks & Catering</li>
-            <li>Schools & Institutions</li>
-            <li>Retail Stores & Tiendas</li>
-            <li>Churches & Organizations</li>
+        <div class="contact-item"><div class="ci-icon"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div><div class="ci-text"><strong>Warehouse</strong><span>Newnan, GA 30265</span></div></div>
+        <div class="contact-item"><div class="ci-icon"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div><div class="ci-text"><strong>Phone</strong><a href="tel:6782430503">678-243-0503</a></div></div>
+        <div class="contact-item"><div class="ci-icon"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div><div class="ci-text"><strong>Email</strong><a href="mailto:alamofoodservice52@gmail.com">alamofoodservice52@gmail.com</a></div></div>
+        <div class="contact-item"><div class="ci-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div><div class="ci-text"><strong>Hours</strong><span>Mon–Sat: 5:00 AM – 6:00 PM</span></div></div>
+        <div class="we-serve">
+          <h4>We Serve</h4>
+          <ul>
+            <li>Mexican &amp; Hispanic Restaurants</li><li>Independent Restaurants</li>
+            <li>Food Trucks &amp; Catering</li><li>Schools &amp; Institutions</li>
+            <li>Retail Stores &amp; Tiendas</li><li>Churches &amp; Organizations</li>
           </ul>
         </div>
       </div>
       <form class="reveal" onsubmit="handleContact(event)">
-        <div class="form-row">
-          <div class="form-group">
-            <label data-i18n="contact.name">Restaurant Name</label>
-            <input type="text" required placeholder="e.g. Taqueria El Sol">
-          </div>
-          <div class="form-group">
-            <label data-i18n="contact.contactName">Your Name</label>
-            <input type="text" required placeholder="e.g. Juan Garcia">
-          </div>
-        </div>
-        <div class="form-row">
-          <div class="form-group">
-            <label data-i18n="contact.email">Email</label>
-            <input type="email" required placeholder="you@restaurant.com">
-          </div>
-          <div class="form-group">
-            <label data-i18n="contact.phone">Phone</label>
-            <input type="tel" required placeholder="(678) 555-0123">
-          </div>
-        </div>
-        <div class="form-group">
-          <label data-i18n="contact.type">Business Type</label>
-          <select required>
-            <option value="">Select...</option>
-            <option>Independent Restaurant</option>
-            <option>Food Truck</option>
-            <option>Catering</option>
-            <option>Grocery / Tienda</option>
-            <option>Church / Organization</option>
-            <option>Other</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label data-i18n="contact.message">Tell us about your needs</label>
-          <textarea rows="4" placeholder="What products do you need? How often? Current distributor?"></textarea>
-        </div>
-        <button type="submit" class="btn btn-primary btn-lg" style="width:100%;justify-content:center" data-i18n="contact.submit">Submit Inquiry</button>
+        <div class="form-row"><div class="form-group"><label>Restaurant Name</label><input type="text" required placeholder="e.g. Taqueria El Sol"></div><div class="form-group"><label>Your Name</label><input type="text" required></div></div>
+        <div class="form-row"><div class="form-group"><label>Email</label><input type="email" required></div><div class="form-group"><label>Phone</label><input type="tel" required></div></div>
+        <div class="form-group"><label>Business Type</label><select required><option value="">Select...</option><option>Independent Restaurant</option><option>Food Truck</option><option>Catering</option><option>Grocery / Tienda</option><option>Church / Organization</option><option>Other</option></select></div>
+        <div class="form-group"><label>Tell us about your needs</label><textarea rows="4" placeholder="What products do you need? Current distributor?"></textarea></div>
+        <button type="submit" class="btn btn-primary btn-block btn-lg">Submit Inquiry</button>
       </form>
-    </div>
-  </div>
-</section>
-
-<!-- SAVINGS CALCULATOR -->
-<section class="section section-dark">
-  <div class="container text-center">
-    <div class="section-header reveal">
-      <div class="kicker kicker-gold">SEE THE DIFFERENCE</div>
-      <h2 style="color:var(--white)">How Much Could You Save?</h2>
-      <p style="color:rgba(255,255,255,0.7)">Send us your most recent distributor invoice and we'll show you exactly how much you'd save by switching to Alamo.</p>
-    </div>
-    <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap" class="reveal">
-      <a href="mailto:alamofoodservice52@gmail.com?subject=Invoice%20Comparison%20Request" class="btn btn-gold btn-lg">📄 Send Your Invoice</a>
-      <a href="tel:6782430503" class="btn btn-outline-white btn-lg">📞 Call for a Price Match</a>
     </div>
   </div>
 </section>
@@ -493,236 +365,61 @@
   <div class="container">
     <div class="footer-grid">
       <div class="footer-brand">
-        <div class="logo" style="margin-bottom:4px">
-          <div class="logo-icon">A</div>
-          <div class="logo-text" style="color:var(--white)">ALAMO<span style="color:rgba(255,255,255,0.5)">Food Services</span></div>
-        </div>
-        <p data-i18n="footer.tagline">Your partner in food and success. Built by restauranteros, for restauranteros. De familia a familia.</p>
-        <div class="footer-social" style="margin-top:16px">
-          <a href="#">📘</a>
-          <a href="#">📸</a>
-          <a href="#">▶️</a>
-        </div>
+        <div class="logo"><div class="logo-mark">A</div><div class="logo-text" style="color:var(--white)">ALAMO<small style="color:rgba(255,255,255,0.4)">Food Services</small></div></div>
+        <p>Your partner in food and success. Built by restauranteros, for restauranteros. De familia a familia.</p>
       </div>
-      <div>
-        <h4 data-i18n="footer.quick">Quick Links</h4>
-        <ul>
-          <li><a href="#" onclick="navigateTo('products');return false" data-i18n="footer.products">Products</a></li>
-          <li><a href="#" onclick="navigateTo('about');return false">About Us</a></li>
-          <li><a href="#" onclick="navigateTo('services');return false">Services</a></li>
-          <li><a href="#" onclick="navigateTo('careers');return false">Careers</a></li>
-          <li><a href="#" onclick="navigateTo('contact');return false" data-i18n="footer.contact">Contact</a></li>
-        </ul>
-      </div>
-      <div>
-        <h4>We Serve</h4>
-        <ul>
-          <li><a href="#">Restaurants</a></li>
-          <li><a href="#">Food Trucks</a></li>
-          <li><a href="#">Catering</a></li>
-          <li><a href="#">Tiendas</a></li>
-          <li><a href="#">Schools</a></li>
-        </ul>
-      </div>
-      <div>
-        <h4 data-i18n="footer.hours">Hours & Location</h4>
-        <ul>
-          <li><a href="#" data-i18n="footer.hoursText">Mon-Sat: 5:00 AM - 6:00 PM</a></li>
-          <li><a href="#" data-i18n="footer.address">Newnan, GA 30265</a></li>
-          <li><a href="tel:6782430503" data-i18n="footer.phone">678-243-0503</a></li>
-          <li><a href="mailto:alamofoodservice52@gmail.com">Email Us</a></li>
-        </ul>
-      </div>
+      <div><h4>Quick Links</h4><ul><li><a href="#" onclick="goTo('products');return false">Products</a></li><li><a href="#" onclick="goTo('about');return false">About</a></li><li><a href="#" onclick="goTo('services');return false">Why Alamo</a></li><li><a href="#" onclick="goTo('careers');return false">Careers</a></li><li><a href="#" onclick="goTo('contact');return false">Contact</a></li></ul></div>
+      <div><h4>We Serve</h4><ul><li><a href="#">Restaurants</a></li><li><a href="#">Food Trucks</a></li><li><a href="#">Catering</a></li><li><a href="#">Tiendas</a></li><li><a href="#">Schools</a></li></ul></div>
+      <div><h4>Hours &amp; Location</h4><ul><li>Mon–Sat: 5:00 AM – 6:00 PM</li><li>Newnan, GA 30265</li><li><a href="tel:6782430503">678-243-0503</a></li><li><a href="mailto:alamofoodservice52@gmail.com">Email Us</a></li></ul></div>
     </div>
     <div class="footer-bottom">
-      <span>&copy; <span data-i18n="footer.rights">2026 Alamo Food Services. All rights reserved.</span></span>
-      <span style="opacity:0.6">Built with ❤️ by <a href="https://scalingsos.com" style="color:var(--gold)" target="_blank">Scaling SOS</a></span>
+      <span>&copy; 2026 Alamo Food Services. All rights reserved.</span>
+      <span>Built by <a href="https://scalingsos.com" style="color:var(--gold)" target="_blank">Scaling SOS</a></span>
     </div>
   </div>
 </footer>
 
-</div><!-- end #main-site -->
+</div><!-- end main-site -->
 
-<!-- ═══════════════════════════════════════════
-     LOGIN PAGE
-     ═══════════════════════════════════════════ -->
-<div class="login-page">
+<!-- ════════════════════════════════════════════════
+     LOGIN PAGE (isolated)
+     ════════════════════════════════════════════════ -->
+<div class="page-login" id="page-login">
   <div class="login-card">
-    <div class="logo" style="justify-content:center;margin-bottom:24px">
-      <div class="logo-icon">A</div>
-      <div class="logo-text">ALAMO<span>Food Services</span></div>
+    <div class="logo" style="justify-content:center;margin-bottom:20px"><div class="logo-mark">A</div><div class="logo-text">ALAMO<small>Food Services</small></div></div>
+    <h2>Sign In</h2>
+    <p class="sub">Access your account to view pricing, place orders, and manage deliveries.</p>
+    <div class="login-tabs">
+      <button class="login-tab active" data-role="customer" onclick="setLoginTab('customer')">Customer</button>
+      <button class="login-tab" data-role="owner" onclick="setLoginTab('owner')">Alamo Admin</button>
     </div>
-    <h2 data-i18n="login.title">Customer Portal</h2>
-    <p class="subtitle" data-i18n="login.subtitle">Sign in to manage orders, view invoices, and track deliveries.</p>
-    <div class="demo-notice">
-      <strong>DEMO MODE</strong><br>
-      <span data-i18n="login.demo">Use any email & password "demo"</span>
-    </div>
+    <div class="demo-box" id="demo-creds"><strong>Customer Demo</strong> — Email: demo@restaurant.com / Password: demo</div>
     <form onsubmit="handleLogin(event)">
-      <div class="form-group">
-        <label data-i18n="login.email">Email Address</label>
-        <input type="email" id="login-email" required placeholder="you@restaurant.com" value="demo@restaurant.com">
-      </div>
-      <div class="form-group">
-        <label data-i18n="login.password">Password</label>
-        <input type="password" id="login-password" required placeholder="Enter password" value="demo">
-      </div>
-      <button type="submit" class="btn btn-primary btn-lg" style="width:100%;justify-content:center;margin-bottom:16px" data-i18n="login.submit">Sign In</button>
+      <div class="form-group"><label>Email</label><input type="email" required value="demo@restaurant.com"></div>
+      <div class="form-group"><label>Password</label><input type="password" required value="demo"></div>
+      <button type="submit" class="btn btn-primary btn-block btn-lg" style="margin-bottom:12px">Sign In</button>
     </form>
-    <button class="btn btn-outline btn-sm" style="width:100%;justify-content:center" onclick="logout()" data-i18n="login.back">Back to Website</button>
+    <button class="btn btn-ghost btn-block btn-sm" onclick="logout()">&#8592; Back to Website</button>
   </div>
 </div>
 
-<!-- ═══════════════════════════════════════════
-     DASHBOARD
-     ═══════════════════════════════════════════ -->
-<div class="dashboard-page">
-  <div class="dash-header">
+<!-- ════════════════════════════════════════════════
+     DASHBOARD (isolated, content rendered by JS)
+     ════════════════════════════════════════════════ -->
+<div class="page-dash" id="page-dash">
+  <div class="dash-topbar">
     <div class="container">
-      <div class="logo">
-        <div class="logo-icon">A</div>
-        <div class="logo-text">ALAMO<span>Customer Portal</span></div>
+      <div class="logo"><div class="logo-mark">A</div><div class="logo-text">ALAMO<small>Portal</small></div></div>
+      <div class="dash-tabs">
+        <button class="dash-tab active">Overview</button>
+        <button class="dash-tab">Orders</button>
+        <button class="dash-tab">Invoices</button>
+        <button class="dash-tab">Products</button>
       </div>
-      <div class="dash-nav">
-        <a href="#" class="active" data-i18n="dash.overview">Overview</a>
-        <a href="#" data-i18n="dash.orders">Orders</a>
-        <a href="#" data-i18n="dash.invoices">Invoices</a>
-        <a href="#" data-i18n="dash.reorder">Quick Reorder</a>
-      </div>
-      <div class="nav-actions">
-        <span style="font-size:0.88rem;color:var(--gray-500)">Demo Restaurant</span>
-        <button class="btn btn-sm btn-outline" onclick="logout()" data-i18n="dash.logout">Log Out</button>
-      </div>
+      <div class="nav-actions"><button class="btn btn-sm btn-outline" onclick="logout()">Log Out</button></div>
     </div>
   </div>
-  <div class="dash-content">
-    <div class="container">
-      <div class="dash-welcome">
-        <h2><span data-i18n="dash.welcome">Welcome back</span>, Taqueria El Sol 👋</h2>
-        <p>Here's your account overview for May 2026.</p>
-      </div>
-      <div class="dash-stats">
-        <div class="dash-stat-card">
-          <div class="stat-label">Monthly Spend</div>
-          <div class="stat-value">$8,420</div>
-          <div class="stat-change stat-up">↑ 12% vs last month</div>
-        </div>
-        <div class="dash-stat-card">
-          <div class="stat-label">Orders This Month</div>
-          <div class="stat-value">14</div>
-          <div class="stat-change stat-up">↑ 3 more than April</div>
-        </div>
-        <div class="dash-stat-card">
-          <div class="stat-label">On-Time Delivery</div>
-          <div class="stat-value" style="color:var(--green)">98.2%</div>
-          <div class="stat-change stat-up">↑ Above 95% target</div>
-        </div>
-        <div class="dash-stat-card">
-          <div class="stat-label">Account Balance</div>
-          <div class="stat-value">$1,240</div>
-          <div class="stat-change" style="color:var(--gray-400)">Due May 15, 2026</div>
-        </div>
-      </div>
-      <div class="dash-grid">
-        <div class="dash-card">
-          <h4>Recent Orders</h4>
-          <div class="order-row">
-            <div><strong>#ALM-2847</strong><br><span style="font-size:0.78rem;color:var(--gray-400)">May 8, 2026 — 12 items</span></div>
-            <div style="text-align:right"><div>$642.30</div><span class="order-status status-delivered">Delivered</span></div>
-          </div>
-          <div class="order-row">
-            <div><strong>#ALM-2839</strong><br><span style="font-size:0.78rem;color:var(--gray-400)">May 5, 2026 — 8 items</span></div>
-            <div style="text-align:right"><div>$418.75</div><span class="order-status status-delivered">Delivered</span></div>
-          </div>
-          <div class="order-row">
-            <div><strong>#ALM-2831</strong><br><span style="font-size:0.78rem;color:var(--gray-400)">May 2, 2026 — 15 items</span></div>
-            <div style="text-align:right"><div>$891.20</div><span class="order-status status-delivered">Delivered</span></div>
-          </div>
-          <div class="order-row">
-            <div><strong>#ALM-2825</strong><br><span style="font-size:0.78rem;color:var(--gray-400)">Apr 29, 2026 — 10 items</span></div>
-            <div style="text-align:right"><div>$567.50</div><span class="order-status status-transit">In Transit</span></div>
-          </div>
-          <div class="order-row">
-            <div><strong>#ALM-2818</strong><br><span style="font-size:0.78rem;color:var(--gray-400)">Apr 26, 2026 — 6 items</span></div>
-            <div style="text-align:right"><div>$284.90</div><span class="order-status status-delivered">Delivered</span></div>
-          </div>
-        </div>
-        <div>
-          <div class="dash-card" style="margin-bottom:24px">
-            <h4>Your Top Products</h4>
-            <div class="top-product">
-              <div>🧀 Queso Oaxaca</div>
-              <div style="font-weight:600">42 lbs/mo</div>
-            </div>
-            <div class="top-product">
-              <div>🫓 Corn Tortillas</div>
-              <div style="font-weight:600">8 cases/mo</div>
-            </div>
-            <div class="top-product">
-              <div>🥩 Pork Butt</div>
-              <div style="font-weight:600">120 lbs/mo</div>
-            </div>
-            <div class="top-product">
-              <div>🌶️ Chile Guajillo</div>
-              <div style="font-weight:600">15 lbs/mo</div>
-            </div>
-            <div class="top-product">
-              <div>🥑 Avocados</div>
-              <div style="font-weight:600">4 cases/mo</div>
-            </div>
-          </div>
-          <div class="dash-card">
-            <h4>Account Health</h4>
-            <div style="margin-bottom:12px">
-              <div style="display:flex;justify-content:space-between;font-size:0.85rem;margin-bottom:4px"><span>Order Fill Rate</span><span style="font-weight:600;color:var(--green)">99.1%</span></div>
-              <div class="progress-bar"><div class="fill" style="width:99.1%"></div></div>
-            </div>
-            <div style="margin-bottom:12px">
-              <div style="display:flex;justify-content:space-between;font-size:0.85rem;margin-bottom:4px"><span>On-Time Delivery</span><span style="font-weight:600;color:var(--green)">98.2%</span></div>
-              <div class="progress-bar"><div class="fill" style="width:98.2%"></div></div>
-            </div>
-            <div style="margin-bottom:12px">
-              <div style="display:flex;justify-content:space-between;font-size:0.85rem;margin-bottom:4px"><span>Payment Score</span><span style="font-weight:600;color:var(--green)">A+</span></div>
-              <div class="progress-bar"><div class="fill" style="width:100%"></div></div>
-            </div>
-            <div>
-              <div style="display:flex;justify-content:space-between;font-size:0.85rem;margin-bottom:4px"><span>Credit Limit Used</span><span style="font-weight:600">24%</span></div>
-              <div class="progress-bar"><div class="fill" style="width:24%;background:var(--gold)"></div></div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- Quick Reorder Section -->
-      <div class="dash-card" style="margin-top:24px">
-        <h4>⚡ Quick Reorder — Your Usual</h4>
-        <p style="font-size:0.85rem;color:var(--gray-400);margin-bottom:16px">Based on your last 6 orders, here's your typical weekly order. One click to reorder.</p>
-        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;margin-bottom:20px">
-          <div style="background:var(--gray-100);padding:12px;border-radius:var(--radius-sm);display:flex;justify-content:space-between;align-items:center;font-size:0.88rem">
-            <span>🧀 Queso Oaxaca 10lb</span><span style="font-weight:700;color:var(--green-dark)">$42.50</span>
-          </div>
-          <div style="background:var(--gray-100);padding:12px;border-radius:var(--radius-sm);display:flex;justify-content:space-between;align-items:center;font-size:0.88rem">
-            <span>🫓 Corn Tortillas x2</span><span style="font-weight:700;color:var(--green-dark)">$37.98</span>
-          </div>
-          <div style="background:var(--gray-100);padding:12px;border-radius:var(--radius-sm);display:flex;justify-content:space-between;align-items:center;font-size:0.88rem">
-            <span>🥩 Pork Butt 30lb</span><span style="font-weight:700;color:var(--green-dark)">$89.70</span>
-          </div>
-          <div style="background:var(--gray-100);padding:12px;border-radius:var(--radius-sm);display:flex;justify-content:space-between;align-items:center;font-size:0.88rem">
-            <span>🌶️ Chile Guajillo 4lb</span><span style="font-weight:700;color:var(--green-dark)">$35.00</span>
-          </div>
-          <div style="background:var(--gray-100);padding:12px;border-radius:var(--radius-sm);display:flex;justify-content:space-between;align-items:center;font-size:0.88rem">
-            <span>🥑 Avocados 1 case</span><span style="font-weight:700;color:var(--green-dark)">$42.00</span>
-          </div>
-          <div style="background:var(--gray-100);padding:12px;border-radius:var(--radius-sm);display:flex;justify-content:space-between;align-items:center;font-size:0.88rem">
-            <span>🍅 Roma Tomatoes 25lb</span><span style="font-weight:700;color:var(--green-dark)">$37.25</span>
-          </div>
-        </div>
-        <div style="display:flex;justify-content:space-between;align-items:center">
-          <div style="font-size:1.1rem;font-weight:700">Estimated Total: <span style="color:var(--green-dark)">$284.43</span></div>
-          <button class="btn btn-primary" onclick="alert('Order placed! Delivery scheduled for tomorrow morning.')">🚚 Reorder for Tomorrow</button>
-        </div>
-      </div>
-    </div>
-  </div>
+  <div class="dash-body"><div class="container" id="dash-content"></div></div>
 </div>
 
 <script src="assets/app.js"></script>
